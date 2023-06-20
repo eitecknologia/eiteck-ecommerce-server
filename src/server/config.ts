@@ -19,10 +19,10 @@ import '../models/index';
 
 export class Server {
 
-    public app: Express;
-    public port: string;
-    public prefix = "/api";
-    public paths: {
+    private readonly app: Express;
+    private readonly port: string;
+    private readonly prefix = "/api";
+    private readonly paths: {
         testServer: string,
         auth: string,
         admin: string,
@@ -105,9 +105,10 @@ export class Server {
     async dbConnection() {
         /* Connection to the DB Postgres*/
         try {
+            await sequelize.authenticate();
             /* await sequelize.sync(); - Use when the DB has been changed */
             // await sequelize.sync();
-            await sequelize.authenticate();
+            //await sequelize.sync({ alter: true })
             console.log('Connection has been established successfully.');
         } catch (error) {
             console.error('Unable to connect to the database:', error);

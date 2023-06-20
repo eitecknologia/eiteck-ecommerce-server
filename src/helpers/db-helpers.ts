@@ -1,6 +1,5 @@
 import { Meta } from "express-validator";
-import { Category, Role, User, Product, Subcategory, CategorySubcategory, SubcategoryProducts } from "../models";
-import ProductColors from '../models/ProductColor';
+import { Category, Role, User, Product, Subcategory, CategorySubcategory, SubcategoryProducts, ProductImages } from "../models";
 
 /* Create Defaul Roles */
 export const createDefaultRoles = async () => {
@@ -71,23 +70,22 @@ export const verifyCategoryId = async (id: number) => {
     return true;
 }
 
+/* Verify if exist resourceProductId */
+export const verifyResourceProductId = async (id: number) => {
+    const existResource = await ProductImages.findOne({ where: { imageid: id } });
+    if (!existResource) {
+        throw new Error(`Recurso no encontrado`);
+    }
+
+    return true;
+}
+
 /* Verify if exist category id */
 export const verifyProductId = async (id: number) => {
     /* Search if the product exists */
     const existProduct = await Product.findOne({ where: { productid: id, isactive: true } });
     if (!existProduct) {
         throw new Error(`Producto no encontrado`);
-    }
-
-    return true;
-}
-
-/* Verify if exist color id */
-export const verifyColorId = async (id: number) => {
-    /* Search if the color exists */
-    const existColor = await ProductColors.findOne({ where: { colorid: id } });
-    if (!existColor) {
-        throw new Error(`Color no encontrado`);
     }
 
     return true;
@@ -107,6 +105,19 @@ export const verifyStockProduct = async (amount: number, req: Meta) => {
     if (stock) {
         if (amount > stock) {
             throw new Error(`Sin stock`);
+        }
+    }
+
+    return true;
+}
+
+/* Verify if exist subcategory ids */
+export const verifySubcategoryIds = async (ids: number[]) => {
+    for (const id of ids) {
+        /* Search if the subcategory exists */
+        const existsubCategory = await Subcategory.findOne({ where: { subcategoryid: id, isactive: true } });
+        if (!existsubCategory) {
+            throw new Error(`Subcategoría no encontrada`);
         }
     }
 

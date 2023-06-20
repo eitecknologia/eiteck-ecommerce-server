@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { fieldsValidate } from '../middlewares/validate-fields';
-import { addToCart, myCartInfo } from '../controller/usercart';
+import { addToCart } from '../controller/usercart';
 import { isUserRole } from '../middlewares/roles-validate';
 import { validateJwt } from '../helpers/validate-jwt';
 import { check } from 'express-validator';
@@ -20,6 +20,6 @@ usercartRouter.get('/my_cart', [
     validateJwt,
     isUserRole,
     fieldsValidate
-],myCartInfo);
+],);
 
 export default usercartRouter;

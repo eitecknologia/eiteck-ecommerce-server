@@ -1,7 +1,7 @@
 /* Enviroment variables default */
 
 /* PORT */
-process.env.PORT = process.env.PORT || "8003" as string
+process.env.PORT = process.env.PORT || "8002" as string
 
 /* DATABASE URL CONNECTION */
 process.env.DATABASE_URL = process.env.DATABASE_URL || "postgresql://postgres:ViJzcRWc3Hqlxf3ucizC@containers-us-west-30.railway.app:5870/railway" as string

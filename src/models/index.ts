@@ -6,12 +6,12 @@ import Role from './Role';
 import SubcategoryProducts from './SubcategoryProduct';
 import CategorySubcategory from './CategorySubcategory';
 import Subcategory from './Subcategory';
-import Order from './Order';
-import OrderProducts from './OrderProducts';
-import Delivery from './Delivery';
-import OrderUsers from './OrderUser';
-import UserCart from './UserCart';
-import ProductColors from './ProductColor';
+import UserCart from './Shoppingcart';
+import ShoppingCart from './Shoppingcart';
+import DiscountCode from './DiscountCode';
+import InvoiceDetail from './InvoiceDetails';
+import Sale from './Sale';
+import SaleProduct from './SaleProducts';
 
 export {
     User,
@@ -22,10 +22,10 @@ export {
     SubcategoryProducts,
     Product,
     ProductImages,
-    Delivery,
-    Order,
-    OrderProducts,
-    OrderUsers,
     UserCart,
-    ProductColors
+    ShoppingCart,
+    DiscountCode,
+    InvoiceDetail,
+    Sale,
+    SaleProduct
 }

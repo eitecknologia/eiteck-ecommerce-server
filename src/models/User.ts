@@ -1,7 +1,9 @@
 import { DataTypes, InferCreationAttributes, InferAttributes, Model, CreationOptional } from 'sequelize';
 import sequelize from '../database/config';
-import OrderUsers from './OrderUser';
-import UserCart from './UserCart';
+import UserCart from './Shoppingcart';
+import ShoppingCart from './Shoppingcart';
+import InvoiceDetail from './InvoiceDetails';
+import DiscountCode from './DiscountCode';
 
 interface User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     userid: CreationOptional<number>;
@@ -84,16 +86,6 @@ const User = sequelize.define<User>('ecommerce_users', {
     timestamps: false
 });
 
-/* Relation with OrderUsers */
-User.hasMany(OrderUsers, {
-    foreignKey: "userid",
-    sourceKey: "userid"
-})
-
-OrderUsers.belongsTo(User, {
-    foreignKey: "userid"
-})
-
 /* Relation with UserCart */
 User.hasMany(UserCart, {
     foreignKey: "userid",
@@ -102,6 +94,42 @@ User.hasMany(UserCart, {
 
 UserCart.belongsTo(User, {
     foreignKey: "userid"
+})
+
+/* Relation with shopping cart */
+User.hasMany(ShoppingCart, {
+    foreignKey: "userid",
+    sourceKey: "userid",
+    as: "usercart_products"
+})
+
+ShoppingCart.belongsTo(User, {
+    foreignKey: 'userid',
+    as: 'usercart_product'
+})
+
+/* Relation with invoice detail */
+User.hasMany(InvoiceDetail, {
+    foreignKey: "userid",
+    sourceKey: "userid",
+    as: "invoice_user_details"
+})
+
+InvoiceDetail.belongsTo(User, {
+    foreignKey: 'userid',
+    as: 'invoice_user_detail'
+})
+
+/* Relation with discount code */
+User.hasMany(DiscountCode, {
+    foreignKey: "userid",
+    sourceKey: "userid",
+    as: "authors_discounts"
+})
+
+DiscountCode.belongsTo(User, {
+    foreignKey: 'userid',
+    as: 'author_discount'
 })
 
 export default User;

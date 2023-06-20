@@ -1,34 +1,39 @@
 import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import sequelize from '../database/config';
 
-interface OrderUsers extends Model<InferAttributes<OrderUsers>, InferCreationAttributes<OrderUsers>> {
-    orderuserid: CreationOptional<number>;
-    orderid: number;
+interface ShoppingCart extends Model<InferAttributes<ShoppingCart>, InferCreationAttributes<ShoppingCart>> {
+    cartid: CreationOptional<number>;
     userid: number;
+    productid: number;
+    quantity: number;
     timecreated: CreationOptional<Date>;
 }
 
-const OrderUsers = sequelize.define<OrderUsers>('ecommerce_order_user', {
-    orderuserid: {
+const ShoppingCart = sequelize.define<ShoppingCart>('ecommerce_shopping_cart', {
+    cartid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
-    },
-    orderid: {
-        type: DataTypes.INTEGER,
-        allowNull: false
     },
     userid: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    productid: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     timecreated: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
         defaultValue: DataTypes.NOW
-    },
+    }
 }, {
     timestamps: false
 });
 
-export default OrderUsers;
+export default ShoppingCart;

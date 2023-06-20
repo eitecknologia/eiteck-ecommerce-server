@@ -2,26 +2,16 @@ import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from '../database/config';
 import ProductImages from './ProductImage';
 import SubcategoryProducts from './SubcategoryProduct';
-import OrderProducts from './OrderProducts';
-import UserCart from './UserCart';
-import ProductColors from './ProductColor';
+import UserCart from './Shoppingcart';
 
 interface Product extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
     productid: CreationOptional<number>;
     name: string;
     description: string;
-    weigth: CreationOptional<string>;
-    width: CreationOptional<string>;
-    mts: CreationOptional<number>;
-    moq: CreationOptional<string>;
-    deliverytime: CreationOptional<number>;
-    fobusd: number;
-    certificates: CreationOptional<string>;
-    notes: CreationOptional<string>;
+    price: number;
     stock: CreationOptional<number>;
-    discount: CreationOptional<number>;
-    isactive: CreationOptional<boolean>;
     timecreated: CreationOptional<Date>;
+    isactive: CreationOptional<boolean>;
 }
 
 
@@ -32,71 +22,31 @@ const Product = sequelize.define<Product>('ecommerce_products', {
         autoIncrement: true
     },
     name: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
-    description: {
-        type: DataTypes.STRING(1000),
+        type: DataTypes.STRING(150),
         allowNull: false,
     },
-    weigth: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
-        defaultValue: null
+    description: {
+        type: DataTypes.STRING(200),
+        allowNull: false,
     },
-    width: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
-        defaultValue: null
-    },
-    mts: {
+    price: {
         type: DataTypes.FLOAT,
-        allowNull: true,
-        defaultValue: null
-    },
-    moq: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
-        defaultValue: null
-    },
-    deliverytime: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
-        defaultValue: null
-    },
-    fobusd: {
-        type: DataTypes.FLOAT,
-        allowNull: false
-    },
-    certificates: {
-        type: DataTypes.STRING(100),
-        allowNull: true,
-        defaultValue: null
-    },
-    notes: {
-        type: DataTypes.STRING(100),
         allowNull: true,
         defaultValue: null
     },
     stock: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-        defaultValue: null
-    },
-    discount: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        defaultValue: 0
-    },
-    isactive: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true
+        allowNull: false
     },
     timecreated: {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW
+    },
+    isactive: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 }, {
     timestamps: false
@@ -118,35 +68,13 @@ SubcategoryProducts.belongsTo(Product, {
 Product.hasMany(ProductImages, {
     foreignKey: 'productid',
     sourceKey: 'productid',
-    as: 'images'
+    as: 'product_resources'
 });
 
 ProductImages.belongsTo(Product, {
     foreignKey: 'productid',
-    as: 'image'
+    as: 'product_resource'
 });
-
-/* Relation with productcolors table */
-Product.hasMany(ProductColors, {
-    foreignKey: 'productid',
-    sourceKey: 'productid',
-    as: 'colors'
-});
-
-ProductColors.belongsTo(Product, {
-    foreignKey: 'productid',
-    as: 'color'
-});
-
-/* Relation with OrderProducts */
-Product.hasMany(OrderProducts, {
-    foreignKey: "productid",
-    sourceKey: "productid"
-})
-
-OrderProducts.belongsTo(Product, {
-    foreignKey: "productid"
-})
 
 /* Relation with UserCart */
 Product.hasMany(UserCart, {

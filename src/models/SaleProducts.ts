@@ -1,30 +1,29 @@
 import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import sequelize from '../database/config';
 
-interface UserCart extends Model<InferAttributes<UserCart>, InferCreationAttributes<UserCart>> {
-    usercartid: CreationOptional<number>;
-    userid: number;
+interface SaleProduct extends Model<InferAttributes<SaleProduct>, InferCreationAttributes<SaleProduct>> {
+    saleprodid: CreationOptional<number>;
+    saleid: number;
     productid: number;
-    amount: CreationOptional<number>;
+    quantity: number;
     timecreated: CreationOptional<Date>;
 }
 
-const UserCart = sequelize.define<UserCart>('ecommerce_user_cart', {
-    usercartid: {
+const SaleProduct = sequelize.define<SaleProduct>('ecommerce_sale_product', {
+    saleprodid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
+    },
+    saleid: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
     productid: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    amount: {
-        type: DataTypes.FLOAT,
-        allowNull: true,
-        defaultValue: 0
-    },
-    userid: {
+    quantity: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -32,9 +31,9 @@ const UserCart = sequelize.define<UserCart>('ecommerce_user_cart', {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW
-    },
+    }
 }, {
     timestamps: false
 });
 
-export default UserCart;
+export default SaleProduct;

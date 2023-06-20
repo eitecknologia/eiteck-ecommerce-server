@@ -5,8 +5,11 @@ export enum productStatus {
     DESPACHADO = "DESPACHADO"
 }
 
-export enum orderStatus {
-    INGRESADO = "INGRESADO",
-    PROCESO = "PROCESO",
-    SOLICITADO = "SOLICITADO"
+
+/* Constant of sale status */
+export enum SaleStatus {
+    RESERVED = "RESERVADO",
+    PENDING = "PENDIENTE",
+    DENY = "RECHAZADO",
+    PAID = "PAGADO"
 }

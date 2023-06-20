@@ -40,7 +40,7 @@ export const registerAdmin = async (req: Request, res: Response) => {
         }
 
         /* Generate new password */
-        let passwordGenerated = `Beone_${generateRandomString(5)}`;
+        let passwordGenerated = `Eiteck_${generateRandomString(5)}`;
         /* Encript Password */
         const salt = bcrypt.genSaltSync();
         const password = bcrypt.hashSync(passwordGenerated, salt);
