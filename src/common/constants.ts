@@ -13,3 +13,7 @@ export enum SaleStatus {
     DENY = "RECHAZADO",
     PAID = "PAGADO"
 }
+
+
+/* IVA TOTAL */
+export const IVA = 0.12;

@@ -11,11 +11,15 @@ import {
     categoryRouter,
     productRouter,
     subcategoryRouter,
-    usercartRouter
+    usercartRouter,
+    discountCodeRoutes,
+    shoopingCartRoutes,
+    saleRoutes
 } from '../routes';
 import sequelize from '../database/config';
 import userRouter from '../routes/user';
 import '../models/index';
+import { verifyCodesDiscount } from '../helpers/verify-Discounts';
 
 export class Server {
 
@@ -31,7 +35,10 @@ export class Server {
         category: string,
         product: string,
         subcategory: string,
-        cart: string
+        cart: string,
+        discountcode: string,
+        shoppingCart: string,
+        sale: string
     }
 
     constructor() {
@@ -47,6 +54,9 @@ export class Server {
             subcategory: `${this.prefix}/subcategory`,
             product: `${this.prefix}/product`,
             cart: `${this.prefix}/cart`,
+            discountcode: `${this.prefix}/discount_code`,
+            shoppingCart: `${this.prefix}/shopping_cart`,
+            sale: `${this.prefix}/sale`
         }
 
         /* Middleware */
@@ -58,7 +68,11 @@ export class Server {
         /* DB Connection */
         this.dbConnection();
 
+        /* Verify discount code */
+        this.verifyDiscountCode();
+
     }
+
 
 
     middlewares() {
@@ -92,6 +106,9 @@ export class Server {
         this.app.use(this.paths.product, productRouter);
         this.app.use(this.paths.subcategory, subcategoryRouter);
         this.app.use(this.paths.cart, usercartRouter);
+        this.app.use(this.paths.discountcode, discountCodeRoutes);
+        this.app.use(this.paths.shoppingCart, shoopingCartRoutes);
+        this.app.use(this.paths.sale, saleRoutes);
 
         /* Service not found - 404 */
         this.app.use((_req, res: Response) => {
@@ -100,6 +117,11 @@ export class Server {
                 msg: "404 - Service not Found"
             })
         })
+    }
+
+    /* Verify the status of discount codes */
+    async verifyDiscountCode() {
+        verifyCodesDiscount();
     }
 
     async dbConnection() {

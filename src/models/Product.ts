@@ -3,6 +3,7 @@ import sequelize from '../database/config';
 import ProductImages from './ProductImage';
 import SubcategoryProducts from './SubcategoryProduct';
 import UserCart from './Shoppingcart';
+import SaleProduct from './SaleProducts';
 
 interface Product extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
     productid: CreationOptional<number>;
@@ -52,6 +53,18 @@ const Product = sequelize.define<Product>('ecommerce_products', {
     timestamps: false
 });
 
+/* Relation with sale products */
+Product.hasMany(SaleProduct, {
+    foreignKey: "productid",
+    sourceKey: "productid",
+    as: "sale_products"
+})
+
+SaleProduct.belongsTo(Product, {
+    foreignKey: 'productid',
+    as: 'sale_product'
+})
+
 /* Relation with SubcategoryProduct table */
 Product.hasMany(SubcategoryProducts, {
     foreignKey: 'productid',
@@ -80,12 +93,12 @@ ProductImages.belongsTo(Product, {
 Product.hasMany(UserCart, {
     foreignKey: "productid",
     sourceKey: "productid",
-    as: "products_cart"
+    as: "cart_products"
 })
 
 UserCart.belongsTo(Product, {
     foreignKey: "productid",
-    as: "product_cart"
+    as: "cart_product"
 })
 
 

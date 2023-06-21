@@ -7,6 +7,9 @@ import productRouter from './product';
 import subcategoryRouter from './subcategory';
 import userRouter from './user';
 import usercartRouter from './usercart';
+import discountCodeRoutes from './discountcode';
+import shoopingCartRoutes from './shoppingCart';
+import saleRoutes from './sale';
 
 export {
     testRouter,
@@ -17,5 +20,8 @@ export {
     categoryRouter,
     subcategoryRouter,
     productRouter,
-    usercartRouter
+    usercartRouter,
+    discountCodeRoutes,
+    shoopingCartRoutes,
+    saleRoutes
 }

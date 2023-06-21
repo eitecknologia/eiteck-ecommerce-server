@@ -1,5 +1,5 @@
 import { Meta } from "express-validator";
-import { Category, Role, User, Product, Subcategory, CategorySubcategory, SubcategoryProducts, ProductImages } from "../models";
+import { Category, Role, User, Product, Subcategory, CategorySubcategory, SubcategoryProducts, ProductImages, DiscountCode, ShoppingCart, InvoiceDetail, Sale } from "../models";
 
 /* Create Defaul Roles */
 export const createDefaultRoles = async () => {
@@ -119,6 +119,95 @@ export const verifySubcategoryIds = async (ids: number[]) => {
         if (!existsubCategory) {
             throw new Error(`Subcategoría no encontrada`);
         }
+    }
+
+    return true;
+}
+
+/* Verify roles for percent discount */
+export const verifyRolesForPercentDiscount = async (accessrole: string) => {
+    const validRoles = ["ALL"];
+
+    if (!validRoles.includes(accessrole)) {
+        throw new Error(`Rol no permitido - Permitidos: ${validRoles.join(", ")}`);
+    }
+
+    return true;
+}
+
+/* Verify code name exist */
+export const verifyDiscountPercentageName = async (code: string) => {
+    const existCode = await DiscountCode.findOne({ where: { discountcode: code } });
+    if (existCode) {
+        throw new Error(`El código ${code} ya se encuentra registrado`);
+    }
+    return true;
+}
+
+/* Verify if exist the code register */
+export const verifyDiscountCodeId = async (id: number) => {
+    const existRegister = await DiscountCode.findOne({ where: { discountcodeid: id, isactive: true } });
+    if (!existRegister) {
+        throw new Error(`Código de descuento no encontrado`);
+    }
+
+    return true;
+}
+
+/* Verify if exist the shooping carte register */
+export const verifyShoppingCartRegisterId = async (id: number) => {
+    const existProduct = await ShoppingCart.findOne({ where: { cartid: id } });
+    if (!existProduct) {
+        throw new Error(`Registro no encontrado`);
+    }
+
+    return true;
+}
+
+
+/* Verify if exist the stock of products */
+export const verifyStockOfCart = async (id: number) => {
+    /* Get my shopping cart */
+    const existRegister = await ShoppingCart.findOne({
+        attributes: ['cartid', 'quantity'],
+        include: [{
+            model: Product,
+            as: "cart_product",
+            attributes: ['productid', 'name', 'price', 'stock'],
+            required: true
+        }],
+        where: { cartid: id }
+    });
+
+    if (!existRegister) {
+        throw new Error(`Registro no encontrado`);
+    }
+
+    const stockRequired = existRegister.quantity;
+    const stockAvailable = (existRegister as any)?.cart_product?.stock
+
+    if (stockRequired > stockAvailable) {
+        throw new Error(`La cantidad es mayor al stock disponible - Producto: ${(existRegister as any)?.cart_product?.name}`);
+    }
+
+    return true;
+}
+
+/* Verify if exist the invoide register */
+export const verifyInvoiceDetailId = async (id: number) => {
+    const existRegister = await InvoiceDetail.findOne({ where: { invoiceid: id } });
+    if (!existRegister) {
+        throw new Error(`Detalle no encontrado`);
+    }
+
+    return true;
+}
+
+/* Verify if exist the saleid */
+export const verifySaleid = async (id: number) => {
+    const existSale = await Sale.findOne({ where: { saleid: id } });
+    if (!existSale) {
+        throw new Error(`Venta no encontrada`);
     }
 
     return true;
