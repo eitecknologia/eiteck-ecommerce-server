@@ -2,7 +2,7 @@ import { Router } from "express";
 import { check } from 'express-validator';
 import { verifyCategoryId, verifyProductId, verifyRegisterOfProductInSubcategory, verifyResourceProductId, verifySubcategoryIds } from '../helpers/db-helpers';
 
-import { addResourceToProduct, availabilitySubcategories, createProduct, deleteProduct, deleteProductOfSubcategory, deleteResourceProduct, findProductById, getAllProducts, getProductsByCategory, getProductsBySubcategory, updateProduct } from "../controller/product";
+import { addResourceToProduct, availabilitySubcategories, createProduct, deleteProduct, deleteProductOfSubcategory, deleteResourceProduct, findProductById, getAllProducts, getProductsByCategory, getProductsBySubcategory, productsMostSelled, productsNewArrived, updateProduct } from "../controller/product";
 import { validateJwt } from "../helpers/validate-jwt";
 import { isAdminRole } from "../middlewares/roles-validate";
 import { fieldsValidate } from "../middlewares/validate-fields";
@@ -107,6 +107,16 @@ productRouter.delete('/delete/:productid', [
     check('productid').custom(verifyProductId),
     fieldsValidate
 ], deleteProduct);
+
+/* Service - Get most selled products  */
+productRouter.get('/most_selled', [
+
+], productsMostSelled);
+
+/* Service - Get products new arrived */
+productRouter.get('/new_arrived', [
+
+], productsNewArrived)
 
 
 export default productRouter;

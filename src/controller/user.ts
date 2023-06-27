@@ -34,6 +34,21 @@ export const updateUser = async (req: Request, res: Response) => {
         let { ci, name, lastname, email, password, address, phone }: User = req.body;
         const { userid } = req.user;
 
+        /* Get user info */
+        const userFind = await User.findByPk(userid);
+
+        /* Verify if user ot exist */
+        if (!userFind) {
+            return res.status(400).json({
+                ok: false,
+                msg: "Usuario no encontrado"
+            })
+        }
+
+        /* Verify ci and email values */
+        ci = (ci) ? ci : userFind.ci;
+        email = (email) ? email : userFind.email;
+
         /* Verify that the new credentials not exist */
         const userTotal = await User.count({
             where:
@@ -59,9 +74,9 @@ export const updateUser = async (req: Request, res: Response) => {
             password = bcrypt.hashSync(password, salt);
         }
 
-        await User.update({
+        await userFind.update({
             name, lastname, email, password, ci, address, phone
-        }, { where: { userid } });
+        });
 
         return res.status(200).json({
             ok: true,

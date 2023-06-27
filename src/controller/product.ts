@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { CategorySubcategory, Product, ProductImages, Subcategory, SubcategoryProducts } from "../models";
-import sequelize from "../database/config";
-import { Op } from "sequelize";
+import { CategorySubcategory, Product, ProductImages, SaleProduct, Subcategory, SubcategoryProducts } from "../models";
+import sequelize from '../database/config';
+import { Op, Sequelize } from "sequelize";
 import { infoPaginate, validatePaginateParams } from "../helpers/pagination";
 import { deleteFiles, uploadFiles } from "../helpers/files";
 
@@ -471,6 +471,83 @@ export const deleteProduct = async (req: Request, res: Response) => {
         return res.status(200).json({
             ok: true,
             msg: "Producto Eliminado"
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            ok: false,
+            msg: "Internal Server Error",
+            error
+        })
+    }
+}
+
+/* Get products most selled Function */
+export const productsMostSelled = async (req: Request, res: Response) => {
+    try {
+
+        /* Get the limit of query */
+        const { limit = 5 } = req.query;
+
+        /* Get the products most selled in sales table */
+        const productsMostSelled = await SaleProduct.findAll({
+            attributes: ['productid', [Sequelize.fn('SUM', Sequelize.col('quantity')), 'totalsold']],
+            group: ['productid'],
+            order: [[Sequelize.literal('totalsold'), 'DESC']],
+            limit: +limit
+        });
+
+        const mostSelledIds = productsMostSelled.map(id => id.productid) || [];
+
+        const mostSelled = await Product.findAll({
+            attributes: ['productid', 'name', 'description', 'price', 'stock'],
+            include: [{
+                model: ProductImages,
+                as: 'product_resources',
+                attributes: ["imageid", 'type', 'url']
+            }],
+            where: { productid: mostSelledIds }
+        })
+
+        return res.status(200).json({
+            ok: true,
+            msg: "Productos mas vendidos",
+            mostSelled
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            ok: false,
+            msg: "Internal Server Error",
+            error
+        })
+    }
+}
+
+/* Get products new arrived Function */
+export const productsNewArrived = async (req: Request, res: Response) => {
+    try {
+
+        /* Get the limit of query */
+        const { limit = 5 } = req.query;
+
+        /* Get the products most selled in sales table */
+        const productsNewArrived = await Product.findAll({
+            attributes: ['productid', 'name', 'description', 'price', 'stock', 'timecreated'],
+            include: [{
+                model: ProductImages,
+                as: 'product_resources',
+                attributes: ["imageid", 'type', 'url']
+            }],
+            where: { isactive: true },
+            order: [['timecreated', 'DESC']],
+            limit: +limit
+        });
+
+        return res.status(200).json({
+            ok: true,
+            msg: "Productos recién llegados",
+            productsNewArrived
         })
 
     } catch (error) {
