@@ -13,7 +13,7 @@ interface InvoiceDetail
     InferAttributes<InvoiceDetail>,
     InferCreationAttributes<InvoiceDetail>
   > {
-  invoiceid: CreationOptional<number>;
+    id: CreationOptional<number>;
   ci: string;
   name: string;
   lastname: string;
@@ -28,7 +28,7 @@ interface InvoiceDetail
 const InvoiceDetail = sequelize.define<InvoiceDetail>(
   "invoice_detail",
   {
-    invoiceid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

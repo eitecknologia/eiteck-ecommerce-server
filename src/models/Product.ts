@@ -13,7 +13,7 @@ import SaleProduct from "./SaleProducts";
 
 interface Product
   extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
-  productid: CreationOptional<number>;
+    id: CreationOptional<number>;
   name: string;
   description: string;
   price: number;
@@ -25,7 +25,7 @@ interface Product
 const Product = sequelize.define<Product>(
   "products",
   {
-    productid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

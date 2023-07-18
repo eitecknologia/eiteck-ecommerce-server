@@ -12,7 +12,7 @@ interface SubcategoryProducts
     InferAttributes<SubcategoryProducts>,
     InferCreationAttributes<SubcategoryProducts>
   > {
-  subprodid: CreationOptional<number>;
+    id: CreationOptional<number>;
   subcategoryid: number;
   productid: number;
   timecreated: CreationOptional<Date>;
@@ -21,7 +21,7 @@ interface SubcategoryProducts
 const SubcategoryProducts = sequelize.define<SubcategoryProducts>(
   "subcategories_products",
   {
-    subprodid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

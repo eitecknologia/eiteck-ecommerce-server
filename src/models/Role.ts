@@ -10,14 +10,14 @@ import User from "./User";
 
 interface Role
   extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
-  roleid: CreationOptional<number>;
+    id: CreationOptional<number>;
   name: string;
 }
 
 const Role = sequelize.define<Role>(
   "roles",
   {
-    roleid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
     },

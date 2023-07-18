@@ -14,7 +14,7 @@ interface Subcategory
     InferAttributes<Subcategory>,
     InferCreationAttributes<Subcategory>
   > {
-  subcategoryid: CreationOptional<number>;
+    id: CreationOptional<number>;
   name: string;
   description: CreationOptional<string>;
   isactive: CreationOptional<boolean>;
@@ -24,7 +24,7 @@ interface Subcategory
 const Subcategory = sequelize.define<Subcategory>(
   "subcategories",
   {
-    subcategoryid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

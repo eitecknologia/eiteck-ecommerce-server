@@ -13,7 +13,7 @@ import DiscountCode from "./DiscountCode";
 
 interface User
   extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  userid: CreationOptional<number>;
+  id: CreationOptional<number>;
   name: string;
   lastname: string;
   ci: string;
@@ -31,7 +31,7 @@ interface User
 const User = sequelize.define<User>(
   "users",
   {
-    userid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

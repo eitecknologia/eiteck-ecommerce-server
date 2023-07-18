@@ -13,7 +13,7 @@ interface DiscountCode
     InferAttributes<DiscountCode>,
     InferCreationAttributes<DiscountCode>
   > {
-  discountcodeid: CreationOptional<number>;
+    id: CreationOptional<number>;
   discountcode: string;
   discountpercent: number;
   startdate: Date;
@@ -28,7 +28,7 @@ interface DiscountCode
 const DiscountCode = sequelize.define<DiscountCode>(
   "discount_code",
   {
-    discountcodeid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

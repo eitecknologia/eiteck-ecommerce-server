@@ -10,7 +10,7 @@ import CategorySubcategory from "./CategorySubcategory";
 
 interface Category
   extends Model<InferAttributes<Category>, InferCreationAttributes<Category>> {
-  categoryid: CreationOptional<number>;
+  id: CreationOptional<number>;
   name: string;
   description: CreationOptional<string>;
   isactive: CreationOptional<boolean>;
@@ -20,7 +20,7 @@ interface Category
 const Category = sequelize.define<Category>(
   "categories",
   {
-    categoryid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

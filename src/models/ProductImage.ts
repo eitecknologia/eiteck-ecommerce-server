@@ -12,7 +12,7 @@ interface ProductImages
     InferAttributes<ProductImages>,
     InferCreationAttributes<ProductImages>
   > {
-  imageid: CreationOptional<number>;
+    id: CreationOptional<number>;
   url: string;
   type: string;
   productid: number;
@@ -27,7 +27,7 @@ enum ImageType {
 const ProductImages = sequelize.define<ProductImages>(
   "product_media",
   {
-    imageid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

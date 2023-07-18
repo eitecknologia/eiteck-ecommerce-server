@@ -12,7 +12,7 @@ interface SaleProduct
     InferAttributes<SaleProduct>,
     InferCreationAttributes<SaleProduct>
   > {
-  saleprodid: CreationOptional<number>;
+    id: CreationOptional<number>;
   saleid: number;
   productid: number;
   quantity: number;
@@ -22,7 +22,7 @@ interface SaleProduct
 const SaleProduct = sequelize.define<SaleProduct>(
   "sale_product",
   {
-    saleprodid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

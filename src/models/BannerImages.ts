@@ -32,8 +32,8 @@ const BannerImages = sequelize.define<BannerImages>(
     timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW
-  }
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
     timestamps: false,

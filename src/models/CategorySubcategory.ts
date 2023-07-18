@@ -12,7 +12,7 @@ interface CategorySubcategory
     InferAttributes<CategorySubcategory>,
     InferCreationAttributes<CategorySubcategory>
   > {
-  casubid: CreationOptional<number>;
+    id: CreationOptional<number>;
   categoryid: number;
   subcategoryid: number;
   timecreated: CreationOptional<Date>;
@@ -21,7 +21,7 @@ interface CategorySubcategory
 const CategorySubcategory = sequelize.define<CategorySubcategory>(
   "categories_subcategories",
   {
-    casubid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

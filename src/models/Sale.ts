@@ -10,7 +10,7 @@ import SaleProduct from "./SaleProducts";
 
 interface Sale
   extends Model<InferAttributes<Sale>, InferCreationAttributes<Sale>> {
-  saleid: CreationOptional<number>;
+    id: CreationOptional<number>;
   status: CreationOptional<string>;
   userid: number;
   invoiceid: number;
@@ -40,7 +40,7 @@ enum PaymentResource {
 const Sale = sequelize.define<Sale>(
   "sale",
   {
-    saleid: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
