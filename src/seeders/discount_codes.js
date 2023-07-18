@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("ecommerce_products", [
+    return queryInterface.bulkInsert("products", [
       {
         discountcode: "SNEAKER12",
         discountpercent: 12.5,

@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("ecommerce_products", [
+    return queryInterface.bulkInsert("products", [
       {
         name: "Zapatos Nike Hoops",
         description: "Zapatos Nike Hoops con suela de goma",

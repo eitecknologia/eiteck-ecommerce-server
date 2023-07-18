@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("ecommerce_invoice_detail", [
+    return queryInterface.bulkInsert("invoice_detail", [
       {
         ci: "0604201172",
         name: "Wilmer",
