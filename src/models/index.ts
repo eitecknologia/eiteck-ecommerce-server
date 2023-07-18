@@ -12,7 +12,6 @@ import DiscountCode from './DiscountCode';
 import InvoiceDetail from './InvoiceDetails';
 import Sale from './Sale';
 import SaleProduct from './SaleProducts';
-import BannerImages from './BannerImages';
 
 export {
     User,
@@ -29,5 +28,4 @@ export {
     InvoiceDetail,
     Sale,
     SaleProduct,
-    BannerImages
 }
