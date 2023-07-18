@@ -14,8 +14,10 @@ import {
     usercartRouter,
     discountCodeRoutes,
     shoopingCartRoutes,
-    saleRoutes
+    saleRoutes,
+    bannerRouter
 } from '../routes';
+
 import sequelize from '../database/config';
 import userRouter from '../routes/user';
 import '../models/index';
@@ -38,7 +40,8 @@ export class Server {
         cart: string,
         discountcode: string,
         shoppingCart: string,
-        sale: string
+        sale: string,
+        banner: string
     }
 
     constructor() {
@@ -56,7 +59,8 @@ export class Server {
             cart: `${this.prefix}/cart`,
             discountcode: `${this.prefix}/discount_code`,
             shoppingCart: `${this.prefix}/shopping_cart`,
-            sale: `${this.prefix}/sale`
+            sale: `${this.prefix}/sale`,
+            banner: `${this.prefix}/banner`
         }
 
         /* Middleware */
@@ -107,6 +111,7 @@ export class Server {
         this.app.use(this.paths.discountcode, discountCodeRoutes);
         this.app.use(this.paths.shoppingCart, shoopingCartRoutes);
         this.app.use(this.paths.sale, saleRoutes);
+        this.app.use(this.paths.banner, bannerRouter);
 
         /* Service not found - 404 */
         this.app.use((_req, res: Response) => {

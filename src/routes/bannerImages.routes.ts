@@ -7,15 +7,13 @@ import {
 } from "../controller/bannerImages";
 import { validateJwt } from "../helpers/validate-jwt";
 import { isAdminRole } from "../middlewares/roles-validate";
-import { fieldsValidate } from "../middlewares/validate-fields";
-import { validateFile } from "../middlewares/validate-files";
 
 const bannerRouter: Router = Router();
 
 /* Service - Register a Banner Image */
 bannerRouter.post(
   "/create",
-  [validateJwt, isAdminRole, validateFile],
+  [validateJwt, isAdminRole],
   createBanner
 );
 
@@ -33,10 +31,10 @@ bannerRouter.get(
   getAllBanners
 );
 
-/* Service - Delete resource */
+/* Service - Delete Banner */
 bannerRouter.delete(
   "/delete/:id",
-  [validateJwt, isAdminRole, fieldsValidate],
+  [validateJwt, isAdminRole],
   deleteBanner
 );
 

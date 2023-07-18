@@ -40,7 +40,7 @@ export const getAllBanners = async (req: Request, res: Response) => {
 };
 
 /* Add resource Function */
-export const createBanner = async (req: Request, res: Response) => {
+export const   createBanner = async (req: Request, res: Response) => {
   try {
     const image = req.files?.image || null;
 

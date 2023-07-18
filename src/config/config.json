@@ -4,7 +4,7 @@
     "password": "postgrespw",
     "database": "postgres",
     "host": "127.0.0.1",
-    "port": "32768",
+    "port": "32769",
     "dialect": "postgres"
   },
   "test": {
@@ -16,10 +16,10 @@
   },
   "production": {
     "username": "postgres",
-    "password": "JYp9K6TEaAhmjsDk8Z1t",
+    "password": "VNCVzOudDAGd7e8djaJN",
     "database": "railway",
-    "host": "containers-us-west-49.railway.app",
-    "port": "6511",
+    "host": "containers-us-west-160.railway.app",
+    "port": "7261",
     "dialect": "postgres"
   }
 }
