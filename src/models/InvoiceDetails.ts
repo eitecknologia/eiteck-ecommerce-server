@@ -22,7 +22,7 @@ interface InvoiceDetail
   email: string;
   remember: CreationOptional<boolean>;
   userid: number;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
 }
 
 const InvoiceDetail = sequelize.define<InvoiceDetail>(
@@ -66,7 +66,7 @@ const InvoiceDetail = sequelize.define<InvoiceDetail>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

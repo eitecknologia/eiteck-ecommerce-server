@@ -24,7 +24,7 @@ interface User
   google: CreationOptional<boolean>;
   facebook: CreationOptional<boolean>;
   isactive: CreationOptional<boolean | null>;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
   roleid: number;
 }
 
@@ -81,7 +81,7 @@ const User = sequelize.define<User>(
       allowNull: true,
       defaultValue: false,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

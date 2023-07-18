@@ -20,7 +20,7 @@ interface DiscountCode
   finishdate: Date;
   accessrole: string;
   status: CreationOptional<boolean>;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
   userid: number;
   isactive: CreationOptional<boolean>;
 }
@@ -62,7 +62,7 @@ const DiscountCode = sequelize.define<DiscountCode>(
       type: DataTypes.STRING(25),
       allowNull: false,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: DataTypes.NOW,

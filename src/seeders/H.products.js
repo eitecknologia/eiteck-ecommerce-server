@@ -7,7 +7,7 @@ module.exports = {
         price: 50,
         stock: 10,
         isactive: true,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         name: "Zapatos Adidas Mamba",
@@ -15,7 +15,7 @@ module.exports = {
         price: 100,
         stock: 100,
         isactive: true,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         name: "Zapatos Skechers Air",
@@ -23,7 +23,7 @@ module.exports = {
         price: 20.1,
         stock: 0,
         isactive: true,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         name: "Zapatos Nike Dunk",
@@ -31,7 +31,7 @@ module.exports = {
         price: 20.3,
         stock: 1,
         isactive: false,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
     ]);
   },

@@ -71,7 +71,7 @@ export const getAllDiscountCodes = async (req: Request, res: Response) => {
                 isactive: true,
                 ...(role) && { accessrole: (role as string) }
             },
-            order: [['timecreated', 'DESC']],
+            order: [['createdAt', 'DESC']],
             offset: (offset - sizeSend),
             limit: limit
         });

@@ -14,7 +14,7 @@ module.exports = {
         google: false,
         facebook: false,
         roleid: 1,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         ci: "01056677883",
@@ -29,7 +29,7 @@ module.exports = {
         google: false,
         facebook: false,
         roleid: 2,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         ci: "0105344048",
@@ -44,7 +44,7 @@ module.exports = {
         google: false,
         facebook: false,
         roleid: 2,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
     ]);
   },

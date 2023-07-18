@@ -10,7 +10,7 @@ module.exports = {
         email: "wilmer@email.com",
         remember: true,
         userid: 1,
-        timecreated: new Date(), 
+        createdAt: new Date(), 
       },
       {
         ci: "0604201172",
@@ -21,7 +21,7 @@ module.exports = {
         email: "wilmer@email.com",
         remember: true,
         userid: 1,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         ci: "01056677883",
@@ -32,7 +32,7 @@ module.exports = {
         email: "alex@gmail.com",
         remember: true,
         userid: 2,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         ci: "0105344048",
@@ -43,7 +43,7 @@ module.exports = {
         email: "jeeu.95@gmail.com",
         remember: true,
         userid: 3,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
     ]);
   },

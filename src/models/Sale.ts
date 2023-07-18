@@ -21,7 +21,7 @@ interface Sale
   subtotal: number;
   iva: number;
   totalsale: number;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
 }
 
 export enum SaleStatus {
@@ -86,7 +86,7 @@ const Sale = sequelize.define<Sale>(
       allowNull: true,
       defaultValue: null,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

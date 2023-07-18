@@ -16,7 +16,7 @@ interface ShoppingCart
   userid: number;
   productVariantId: number;
   quantity: number;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
 }
 
 const ShoppingCart = sequelize.define<ShoppingCart>(
@@ -39,7 +39,7 @@ const ShoppingCart = sequelize.define<ShoppingCart>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: DataTypes.NOW,

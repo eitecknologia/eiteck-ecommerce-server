@@ -104,7 +104,7 @@ export const getMyShoppingCart = async (req: Request, res: Response) => {
                 }],
             }],
             where: { userid },
-            order: [['timecreated', 'ASC']],
+            order: [['createdAt', 'ASC']],
         });
 
         /* Get total of the shopping cart */

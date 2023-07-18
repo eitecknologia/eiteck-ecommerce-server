@@ -14,7 +14,7 @@ export const getAllBanners = async (req: Request, res: Response) => {
 
     const banners = await BannerImages.findAll({
       attributes: ["id", "url"],
-      order: [["timecreated", "DESC"]],
+      order: [["createdAt", "DESC"]],
       offset: offset - sizeSend,
       limit,
     });

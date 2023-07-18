@@ -14,7 +14,7 @@ interface Category
   name: string;
   description: CreationOptional<string>;
   isactive: CreationOptional<boolean>;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
 }
 
 const Category = sequelize.define<Category>(
@@ -38,7 +38,7 @@ const Category = sequelize.define<Category>(
       allowNull: false,
       defaultValue: true,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

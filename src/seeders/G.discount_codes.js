@@ -10,7 +10,7 @@ module.exports = {
         userid: 1,
         accessrole: "ALL",
         isactive: true,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         discountcode: "NAVIDAD24",
@@ -21,7 +21,7 @@ module.exports = {
         userid: 1,
         accessrole: "ALL",
         isactive: true,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         discountcode: "ZAPATOS330",
@@ -32,7 +32,7 @@ module.exports = {
         userid: 1,
         accessrole: "ALL",
         isactive: true,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
     ]);
   },

@@ -18,7 +18,7 @@ interface Subcategory
   name: string;
   description: CreationOptional<string>;
   isactive: CreationOptional<boolean>;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
 }
 
 const Subcategory = sequelize.define<Subcategory>(
@@ -42,7 +42,7 @@ const Subcategory = sequelize.define<Subcategory>(
       allowNull: false,
       defaultValue: true,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

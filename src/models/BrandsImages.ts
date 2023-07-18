@@ -14,7 +14,7 @@ interface BrandsImages
   > {
   id: CreationOptional<number>;
   url: string;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
 }
 
 const BrandsImages = sequelize.define<BrandsImages>(
@@ -29,7 +29,7 @@ const BrandsImages = sequelize.define<BrandsImages>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

@@ -16,7 +16,7 @@ interface SaleProduct
   saleid: number;
   productVariantId: number;
   quantity: number;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
 }
 
 const SaleProduct = sequelize.define<SaleProduct>(
@@ -39,7 +39,7 @@ const SaleProduct = sequelize.define<SaleProduct>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

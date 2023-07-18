@@ -12,7 +12,7 @@ module.exports = {
         iva: 12,
         totalsale: 112,
         saledate: new Date(),
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         status: "PENDING",
@@ -25,7 +25,7 @@ module.exports = {
         iva: 12,
         totalsale: 112,
         saledate: new Date(),
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         status: "REJECTED",
@@ -38,7 +38,7 @@ module.exports = {
         iva: 12,
         totalsale: 112,
         saledate: new Date(),
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         status: "PAID",
@@ -51,7 +51,7 @@ module.exports = {
         iva: 12,
         totalsale: 112,
         saledate: new Date(),
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
     ]);
   },

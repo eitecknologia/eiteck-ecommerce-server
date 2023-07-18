@@ -4,27 +4,27 @@ module.exports = {
       {
         categoryid: 1,
         subcategoryid: 1,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         categoryid: 1,
         subcategoryid: 2,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         categoryid: 2,
         subcategoryid: 1,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         categoryid: 2,
         subcategoryid: 2,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
       {
         categoryid: 2,
         subcategoryid: 3,
-        timecreated: new Date(),
+        createdAt: new Date(),
       },
     ]);
   },

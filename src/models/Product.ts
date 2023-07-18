@@ -14,7 +14,7 @@ interface Product
   name: string;
   description: string;
   price: number;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
   isactive: CreationOptional<boolean>;
 }
 
@@ -44,7 +44,7 @@ const Product = sequelize.define<Product>(
       allowNull: false,
       defaultValue: true,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

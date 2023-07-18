@@ -15,7 +15,7 @@ interface SubcategoryProducts
     id: CreationOptional<number>;
   subcategoryid: number;
   productid: number;
-  timecreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
 }
 
 const SubcategoryProducts = sequelize.define<SubcategoryProducts>(
@@ -34,7 +34,7 @@ const SubcategoryProducts = sequelize.define<SubcategoryProducts>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    timecreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

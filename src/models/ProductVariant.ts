@@ -20,7 +20,7 @@ interface ProductVariant
   stock: number;
   productId: number;
   isActive: CreationOptional<boolean>;
-  timeCreated: CreationOptional<Date>;
+  createdAt: CreationOptional<Date>;
 }
 
 const ProductVariant = sequelize.define<ProductVariant>(
@@ -45,7 +45,7 @@ const ProductVariant = sequelize.define<ProductVariant>(
       allowNull: false,
       defaultValue: true,
     },
-    timeCreated: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
