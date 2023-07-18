@@ -2,7 +2,6 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("invoice_details", [
       {
-        id: 1,
         ci: "0604201172",
         name: "Wilmer",
         lastname: "Ronquillo",
@@ -14,7 +13,6 @@ module.exports = {
         timecreated: new Date(), 
       },
       {
-        id: 2,
         ci: "0604201172",
         name: "Wilmer",
         lastname: "Ronquillo",
@@ -26,7 +24,6 @@ module.exports = {
         timecreated: new Date(),
       },
       {
-        id: 3,
         ci: "01056677883",
         name: "Alex",
         lastname: "Santana",
@@ -38,7 +35,6 @@ module.exports = {
         timecreated: new Date(),
       },
       {
-        id: 4,
         ci: "0105344048",
         name: "Jorge",
         lastname: "Encalada",
