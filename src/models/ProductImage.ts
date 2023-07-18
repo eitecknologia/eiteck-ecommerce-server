@@ -8,14 +8,20 @@ interface ProductImages extends Model<InferAttributes<ProductImages>, InferCreat
     productid: number;
 }
 
-const ProductImages = sequelize.define<ProductImages>('ldc_product_resources', {
+// Define an Enum for the type of image
+enum ImageType {
+    IMAGE = "image",
+    VIDEO = "video",
+}
+
+const ProductImages = sequelize.define<ProductImages>('product_media', {
     imageid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     type: {
-        type: DataTypes.STRING(15),
+        type: DataTypes.ENUM(...Object.values(ImageType)),
         allowNull: false
     },
     url: {
@@ -29,5 +35,7 @@ const ProductImages = sequelize.define<ProductImages>('ldc_product_resources', {
 }, {
     timestamps: false
 });
+
+
 
 export default ProductImages;

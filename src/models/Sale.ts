@@ -1,22 +1,33 @@
 import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import sequelize from '../database/config';
 import SaleProduct from './SaleProducts';
-import { SaleStatus } from '../common/constants';
-
 
 interface Sale extends Model<InferAttributes<Sale>, InferCreationAttributes<Sale>> {
     saleid: CreationOptional<number>;
-    subtotal: number;
-    iva: number;
-    totalsale: number;
-    saledate: CreationOptional<Date>;
     status: CreationOptional<string>;
-    paymentresource: CreationOptional<string>;
-    observation: CreationOptional<string>;
     userid: number;
     invoiceid: number;
     discountcodeid: CreationOptional<number>;
+    paymentresource: CreationOptional<string>;
+    observation: CreationOptional<string>;
+    saledate: CreationOptional<Date>;
+    subtotal: number;
+    iva: number;
+    totalsale: number;
     timecreated: CreationOptional<Date>;
+}
+
+enum SaleStatus {
+    RESERVED = "RESERVED",
+    PENDING = "PENDING",
+    REJECTED = "REJECTED",
+    PAID = "PAID",
+}
+
+enum PaymentResource {
+    CASH = "CASH", // Efectivo
+    CREDIT_CARD = "CREDIT_CARD", // Tarjeta de crédito
+    PAYCHECK = "PAYCHECK", // Cheque
 }
 
 const Sale = sequelize.define<Sale>('ecommerce_sale', {
@@ -40,9 +51,9 @@ const Sale = sequelize.define<Sale>('ecommerce_sale', {
         allowNull: false
     },
     status: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.ENUM(...Object.values(SaleStatus)),
         allowNull: false,
-        defaultValue: SaleStatus.RESERVED
+        defaultValue: SaleStatus.PENDING
     },
     saledate: {
         type: DataTypes.DATEONLY,
@@ -50,7 +61,7 @@ const Sale = sequelize.define<Sale>('ecommerce_sale', {
         defaultValue: DataTypes.NOW
     },
     paymentresource: {
-        type: DataTypes.STRING(),
+        type: DataTypes.ENUM(...Object.values(PaymentResource)),
         allowNull: true,
         defaultValue: null
     },

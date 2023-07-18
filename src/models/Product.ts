@@ -39,15 +39,15 @@ const Product = sequelize.define<Product>('ecommerce_products', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    timecreated: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
     isactive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true
+    },
+    timecreated: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     }
 }, {
     timestamps: false
