@@ -153,9 +153,9 @@ export const updateSaleStatus = async (req: Request, res: Response) => {
     // if (status == SaleStatus.REJECTED) {
     //   /* get products of sale to increment in stock */
     //   const products = await SaleProduct.findAll({ where: { saleid } });
-    //   for (const { productid, quantity } of products) {
+    //   for (const { productId, quantity } of products) {
     //     const product = await Product.findOne({
-    //       where: { id: productid },
+    //       where: { id: productId },
     //     });
     //     await product?.increment("stock", { by: quantity });
     //   }
@@ -317,7 +317,7 @@ export const makeSale = async (req: Request, res: Response) => {
     //       (await SaleProduct.create(
     //         {
     //           saleid: sale.id,
-    //           productid: cart.productid,
+    //           productId: cart.productId,
     //           quantity: cart.quantity,
     //         },
     //         { transaction: t }
@@ -327,7 +327,7 @@ export const makeSale = async (req: Request, res: Response) => {
 
     //     /* Decrement the stock of products */
     //     const product = await Product.findOne({
-    //       where: { id: cart?.productid },
+    //       where: { id: cart?.productId },
     //     });
     //     await product?.decrement("stock", {
     //       by: cart?.quantity,

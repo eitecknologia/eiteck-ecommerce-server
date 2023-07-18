@@ -14,7 +14,7 @@ interface SubcategoryProducts
   > {
     id: CreationOptional<number>;
   subcategoryid: number;
-  productid: number;
+  productId: number;
   createdAt: CreationOptional<Date>;
 }
 
@@ -30,7 +30,7 @@ const SubcategoryProducts = sequelize.define<SubcategoryProducts>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    productid: {
+    productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

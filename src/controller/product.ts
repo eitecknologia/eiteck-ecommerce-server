@@ -36,7 +36,7 @@ export const createProduct = async (req: Request, res: Response) => {
       for (const subcategoryId of subcategories) {
         await SubcategoryProducts.create(
           {
-            productid: product.id,
+            productId: product.id,
             subcategoryid: subcategoryId,
           },
           { transaction: t }
@@ -135,11 +135,11 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
 
     /* Get the ids of each product in the subcategories */
     const productsInSubcategories = await SubcategoryProducts.findAll({
-      attributes: ["productid"],
+      attributes: ["productId"],
       where: { subcategoryid: { [Op.in]: subcategoriesIdsArray } },
     });
     const productsIdsArray = productsInSubcategories.map(
-      (product) => product.productid
+      (product) => product.productId
     );
 
     const products = await Product.findAll({
@@ -195,11 +195,11 @@ export const getProductsBySubcategory = async (req: Request, res: Response) => {
 
     /* Get the ids of each product in the subcategories */
     const productsInSubcategories = await SubcategoryProducts.findAll({
-      attributes: ["productid"],
+      attributes: ["productId"],
       where: { subcategoryid },
     });
     const productsIdsArray = productsInSubcategories.map(
-      (product) => product.productid
+      (product) => product.productId
     );
 
     const products = await Product.findAll({
@@ -282,7 +282,7 @@ export const addResourceToProduct = async (req: Request, res: Response) => {
     // const image = req.files?.image || null;
 
     // /* Get the data from the request param */
-    // const { productid } = req.params;
+    // const { productId } = req.params;
 
     // /* Verify if exist at least an image or url */
     // if (!image && !url) {
@@ -299,7 +299,7 @@ export const addResourceToProduct = async (req: Request, res: Response) => {
 
     // /* Add resource */
     // await ProductImages.create({
-    //     productid: +productid,
+    //     productId: +productId,
     //     type,
     //     url
     // });
@@ -358,11 +358,11 @@ export const updateProduct = async (req: Request, res: Response) => {
     const subcategories: number[] = req.body.subcategories || [];
 
     /* Get the data from the request param */
-    const { productid } = req.params;
+    const { productId } = req.params;
 
     /* Transaction of product create */
     await sequelize.transaction(async (t) => {
-      const product = await Product.findByPk(productid);
+      const product = await Product.findByPk(productId);
 
       await product?.update(
         {
@@ -377,11 +377,11 @@ export const updateProduct = async (req: Request, res: Response) => {
       if (subcategories.length > 0) {
         for (const subcategoryid of subcategories) {
           const existRegister = await SubcategoryProducts.findOne({
-            where: { productid, subcategoryid },
+            where: { productId, subcategoryid },
           });
           if (!existRegister) {
             await SubcategoryProducts.create(
-              { productid: +productid, subcategoryid },
+              { productId: +productId, subcategoryid },
               { transaction: t }
             );
           }
@@ -408,7 +408,7 @@ export const availabilitySubcategories = async (
   res: Response
 ) => {
   try {
-    const { productid } = req.params;
+    const { productId } = req.params;
 
     const subcategoriesWithProduct = await SubcategoryProducts.findAll({
       attributes: { exclude: ["id", "subcategoryid", "createdAt"] },
@@ -419,7 +419,7 @@ export const availabilitySubcategories = async (
           as: "subcategory_products",
         },
       ],
-      where: { productid },
+      where: { productId },
     });
 
     const categoriesWithProductsIds = subcategoriesWithProduct.map(
@@ -485,10 +485,10 @@ export const deleteProductOfSubcategory = async (
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     console.log(req.body);
-    // const { productid } = req.params;
+    // const { productId } = req.params;
 
     // /* Get the images Reward Images */
-    // const images: ProductImages[] = await ProductImages.findAll({ where: { productid } }) || [];
+    // const images: ProductImages[] = await ProductImages.findAll({ where: { productId } }) || [];
 
     // /* Delete the image from cloudinary */
     // for (const { url } of images) {
@@ -496,11 +496,11 @@ export const deleteProduct = async (req: Request, res: Response) => {
     // }
 
     // /* Delete the url images from the DB */
-    // await ProductImages.destroy({ where: { productid } });
+    // await ProductImages.destroy({ where: { productId } });
 
     // await Product.update({
     //     isActive: false
-    // }, { where: { id:productid } });
+    // }, { where: { id:productId } });
 
     return res.status(200).json({
       ok: true,
@@ -530,7 +530,7 @@ export const productsMostSelled = async (req: Request, res: Response) => {
     //     limit: +limit
     // });
 
-    // const mostSelledIds = productsMostSelled.map(id => id.productid) || [];
+    // const mostSelledIds = productsMostSelled.map(id => id.productId) || [];
 
     // const mostSelled = await Product.findAll({
     //     attributes: ['id', 'name', 'description', 'price', 'stock'],

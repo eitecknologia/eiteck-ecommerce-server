@@ -7,16 +7,17 @@ import {
 } from "sequelize";
 import sequelize from "../database/config";
 
-interface ProductImages
+interface ProductMedia
   extends Model<
-    InferAttributes<ProductImages>,
-    InferCreationAttributes<ProductImages>
+    InferAttributes<ProductMedia>,
+    InferCreationAttributes<ProductMedia>
   > {
   id: CreationOptional<number>;
   url: string;
   type: string;
   default: boolean;
   productVariantId: number;
+  createdAt: CreationOptional<Date>;
 }
 
 // Define an Enum for the type of image
@@ -25,7 +26,7 @@ enum ImageType {
   VIDEO = "video",
 }
 
-const ProductImages = sequelize.define<ProductImages>(
+const ProductMedia = sequelize.define<ProductMedia>(
   "product_media",
   {
     id: {
@@ -50,10 +51,15 @@ const ProductImages = sequelize.define<ProductImages>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
     timestamps: false,
   }
 );
 
-export default ProductImages;
+export default ProductMedia;

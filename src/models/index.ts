@@ -14,7 +14,7 @@ import BannerImages from "./BannerImages";
 import BrandsImages from "./BrandsImages";
 import Product from "./Product";
 import ProductVariant from "./ProductVariant";
-import ProductImages from "./ProductImage";
+import ProductMedia from "./ProductMedia";
 import ProductSizes from "./ProductSize";
 import ProductMaterial from "./ProductMaterial";
 
@@ -26,7 +26,7 @@ export {
   Subcategory,
   SubcategoryProducts,
   Product,
-  ProductImages,
+  ProductMedia as ProductImages,
   UserCart,
   ShoppingCart,
   DiscountCode,

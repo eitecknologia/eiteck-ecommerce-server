@@ -13,13 +13,13 @@ export const addProductInCart = async (req: Request, res: Response) => {
   try {
     console.log(req.body);
     // /* Get data from the request body */
-    // const { productid, quantity } = req.body;
+    // const { productId, quantity } = req.body;
 
     // /* Get data from the user logged */
     // const { userid } = req.user;
 
     // /* get stock of product */
-    // const product = await Product.findOne({ attributes: ["stock"], where: { id:productid } });
+    // const product = await Product.findOne({ attributes: ["stock"], where: { id:productId } });
     // const productStock = product?.stock || 0;
 
     // /* Verify the quantity of product */
@@ -31,7 +31,7 @@ export const addProductInCart = async (req: Request, res: Response) => {
     // }
 
     // /* Verify if exist register of product in cart */
-    // const productInCart = await ShoppingCart.findOne({ where: { productid, userid } });
+    // const productInCart = await ShoppingCart.findOne({ where: { productId, userid } });
 
     // /* Verify if exist register of product in cart */
     // if (productInCart) {
@@ -39,7 +39,7 @@ export const addProductInCart = async (req: Request, res: Response) => {
     //     await productInCart.increment('quantity', { by: +quantity });
     // } else {
     //     /* Add product in usercart */
-    //     await ShoppingCart.create({ productid, userid, quantity: +quantity });
+    //     await ShoppingCart.create({ productId, userid, quantity: +quantity });
     // }
 
     return res.status(200).json({
@@ -210,8 +210,8 @@ export const updateQuantityShoppingCart = async (
     // const cart = await ShoppingCart.findOne({ where: { id:cartid } });
 
     // /* Get the stock of product */
-    // const productid = cart?.productid;
-    // const product = await Product.findOne({ attributes: ["stock", "name"], where: { id:productid } });
+    // const productId = cart?.productId;
+    // const product = await Product.findOne({ attributes: ["stock", "name"], where: { id:productId } });
     // const productStock = product?.stock || 0;
 
     // /* Verify the quantity of product */

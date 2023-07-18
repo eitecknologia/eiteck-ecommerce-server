@@ -13,9 +13,9 @@ interface ProductSizes
     InferCreationAttributes<ProductSizes>
   > {
   id: CreationOptional<number>;
-  productid: number;
   name: string;
   unit: string;
+  productId: number;
   createdAt: CreationOptional<Date>;
 }
 
@@ -27,16 +27,16 @@ const ProductSizes = sequelize.define<ProductSizes>(
       primaryKey: true,
       autoIncrement: true,
     },
-    productid: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     name: {
       type: DataTypes.STRING(150),
       allowNull: false,
     },
     unit: {
       type: DataTypes.STRING(),
+      allowNull: false,
+    },
+    productId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     createdAt: {

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { addProductInCart, deleteRegisterOfShoppingCart, getMyShoppingCart, updateQuantityShoppingCart } from "../controller/shoppingCart";
 import { check } from "express-validator";
-import { verifyProductId, verifyShoppingCartRegisterId } from "../helpers/db-helpers";
+import { verifyproductId, verifyShoppingCartRegisterId } from "../helpers/db-helpers";
 import { validateJwt } from "../helpers/validate-jwt";
 import { fieldsValidate } from "../middlewares/validate-fields";
 
@@ -10,8 +10,8 @@ const shoopingCartRoutes: Router = Router();
 /* Service - Add product in shopping cart */
 shoopingCartRoutes.post('/add_product', [
     validateJwt,
-    check('productid', 'Ingrese un id válido').notEmpty().isNumeric(),
-    check('productid').custom(verifyProductId),
+    check('productId', 'Ingrese un id válido').notEmpty().isNumeric(),
+    check('productId').custom(verifyproductId),
     check('quantity', 'Ingrese una cantidad válida').notEmpty().isNumeric(),
     fieldsValidate
 ], addProductInCart);

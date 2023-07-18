@@ -3,17 +3,17 @@ module.exports = {
     return queryInterface.bulkInsert("subcategories_products", [
       {
         subcategoryid: 1,
-        productid: 1,
+        productId: 1,
         createdAt: new Date(),
       },
       {
         subcategoryid: 2,
-        productid: 1,
+        productId: 1,
         createdAt: new Date(),
       },
       {
         subcategoryid: 1,
-        productid: 2,
+        productId: 2,
         createdAt: new Date(),
       },
     ]);

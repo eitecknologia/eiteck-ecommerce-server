@@ -12,7 +12,7 @@ usercartRouter.post('/add_to_cart', [
     validateJwt,
     isUserRole,
     check('amount', 'La cantidad debe ser un valor numérico').notEmpty().isNumeric(),
-    check('productid').custom((amount, req) => verifyStockProduct(amount, req)),
+    check('productId').custom((amount, req) => verifyStockProduct(amount, req)),
     fieldsValidate
 ], addToCart);
 

@@ -70,8 +70,8 @@ export const verifyCategoryId = async (id: number) => {
     return true;
 }
 
-/* Verify if exist resourceProductId */
-export const verifyResourceProductId = async (id: number) => {
+/* Verify if exist resourceproductId */
+export const verifyResourceproductId = async (id: number) => {
     const existResource = await ProductImages.findOne({ where: { id } });
     if (!existResource) {
         throw new Error(`Recurso no encontrado`);
@@ -81,7 +81,7 @@ export const verifyResourceProductId = async (id: number) => {
 }
 
 /* Verify if exist category id */
-export const verifyProductId = async (id: number) => {
+export const verifyproductId = async (id: number) => {
     /* Search if the product exists */
     const existProduct = await Product.findOne({ where: { id, isActive: true } });
     if (!existProduct) {
@@ -94,8 +94,8 @@ export const verifyProductId = async (id: number) => {
 
 /* Verify the stock of product */
 export const verifyStockProduct = async (amount: number, req: Meta) => {
-    const { productid } = req.req.body;
-    const product = await Product.findOne({ where: { id:productid, isActive: true } });
+    const { productId } = req.req.body;
+    const product = await Product.findOne({ where: { id:productId, isActive: true } });
     if (!product) {
         throw new Error(`Producto no encontrado`);
     }

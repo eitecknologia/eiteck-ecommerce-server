@@ -2,30 +2,32 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("product_sizes", [
       {
-        productVariantId: 1,
         name: "5",
         unit: "Americana",
+        productId: 1,
+        createdAt: new Date(),
       },
       {
-        productVariantId: 1,
         name: "7",
         unit: "Americana",
+        productId: 1,
+        createdAt: new Date(),
       },
-      ,
       {
-        productVariantId: 2,
         name: "M",
         unit: "cm",
+        productId: 2,
+        createdAt: new Date(),
       },
-      ,
       {
-        productVariantId: 2,
         name: "G",
         unit: "in",
+        productId: 2,
+        createdAt: new Date(),
       },
     ]);
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete("product_sizes", null, {});
-  }
+  },
 };

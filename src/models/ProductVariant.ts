@@ -6,7 +6,7 @@ import {
   CreationOptional,
 } from "sequelize";
 import sequelize from "../database/config";
-import ProductImages from "./ProductImage";
+import ProductMedia from "./ProductMedia";
 import UserCart from "./Shoppingcart";
 import SaleProduct from "./SaleProducts";
 import ProductMaterial from "./ProductMaterial";
@@ -69,15 +69,15 @@ SaleProduct.belongsTo(ProductVariant, {
 });
 
 /* Relation with productImages table */
-ProductVariant.hasMany(ProductImages, {
+ProductVariant.hasMany(ProductMedia, {
   foreignKey: "productVariantId",
   sourceKey: "id",
   as: "product_media",
 });
 
-ProductImages.belongsTo(ProductVariant, {
+ProductMedia.belongsTo(ProductVariant, {
   foreignKey: "productVariantId",
-  as: "product_resource",
+  as: "product_media",
 });
 
 /* Relation with UserCart */

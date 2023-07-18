@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from 'express-validator';
-import { verifyCategoryId, verifyProductId, verifyRegisterOfProductInSubcategory, verifyResourceProductId, verifySubcategoryIds } from '../helpers/db-helpers';
+import { verifyCategoryId, verifyproductId, verifyRegisterOfProductInSubcategory, verifyResourceproductId, verifySubcategoryIds } from '../helpers/db-helpers';
 
 import { addResourceToProduct, availabilitySubcategories, createProduct, deleteProduct, deleteProductOfSubcategory, deleteResourceProduct, findProductById, getAllProducts, getProductsByCategory, getProductsBySubcategory, productsMostSelled, productsNewArrived, updateProduct } from "../controller/product";
 import { validateJwt } from "../helpers/validate-jwt";
@@ -43,16 +43,16 @@ productRouter.get('/get_by_subcategory/:subcategoryid', [
 /* Service - Get product by id */
 productRouter.get('/get_by_id/:id', [
     check('id', 'Ingrese un id válido').notEmpty().isNumeric(),
-    check('id').custom(verifyProductId),
+    check('id').custom(verifyproductId),
     fieldsValidate
 ], findProductById);
 
 /* Service - Add resource */
-productRouter.post('/add_resource/:productid', [
+productRouter.post('/add_resource/:productId', [
     validateJwt,
     isAdminRole,
-    check('productid', 'Ingrese un id válido').notEmpty().isNumeric(),
-    check('productid').custom(verifyProductId),
+    check('productId', 'Ingrese un id válido').notEmpty().isNumeric(),
+    check('productId').custom(verifyproductId),
     check('type', 'El tipo del recurso es obligatorio').notEmpty().trim(),
     check('url', 'La url es obligatoria').optional().notEmpty().trim().isURL(),
     check('resource', 'El recurso es obligatorio').optional().notEmpty().trim(),
@@ -64,16 +64,16 @@ productRouter.delete('/delete_resource/:resourceid', [
     validateJwt,
     isAdminRole,
     check('resourceid', 'Ingrese un id válido').notEmpty().isNumeric(),
-    check('resourceid').custom(verifyResourceProductId),
+    check('resourceid').custom(verifyResourceproductId),
     fieldsValidate
 ], deleteResourceProduct);
 
 /* Service - Update a product */
-productRouter.put('/update/:productid', [
+productRouter.put('/update/:productId', [
     validateJwt,
     isAdminRole,
-    check('productid', 'Ingrese un id válido').notEmpty().isNumeric(),
-    check('productid').custom(verifyProductId),
+    check('productId', 'Ingrese un id válido').notEmpty().isNumeric(),
+    check('productId').custom(verifyproductId),
     check('name', 'El nombre es obligatorio').optional().notEmpty().trim(),
     check('description', 'La descripción es obligatoria').optional().notEmpty().trim(),
     check('price', 'El precio es obligatorio').optional().notEmpty().isNumeric(),
@@ -82,11 +82,11 @@ productRouter.put('/update/:productid', [
 ], updateProduct);
 
 /* Service to get availability of subcategories */
-productRouter.get('/get_availability_subcategories/:productid', [
+productRouter.get('/get_availability_subcategories/:productId', [
     validateJwt,
     isAdminRole,
-    check('productid', 'Formato de id incorrecto').isNumeric(),
-    check('productid').custom(verifyProductId),
+    check('productId', 'Formato de id incorrecto').isNumeric(),
+    check('productId').custom(verifyproductId),
     fieldsValidate
 ], availabilitySubcategories);
 
@@ -100,11 +100,11 @@ productRouter.delete('/delete_of_subcategory/:subprodid', [
 ], deleteProductOfSubcategory);
 
 /* Service - Delete product by id */
-productRouter.delete('/delete/:productid', [
+productRouter.delete('/delete/:productId', [
     validateJwt,
     isAdminRole,
-    check('productid', 'Formato de id incorrecto').notEmpty().isNumeric(),
-    check('productid').custom(verifyProductId),
+    check('productId', 'Formato de id incorrecto').notEmpty().isNumeric(),
+    check('productId').custom(verifyproductId),
     fieldsValidate
 ], deleteProduct);
 
