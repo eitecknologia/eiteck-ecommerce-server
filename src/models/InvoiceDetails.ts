@@ -26,7 +26,7 @@ interface InvoiceDetail
 }
 
 const InvoiceDetail = sequelize.define<InvoiceDetail>(
-  "invoice_detail",
+  "invoice_details",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -85,7 +85,7 @@ InvoiceDetail.hasMany(Sale, {
 });
 
 Sale.belongsTo(InvoiceDetail, {
-  foreignKey: "id",
+  foreignKey: "invoiceid",
   as: "sale_user_detail",
 });
 

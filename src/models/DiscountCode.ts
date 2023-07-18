@@ -85,7 +85,7 @@ DiscountCode.hasOne(Sale, {
 });
 
 Sale.belongsTo(DiscountCode, {
-  foreignKey: "id",
+  foreignKey: "discountcodeid",
   as: "discount_sale",
 });
 

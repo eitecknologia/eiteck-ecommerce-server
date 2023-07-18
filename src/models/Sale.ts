@@ -111,7 +111,7 @@ Sale.hasMany(SaleProduct, {
 });
 
 SaleProduct.belongsTo(Sale, {
-  foreignKey: "id",
+  foreignKey: "saleid",
   as: "product_sale",
 });
 

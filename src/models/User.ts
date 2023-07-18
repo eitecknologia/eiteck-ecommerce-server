@@ -104,7 +104,7 @@ User.hasMany(UserCart, {
 });
 
 UserCart.belongsTo(User, {
-  foreignKey: "id",
+  foreignKey: "userid",
 });
 
 /* Relation with shopping cart */
@@ -115,7 +115,7 @@ User.hasMany(ShoppingCart, {
 });
 
 ShoppingCart.belongsTo(User, {
-  foreignKey: "id",
+  foreignKey: "userid",
   as: "usercart_product",
 });
 
@@ -127,7 +127,7 @@ User.hasMany(InvoiceDetail, {
 });
 
 InvoiceDetail.belongsTo(User, {
-  foreignKey: "id",
+  foreignKey: "userid",
   as: "invoice_user_detail",
 });
 
@@ -139,7 +139,7 @@ User.hasMany(DiscountCode, {
 });
 
 DiscountCode.belongsTo(User, {
-  foreignKey: "id",
+  foreignKey: "userid",
   as: "author_discount",
 });
 

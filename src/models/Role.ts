@@ -10,7 +10,7 @@ import User from "./User";
 
 interface Role
   extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
-    id: CreationOptional<number>;
+  id: CreationOptional<number>;
   name: string;
 }
 
@@ -38,7 +38,7 @@ Role.hasOne(User, {
 });
 
 User.belongsTo(Role, {
-  foreignKey: "id",
+  foreignKey: "roleid",
 });
 
 export default Role;

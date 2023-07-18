@@ -71,7 +71,7 @@ Product.hasMany(SaleProduct, {
 });
 
 SaleProduct.belongsTo(Product, {
-  foreignKey: "id",
+  foreignKey: "productid",
   as: "sale_product",
 });
 
@@ -83,7 +83,7 @@ Product.hasMany(SubcategoryProducts, {
 });
 
 SubcategoryProducts.belongsTo(Product, {
-  foreignKey: "id",
+  foreignKey: "productid",
   as: "product_subcategory",
 });
 
@@ -95,7 +95,7 @@ Product.hasMany(ProductImages, {
 });
 
 ProductImages.belongsTo(Product, {
-  foreignKey: "id",
+  foreignKey: "productid",
   as: "product_resource",
 });
 
@@ -107,7 +107,7 @@ Product.hasMany(UserCart, {
 });
 
 UserCart.belongsTo(Product, {
-  foreignKey: "id",
+  foreignKey: "productid",
   as: "cart_product",
 });
 
