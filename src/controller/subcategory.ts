@@ -37,7 +37,7 @@ export const updateSubcategory = async (req: Request, res: Response) => {
         let { name, description } = req.body;
         const { id } = req.params;
 
-        await Subcategory.update({ name, description }, { where: { subcategoryid: id } });
+        await Subcategory.update({ name, description }, { where: { id } });
 
         return res.status(200).json({
             ok: true,
@@ -75,7 +75,7 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
         const subcategoriesAvailables = await Subcategory.findAll({
             attributes: ['subcategoryid', 'name', 'description'],
             where: {
-                subcategoryid: { [Op.notIn]: subcategoriesInCategoryIds },
+                id: { [Op.notIn]: subcategoriesInCategoryIds },
                 isactive: true
             },
             order: [['timecreated', 'DESC']]
@@ -117,7 +117,7 @@ export const getSubcategories = async (_req: Request, res: Response) => {
         const subcategoriesInList: Subcategory[] = [];
 
         for (const subcategory of subcategories) {
-            const existRegister = subcategoriesInList.find(sub => sub.subcategoryid == subcategory.subcategoryid);
+            const existRegister = subcategoriesInList.find(sub => sub.id == subcategory.id);
             if (!existRegister) {
                 subcategoriesInList.push(subcategory)
             }
@@ -143,13 +143,13 @@ export const getSubcategories = async (_req: Request, res: Response) => {
 export const assignSubcategories = async (req: Request, res: Response) => {
     try {
 
-        const { categoryid }: Category = req.body;
+        const { id:categoryId }: Category = req.body;
         const subcategoriesArray: Subcategory[] = req.body.subcategories;
 
-        for (const { subcategoryid } of subcategoriesArray) {
+        for (const { id:subcategoryId } of subcategoriesArray) {
             await CategorySubcategory.create({
-                categoryid,
-                subcategoryid
+                categoryid:categoryId,
+                subcategoryid:subcategoryId
             })
         }
 
@@ -173,7 +173,7 @@ export const deleteDSubcategory = async (req: Request, res: Response) => {
 
         const { casubid } = req.params;
 
-        await CategorySubcategory.destroy({ where: { casubid } })
+        await CategorySubcategory.destroy({ where: { id:casubid } })
 
         return res.status(200).json({
             ok: true,
@@ -211,7 +211,7 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
                 })
             }
 
-            subcategoryid = getlastSubcategoryId.subcategoryid;
+            subcategoryid = getlastSubcategoryId.id;
         } {
             /* Validate the subcategory */
             const existSubcategory = await Subcategory.findByPk(subcategoryid);

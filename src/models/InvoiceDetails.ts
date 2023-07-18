@@ -79,8 +79,8 @@ const InvoiceDetail = sequelize.define<InvoiceDetail>(
 
 /* Relation with invoice detail */
 InvoiceDetail.hasMany(Sale, {
-  foreignKey: "id",
-  sourceKey: "invoiceid",
+  foreignKey: "invoiceid",
+  sourceKey: "id",
   as: "sales_user_detail",
 });
 

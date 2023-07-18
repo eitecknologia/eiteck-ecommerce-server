@@ -105,8 +105,8 @@ const Sale = sequelize.define<Sale>(
 
 /* Relation with sale products */
 Sale.hasMany(SaleProduct, {
-  foreignKey: "id",
-  sourceKey: "saleid",
+  foreignKey: "saleid",
+  sourceKey: "id",
   as: "products_sale",
 });
 

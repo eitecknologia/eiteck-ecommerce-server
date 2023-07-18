@@ -17,7 +17,7 @@ export const validateJwt = async (req: Request, res: Response, next: NextFunctio
         const data: any = jwt.verify(`${token}`, `${process.env.TOKEN_SEED}`);
 
         /* Search if the user exists */
-        const { dataValues: user }: any = await User.findOne({ where: { userid: data.id } });
+        const { dataValues: user }: any = await User.findOne({ where: { id: data.id } });
         if (!user) {
             return res.status(400).json({
                 ok: false,

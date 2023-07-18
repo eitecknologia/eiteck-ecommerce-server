@@ -9,7 +9,7 @@ export const getUserLoggedInfo = async (req: Request, res: Response) => {
         const userid = req.user.userid;
         const user = await User.findOne({
             attributes: { exclude: ['password', 'isactive', 'google', 'facebook', 'timecreated', 'roleid'] },
-            where: { userid }
+            where: { id: userid }
         })
 
         return res.status(200).json({
@@ -54,8 +54,8 @@ export const updateUser = async (req: Request, res: Response) => {
             where:
             {
                 [Op.or]: [
-                    { [Op.and]: [{ ci, roleid: process.env.USER_ID, userid: { [Op.ne]: userid } }] },
-                    { [Op.and]: [{ email, userid: { [Op.ne]: userid } }] }
+                    { [Op.and]: [{ ci, roleid: process.env.USER_ID, id: { [Op.ne]: userid } }] },
+                    { [Op.and]: [{ email, id: { [Op.ne]: userid } }] }
                 ]
             }
         })

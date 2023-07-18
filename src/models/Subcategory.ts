@@ -55,8 +55,8 @@ const Subcategory = sequelize.define<Subcategory>(
 
 /* Relation with CategorySubcategory table */
 Subcategory.hasMany(CategorySubcategory, {
-  foreignKey: "id",
-  sourceKey: "subcategoryid",
+  foreignKey: "subcategoryid",
+  sourceKey: "id",
   as: "subcategories_category",
 });
 
@@ -67,8 +67,8 @@ CategorySubcategory.belongsTo(Subcategory, {
 
 /* Relation with SucbategoryProduct table */
 Subcategory.hasMany(SubcategoryProducts, {
-  foreignKey: "id",
-  sourceKey: "subcategoryid",
+  foreignKey: "subcategoryid",
+  sourceKey: "id",
   as: "subcategories_products",
 });
 

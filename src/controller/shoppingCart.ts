@@ -13,7 +13,7 @@ export const addProductInCart = async (req: Request, res: Response) => {
         const { userid } = req.user;
 
         /* get stock of product */
-        const product = await Product.findOne({ attributes: ["stock"], where: { productid } });
+        const product = await Product.findOne({ attributes: ["stock"], where: { id:productid } });
         const productStock = product?.stock || 0;
 
         /* Verify the quantity of product */
@@ -74,7 +74,7 @@ export const getMyShoppingCart = async (req: Request, res: Response) => {
             if (!discount) discountDetails = { ok: false, msg: "Código no válido", discountcode: null, discountpercent: null, discountid: null };
 
             /* Verify if the role is valid */
-            const roleInfo = await Role.findOne({ where: { roleid } });
+            const roleInfo = await Role.findOne({ where: { id:roleid } });
 
             if (discount) {
                 if (roleInfo && (roleInfo.name == discount?.accessrole || discount?.accessrole == "ALL")) {
@@ -83,7 +83,7 @@ export const getMyShoppingCart = async (req: Request, res: Response) => {
                         discountDetails = { ok: false, msg: "Código caducado", discountcode: null, discountpercent: null, discountid: null };
 
                     if (discount?.status)
-                        discountDetails = { ok: true, msg: "Código válido", discountcode: discount.discountcode, discountpercent: discount.discountpercent, discountid: discount.discountcodeid };
+                        discountDetails = { ok: true, msg: "Código válido", discountcode: discount.discountcode, discountpercent: discount.discountpercent, discountid: discount.id };
                 } else {
                     discountDetails = { ok: false, msg: "Código no válido para tu rol", discountcode: null, discountpercent: null, discountid: null };
                 }
@@ -151,11 +151,11 @@ export const updateQuantityShoppingCart = async (req: Request, res: Response) =>
         const { quantity } = req.body;
 
         /* Get info of cart */
-        const cart = await ShoppingCart.findOne({ where: { cartid } });
+        const cart = await ShoppingCart.findOne({ where: { id:cartid } });
 
         /* Get the stock of product */
         const productid = cart?.productid;
-        const product = await Product.findOne({ attributes: ["stock", "name"], where: { productid } });
+        const product = await Product.findOne({ attributes: ["stock", "name"], where: { id:productid } });
         const productStock = product?.stock || 0;
 
         /* Verify the quantity of product */
@@ -193,7 +193,7 @@ export const deleteRegisterOfShoppingCart = async (req: Request, res: Response) 
         const { cartid } = req.params;
 
         /* Delete register of shopping cart */
-        await ShoppingCart.destroy({ where: { cartid } });
+        await ShoppingCart.destroy({ where: { id:cartid } });
 
         return res.status(200).json({
             ok: true,

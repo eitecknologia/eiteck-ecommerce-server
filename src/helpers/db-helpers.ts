@@ -5,11 +5,11 @@ import { Category, Role, User, Product, Subcategory, CategorySubcategory, Subcat
 export const createDefaultRoles = async () => {
     await Promise.all([
         Role.create({
-            roleid: Number(process.env.ADMIN_ID),
+            id: Number(process.env.ADMIN_ID),
             name: "ADMIN_ROLE"
         }),
         Role.create({
-            roleid: Number(process.env.USER_ID),
+            id: Number(process.env.USER_ID),
             name: "USER_ROLE"
         })
     ]);
@@ -18,7 +18,7 @@ export const createDefaultRoles = async () => {
 /* Verify if exist admin id */
 export const verifyAdminId = async (id: number) => {
     /* Search if the user exists */
-    const existUser = await User.findOne({ where: { userid: id, roleid: process.env.ADMIN_ID, isactive: true } });
+    const existUser = await User.findOne({ where: { id: id, roleid: process.env.ADMIN_ID, isactive: true } });
     if (!existUser) {
         throw new Error(`Administrador no encontrado`);
     }
@@ -29,7 +29,7 @@ export const verifyAdminId = async (id: number) => {
 /* Verify if exist subcategory id */
 export const verifysubCategoryId = async (id: number) => {
     /* Search if the subcategory exists */
-    const existsubCategory = await Subcategory.findOne({ where: { subcategoryid: id, isactive: true } });
+    const existsubCategory = await Subcategory.findOne({ where: { id, isactive: true } });
     if (!existsubCategory) {
         throw new Error(`Subcategoría no encontrada`);
     }
@@ -40,7 +40,7 @@ export const verifysubCategoryId = async (id: number) => {
 /* Verify if exist a register in CategoriesSubcategories table of a id */
 export const verifyRegisterOfCategoriesSubcategories = async (id: number) => {
     /* Search if the register exists */
-    const existsubRegister = await CategorySubcategory.findOne({ where: { casubid: id } });
+    const existsubRegister = await CategorySubcategory.findOne({ where: { id } });
     if (!existsubRegister) {
         throw new Error(`Registro no encontrado`);
     }
@@ -51,7 +51,7 @@ export const verifyRegisterOfCategoriesSubcategories = async (id: number) => {
 /* Verify if exist a register in SubcategoriesProducts table of a id */
 export const verifyRegisterOfProductInSubcategory = async (id: number) => {
     /* Search if the register exists */
-    const existsubRegister = await SubcategoryProducts.findOne({ where: { subprodid: id } });
+    const existsubRegister = await SubcategoryProducts.findOne({ where: { id } });
     if (!existsubRegister) {
         throw new Error(`Registro no encontrado`);
     }
@@ -62,7 +62,7 @@ export const verifyRegisterOfProductInSubcategory = async (id: number) => {
 /* Verify if exist category id */
 export const verifyCategoryId = async (id: number) => {
     /* Search if the category exists */
-    const existCategory = await Category.findOne({ where: { categoryid: id, isactive: true } });
+    const existCategory = await Category.findOne({ where: { id, isactive: true } });
     if (!existCategory) {
         throw new Error(`Categoria no encontrada`);
     }
@@ -72,7 +72,7 @@ export const verifyCategoryId = async (id: number) => {
 
 /* Verify if exist resourceProductId */
 export const verifyResourceProductId = async (id: number) => {
-    const existResource = await ProductImages.findOne({ where: { imageid: id } });
+    const existResource = await ProductImages.findOne({ where: { id } });
     if (!existResource) {
         throw new Error(`Recurso no encontrado`);
     }
@@ -83,7 +83,7 @@ export const verifyResourceProductId = async (id: number) => {
 /* Verify if exist category id */
 export const verifyProductId = async (id: number) => {
     /* Search if the product exists */
-    const existProduct = await Product.findOne({ where: { productid: id, isactive: true } });
+    const existProduct = await Product.findOne({ where: { id, isactive: true } });
     if (!existProduct) {
         throw new Error(`Producto no encontrado`);
     }
@@ -95,7 +95,7 @@ export const verifyProductId = async (id: number) => {
 /* Verify the stock of product */
 export const verifyStockProduct = async (amount: number, req: Meta) => {
     const { productid } = req.req.body;
-    const product = await Product.findOne({ where: { productid, isactive: true } });
+    const product = await Product.findOne({ where: { id:productid, isactive: true } });
     if (!product) {
         throw new Error(`Producto no encontrado`);
     }
@@ -115,7 +115,7 @@ export const verifyStockProduct = async (amount: number, req: Meta) => {
 export const verifySubcategoryIds = async (ids: number[]) => {
     for (const id of ids) {
         /* Search if the subcategory exists */
-        const existsubCategory = await Subcategory.findOne({ where: { subcategoryid: id, isactive: true } });
+        const existsubCategory = await Subcategory.findOne({ where: { id, isactive: true } });
         if (!existsubCategory) {
             throw new Error(`Subcategoría no encontrada`);
         }
@@ -146,7 +146,7 @@ export const verifyDiscountPercentageName = async (code: string) => {
 
 /* Verify if exist the code register */
 export const verifyDiscountCodeId = async (id: number) => {
-    const existRegister = await DiscountCode.findOne({ where: { discountcodeid: id, isactive: true } });
+    const existRegister = await DiscountCode.findOne({ where: { id, isactive: true } });
     if (!existRegister) {
         throw new Error(`Código de descuento no encontrado`);
     }
@@ -156,7 +156,7 @@ export const verifyDiscountCodeId = async (id: number) => {
 
 /* Verify if exist the shooping carte register */
 export const verifyShoppingCartRegisterId = async (id: number) => {
-    const existProduct = await ShoppingCart.findOne({ where: { cartid: id } });
+    const existProduct = await ShoppingCart.findOne({ where: { id } });
     if (!existProduct) {
         throw new Error(`Registro no encontrado`);
     }
@@ -176,7 +176,7 @@ export const verifyStockOfCart = async (id: number) => {
             attributes: ['productid', 'name', 'price', 'stock'],
             required: true
         }],
-        where: { cartid: id }
+        where: { id }
     });
 
     if (!existRegister) {
@@ -195,7 +195,7 @@ export const verifyStockOfCart = async (id: number) => {
 
 /* Verify if exist the invoide register */
 export const verifyInvoiceDetailId = async (id: number) => {
-    const existRegister = await InvoiceDetail.findOne({ where: { invoiceid: id } });
+    const existRegister = await InvoiceDetail.findOne({ where: { id } });
     if (!existRegister) {
         throw new Error(`Detalle no encontrado`);
     }
@@ -205,7 +205,7 @@ export const verifyInvoiceDetailId = async (id: number) => {
 
 /* Verify if exist the saleid */
 export const verifySaleid = async (id: number) => {
-    const existSale = await Sale.findOne({ where: { saleid: id } });
+    const existSale = await Sale.findOne({ where: { id } });
     if (!existSale) {
         throw new Error(`Venta no encontrada`);
     }

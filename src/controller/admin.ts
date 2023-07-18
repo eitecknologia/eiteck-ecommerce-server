@@ -13,7 +13,7 @@ export const getAllAdmins = async (req: Request, res: Response) => {
 
         /* Get users data */
         const { count: total, rows: users } = await User.findAndCountAll({
-            attributes: ['userid', 'ci', 'name', 'lastname', 'address', 'email', 'phone'],
+            attributes: ['id', 'ci', 'name', 'lastname', 'address', 'email', 'phone'],
             where: { roleid: process.env.ADMIN_ID, isactive: true },
             order: [['timecreated', 'DESC']],
             offset: (offset - sizeSend),
@@ -46,8 +46,8 @@ export const findAdminById = async (req: Request, res: Response) => {
         const { id } = req.params;
 
         const user = await User.findOne({
-            attributes: ['userid', 'ci', 'name', 'lastname', 'address', 'email', 'phone'],
-            where: { userid: id }
+            attributes: ['id', 'ci', 'name', 'lastname', 'address', 'email', 'phone'],
+            where: { id }
         });
 
         return res.status(200).json({
@@ -77,10 +77,10 @@ export const updateAdmin = async (req: Request, res: Response) => {
             where:
             {
                 [Op.or]: [{
-                    [Op.and]: [{ ci, roleid: process.env.ADMIN_ID, userid: { [Op.ne]: userid } }]
+                    [Op.and]: [{ ci, roleid: process.env.ADMIN_ID, id: { [Op.ne]: userid } }]
                 },
                 {
-                    [Op.and]: [{ email, userid: { [Op.ne]: userid } }]
+                    [Op.and]: [{ email, id: { [Op.ne]: userid } }]
                 }
                 ]
             }
@@ -102,7 +102,7 @@ export const updateAdmin = async (req: Request, res: Response) => {
 
         await User.update({
             name, lastname, email, password, ci, address, phone
-        }, { where: { userid } });
+        }, { where: { id:userid } });
 
         return res.status(200).json({
             ok: true,
@@ -125,7 +125,7 @@ export const deleteAdmin = async (req: Request, res: Response) => {
 
         const { id } = req.params;
 
-        await User.destroy({ where: { userid: id } });
+        await User.destroy({ where: { id } });
 
         return res.status(200).json({
             ok: true,

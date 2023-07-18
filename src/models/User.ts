@@ -99,8 +99,8 @@ const User = sequelize.define<User>(
 
 /* Relation with UserCart */
 User.hasMany(UserCart, {
-  foreignKey: "id",
-  sourceKey: "userid",
+  foreignKey: "userid",
+  sourceKey: "id",
 });
 
 UserCart.belongsTo(User, {
@@ -109,8 +109,8 @@ UserCart.belongsTo(User, {
 
 /* Relation with shopping cart */
 User.hasMany(ShoppingCart, {
-  foreignKey: "id",
-  sourceKey: "userid",
+  foreignKey: "userid",
+  sourceKey: "id",
   as: "usercart_products",
 });
 
@@ -121,8 +121,8 @@ ShoppingCart.belongsTo(User, {
 
 /* Relation with invoice detail */
 User.hasMany(InvoiceDetail, {
-  foreignKey: "id",
-  sourceKey: "userid",
+  foreignKey: "userid",
+  sourceKey: "id",
   as: "invoice_user_details",
 });
 
@@ -133,8 +133,8 @@ InvoiceDetail.belongsTo(User, {
 
 /* Relation with discount code */
 User.hasMany(DiscountCode, {
-  foreignKey: "id",
-  sourceKey: "userid",
+  foreignKey: "userid",
+  sourceKey: "id",
   as: "authors_discounts",
 });
 

@@ -79,7 +79,7 @@ export const findCategoryById = async (req: Request, res: Response) => {
                     as: 'subcategory_category'
                 }]
             }],
-            where: { isactive: true, categoryid: id }
+            where: { isactive: true, id }
         });
 
         return res.status(200).json({
@@ -104,7 +104,7 @@ export const updateCategory = async (req: Request, res: Response) => {
         let { name, description } = req.body;
         const { id } = req.params;
 
-        await Category.update({ name: `${name}`.toUpperCase(), description }, { where: { categoryid: id } });
+        await Category.update({ name: `${name}`.toUpperCase(), description }, { where: { id } });
 
         return res.status(200).json({
             ok: true,
@@ -127,7 +127,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
         const { id } = req.params;
 
         /* Delete the category */
-        await Category.update({ isactive: false }, { where: { categoryid: id } });
+        await Category.update({ isactive: false }, { where: { id } });
 
         return res.status(200).json({
             ok: true,

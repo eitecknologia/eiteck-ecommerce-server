@@ -65,8 +65,8 @@ const Product = sequelize.define<Product>(
 
 /* Relation with sale products */
 Product.hasMany(SaleProduct, {
-  foreignKey: "id",
-  sourceKey: "productid",
+  foreignKey: "productid",
+  sourceKey: "id",
   as: "sale_products",
 });
 
@@ -77,8 +77,8 @@ SaleProduct.belongsTo(Product, {
 
 /* Relation with SubcategoryProduct table */
 Product.hasMany(SubcategoryProducts, {
-  foreignKey: "id",
-  sourceKey: "productid",
+  foreignKey: "productid",
+  sourceKey: "id",
   as: "products_subcategories",
 });
 
@@ -89,8 +89,8 @@ SubcategoryProducts.belongsTo(Product, {
 
 /* Relation with productImages table */
 Product.hasMany(ProductImages, {
-  foreignKey: "id",
-  sourceKey: "productid",
+  foreignKey: "productid",
+  sourceKey: "id",
   as: "product_resources",
 });
 
@@ -101,8 +101,8 @@ ProductImages.belongsTo(Product, {
 
 /* Relation with UserCart */
 Product.hasMany(UserCart, {
-  foreignKey: "id",
-  sourceKey: "productid",
+  foreignKey: "productid",
+  sourceKey: "id",
   as: "cart_products",
 });
 

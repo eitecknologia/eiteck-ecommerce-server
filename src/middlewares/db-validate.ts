@@ -5,9 +5,9 @@ import { Op } from 'sequelize';
 
 export const validateSubcategoriesInCategory = async (req: Request, res: Response, next: NextFunction) => {
 
-    const { categoryid }: Category = req.body;
+    const { id:categoryid }: Category = req.body;
     const subcategoriesArray: Subcategory[] = req.body.subcategories;
-    const subcategoriesIds = subcategoriesArray.map(subcategory => subcategory.subcategoryid);
+    const subcategoriesIds = subcategoriesArray.map(subcategory => subcategory.id);
 
     const isSubcategoryRegistered = await CategorySubcategory.findOne({
         where: {

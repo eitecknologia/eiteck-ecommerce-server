@@ -63,7 +63,7 @@ export const registerAdmin = async (req: Request, res: Response) => {
             ok: true,
             msg: "Administrador Creado",
             user: {
-                userid: user.userid,
+                id: user.id,
                 ci: user.ci,
                 name: user.name,
                 lastname: user.lastname,
@@ -116,13 +116,13 @@ export const loginAdmin = async (req: Request, res: Response) => {
         }
 
         /* Generate JWT */
-        const token = await generateJwt(user.userid);
+        const token = await generateJwt(user.id);
 
         return res.status(200).json({
             ok: true,
             msg: "Administrador Logueado",
             user: {
-                userid: user.userid,
+                id: user.id,
                 name: user.name,
                 lastname: user.lastname,
                 email: user.email
@@ -179,13 +179,13 @@ export const registerUser = async (req: Request, res: Response) => {
 
 
         /* Generate JWT */
-        const token = await generateJwt(user.userid);
+        const token = await generateJwt(user.id);
 
         return res.status(201).json({
             ok: true,
             msg: "Usuario Creado",
             user: {
-                userid: user.userid,
+                id: user.id,
                 name: user.name,
                 lastname: user.lastname,
                 email: user.email
@@ -237,13 +237,13 @@ export const loginUser = async (req: Request, res: Response) => {
         }
 
         /* Generate JWT */
-        const token = await generateJwt(user.userid);
+        const token = await generateJwt(user.id);
 
         return res.status(200).json({
             ok: true,
             msg: "Usuario Logueado",
             user: {
-                userid: user.userid,
+                id: user.id,
                 name: user.name,
                 lastname: user.lastname,
                 email: user.email
@@ -320,13 +320,13 @@ export const loginGoogle = async (req: Request, res: Response) => {
             })
         }
         /* Generate JWT */
-        const token = await generateJwt(user.userid);
+        const token = await generateJwt(user.id);
 
         return res.status(200).json({
             ok: true,
             msg: "Login exitoso",
             user: {
-                userid: user.userid,
+                id: user.id,
                 name: user.name,
                 lastname: user.lastname,
                 email: user.email
@@ -400,13 +400,13 @@ export const loginFacebook = async (req: Request, res: Response) => {
             })
         }
         /* Generate JWT */
-        const token = await generateJwt(user.userid);
+        const token = await generateJwt(user.id);
 
         return res.status(200).json({
             ok: true,
             msg: "Login exitoso",
             user: {
-                userid: user.userid,
+                id: user.id,
                 name: user.name,
                 lastname: user.lastname,
                 email: user.email
@@ -453,13 +453,13 @@ export const recoverPassword = async (req: Request, res: Response) => {
             });
         }
 
-        const { userid } = user;
+        const { id } = user;
 
         /* Generate JWT */
-        const token = await generateJwt(userid);
+        const token = await generateJwt(id);
 
         const urlRecoverPassword = (isAdmin == "true") ? process.env.URL_RECOVER_PASSWORD_ADMIN : process.env.URL_RECOVER_PASSWORD_USER
-        const path = `${urlRecoverPassword}?userid=${userid}&token=${token}`
+        const path = `${urlRecoverPassword}?id=${id}&token=${token}`
 
         await sendMail(email, recoverPasswordMsg(path), "Recuperar password");
 
@@ -480,11 +480,11 @@ export const recoverPassword = async (req: Request, res: Response) => {
 /* RECOVER PASSWORD -CLIENT */
 export const recoverPasswordReset = async (req: Request, res: Response) => {
     try {
-        let { userid, token, password } = req.body;
+        let { userId, token, password } = req.body;
 
         const { id }: any = jwt.verify(`${token}`, `${process.env.TOKEN_SEED}`);
 
-        if (id != userid) {
+        if (id != userId) {
             return res.status(401).json({
                 ok: false,
                 msg: `No autorizado`
@@ -496,7 +496,7 @@ export const recoverPasswordReset = async (req: Request, res: Response) => {
 
         await User.update({
             password
-        }, { where: { userid: id } })
+        }, { where: { id } })
 
         return res.status(200).json({
             ok: true,

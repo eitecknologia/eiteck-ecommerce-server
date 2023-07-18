@@ -110,7 +110,7 @@ export const getCodeById = async (req: Request, res: Response) => {
                 as: "author_discount",
                 attributes: ["userid", "ci", "name", "lastname"]
             }],
-            where: { discountcodeid }
+            where: { id: discountcodeid }
         });
 
         return res.status(201).json({
@@ -139,7 +139,7 @@ export const updateDiscountCode = async (req: Request, res: Response) => {
 
         /* Veriy if the discount name exist */
         if (discountcode) {
-            const discountCodeExist = await DiscountCode.findOne({ where: { discountcode, discountcodeid: { [Op.ne]: discountcodeid } } });
+            const discountCodeExist = await DiscountCode.findOne({ where: { discountcode, id: { [Op.ne]: discountcodeid } } });
             if (discountCodeExist) {
                 return res.status(400).json({
                     ok: false,
@@ -149,7 +149,7 @@ export const updateDiscountCode = async (req: Request, res: Response) => {
         }
 
         /* Get discount data */
-        const discountCodeInfo = await DiscountCode.findOne({ where: { discountcodeid } });
+        const discountCodeInfo = await DiscountCode.findOne({ where: { id:discountcodeid } });
         const newStartDate = (startdate) ? startdate : discountCodeInfo?.startdate!;
         const newFinishDate = (finishdate) ? finishdate : discountCodeInfo?.finishdate!;
 
@@ -205,9 +205,9 @@ export const deleteCode = async (req: Request, res: Response) => {
 
         /* Delete the code */
         if (codeWasUsed) {
-            await DiscountCode.update({ isactive: false }, { where: { discountcodeid } });
+            await DiscountCode.update({ isactive: false }, { where: { id:discountcodeid } });
         } else {
-            await DiscountCode.destroy({ where: { discountcodeid } });
+            await DiscountCode.destroy({ where: { id:discountcodeid } });
         }
 
         return res.status(201).json({
