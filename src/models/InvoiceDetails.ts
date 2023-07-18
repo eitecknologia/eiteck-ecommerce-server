@@ -79,13 +79,13 @@ const InvoiceDetail = sequelize.define<InvoiceDetail>(
 
 /* Relation with invoice detail */
 InvoiceDetail.hasMany(Sale, {
-  foreignKey: "invoiceid",
+  foreignKey: "id",
   sourceKey: "invoiceid",
   as: "sales_user_detail",
 });
 
 Sale.belongsTo(InvoiceDetail, {
-  foreignKey: "invoiceid",
+  foreignKey: "id",
   as: "sale_user_detail",
 });
 

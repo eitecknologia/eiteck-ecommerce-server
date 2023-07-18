@@ -105,13 +105,13 @@ const Sale = sequelize.define<Sale>(
 
 /* Relation with sale products */
 Sale.hasMany(SaleProduct, {
-  foreignKey: "saleid",
+  foreignKey: "id",
   sourceKey: "saleid",
   as: "products_sale",
 });
 
 SaleProduct.belongsTo(Sale, {
-  foreignKey: "saleid",
+  foreignKey: "id",
   as: "product_sale",
 });
 

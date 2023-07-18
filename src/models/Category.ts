@@ -52,12 +52,12 @@ const Category = sequelize.define<Category>(
 /* Relation with Products one to many */
 Category.hasMany(CategorySubcategory, {
   foreignKey: "categoryid",
-  sourceKey: "categoryid",
+  sourceKey: "id",
   as: "subcategories",
 });
 
 CategorySubcategory.belongsTo(Category, {
-  foreignKey: "categoryid",
+  foreignKey: "id",
   as: "subcategory",
 });
 

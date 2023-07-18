@@ -12,7 +12,7 @@ interface CategorySubcategory
     InferAttributes<CategorySubcategory>,
     InferCreationAttributes<CategorySubcategory>
   > {
-    id: CreationOptional<number>;
+  id: CreationOptional<number>;
   categoryid: number;
   subcategoryid: number;
   timecreated: CreationOptional<Date>;

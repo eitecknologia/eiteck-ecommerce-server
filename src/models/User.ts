@@ -99,47 +99,47 @@ const User = sequelize.define<User>(
 
 /* Relation with UserCart */
 User.hasMany(UserCart, {
-  foreignKey: "userid",
+  foreignKey: "id",
   sourceKey: "userid",
 });
 
 UserCart.belongsTo(User, {
-  foreignKey: "userid",
+  foreignKey: "id",
 });
 
 /* Relation with shopping cart */
 User.hasMany(ShoppingCart, {
-  foreignKey: "userid",
+  foreignKey: "id",
   sourceKey: "userid",
   as: "usercart_products",
 });
 
 ShoppingCart.belongsTo(User, {
-  foreignKey: "userid",
+  foreignKey: "id",
   as: "usercart_product",
 });
 
 /* Relation with invoice detail */
 User.hasMany(InvoiceDetail, {
-  foreignKey: "userid",
+  foreignKey: "id",
   sourceKey: "userid",
   as: "invoice_user_details",
 });
 
 InvoiceDetail.belongsTo(User, {
-  foreignKey: "userid",
+  foreignKey: "id",
   as: "invoice_user_detail",
 });
 
 /* Relation with discount code */
 User.hasMany(DiscountCode, {
-  foreignKey: "userid",
+  foreignKey: "id",
   sourceKey: "userid",
   as: "authors_discounts",
 });
 
 DiscountCode.belongsTo(User, {
-  foreignKey: "userid",
+  foreignKey: "id",
   as: "author_discount",
 });
 

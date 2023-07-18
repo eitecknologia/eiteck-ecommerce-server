@@ -13,7 +13,7 @@ interface DiscountCode
     InferAttributes<DiscountCode>,
     InferCreationAttributes<DiscountCode>
   > {
-    id: CreationOptional<number>;
+  id: CreationOptional<number>;
   discountcode: string;
   discountpercent: number;
   startdate: Date;
@@ -80,12 +80,12 @@ const DiscountCode = sequelize.define<DiscountCode>(
 
 DiscountCode.hasOne(Sale, {
   foreignKey: "discountcodeid",
-  sourceKey: "discountcodeid",
+  sourceKey: "id",
   as: "discounts_sale",
 });
 
 Sale.belongsTo(DiscountCode, {
-  foreignKey: "discountcodeid",
+  foreignKey: "id",
   as: "discount_sale",
 });
 
