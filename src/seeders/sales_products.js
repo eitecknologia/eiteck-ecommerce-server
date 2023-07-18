@@ -2,6 +2,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("sale_product", [
       {
+        id: 1,
         saleid: 1,
         productid: 1,
         quantity: 2,

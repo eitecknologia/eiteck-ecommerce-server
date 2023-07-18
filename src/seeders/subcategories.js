@@ -2,6 +2,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("subcategories", [
       {
+        id: 1,
         name: "Hombre",
         description: "Prendas de Hombre",
         isactive: true,

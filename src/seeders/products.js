@@ -2,11 +2,13 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("products", [
       {
+        id: 1,
         name: "Zapatos Nike Hoops",
         description: "Zapatos Nike Hoops con suela de goma",
         price: 50,
         stock: 10,
         isactive: true,
+        timecreated: new Date(),
       },
       {
         name: "Zapatos Adidas Mamba",

@@ -2,6 +2,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("products", [
       {
+        id: 1,
         discountcode: "SNEAKER12",
         discountpercent: 12.5,
         startdate: "2023-10-01",
@@ -10,6 +11,7 @@ module.exports = {
         userid: 1,
         accessrole: "ALL",
         isactive: true,
+        timecreated: new Date(),
       },
       {
         discountcode: "NAVIDAD24",
