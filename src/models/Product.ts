@@ -15,7 +15,7 @@ interface Product
   description: string;
   price: number;
   createdAt: CreationOptional<Date>;
-  isactive: CreationOptional<boolean>;
+  isActive: CreationOptional<boolean>;
 }
 
 const Product = sequelize.define<Product>(
@@ -39,7 +39,7 @@ const Product = sequelize.define<Product>(
       allowNull: false,
       defaultValue: 0,
     },
-    isactive: {
+    isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,

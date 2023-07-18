@@ -12,9 +12,10 @@ interface ProductImages
     InferAttributes<ProductImages>,
     InferCreationAttributes<ProductImages>
   > {
-    id: CreationOptional<number>;
+  id: CreationOptional<number>;
   url: string;
   type: string;
+  default: boolean;
   productVariantId: number;
 }
 
@@ -35,6 +36,11 @@ const ProductImages = sequelize.define<ProductImages>(
     type: {
       type: DataTypes.ENUM(...Object.values(ImageType)),
       allowNull: false,
+    },
+    default: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     url: {
       type: DataTypes.STRING,

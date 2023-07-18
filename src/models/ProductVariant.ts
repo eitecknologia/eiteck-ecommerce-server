@@ -10,6 +10,7 @@ import ProductImages from "./ProductImage";
 import UserCart from "./Shoppingcart";
 import SaleProduct from "./SaleProducts";
 import ProductSizes from "./ProductSize";
+import ProductMaterial from "./ProductMaterial";
 
 interface ProductVariant
   extends Model<
@@ -102,6 +103,18 @@ ProductVariant.hasMany(ProductSizes, {
 ProductSizes.belongsTo(ProductVariant, {
   foreignKey: "productVariantId",
   as: "product_size",
+});
+
+/* Relation with ProductMaterial */
+ProductVariant.hasMany(ProductMaterial, {
+  foreignKey: "productVariantId",
+  sourceKey: "id",
+  as: "product_materials",
+});
+
+ProductMaterial.belongsTo(ProductVariant, {
+  foreignKey: "productVariantId",
+  as: "product_material",
 });
 
 export default ProductVariant;
