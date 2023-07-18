@@ -42,7 +42,7 @@ export const isUserRole = (req: Request, res: Response, next: NextFunction) => {
     return next();
 }
 
-/* Middleware thst check if user has almost one valid role */
+/* Middleware that check if user has almost one valid role */
 export const userHasRole = (req: Request, res: Response, next: NextFunction) => {
     if (!req.user.roleid) {
         return res.status(400).json({
