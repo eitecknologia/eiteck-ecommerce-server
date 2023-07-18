@@ -6,7 +6,7 @@ module.exports = {
         description: "Zapatos Nike Hoops con suela de goma",
         price: 50,
         stock: 10,
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
@@ -14,7 +14,7 @@ module.exports = {
         description: "Zapatos Adidas Mamba con suela de goma",
         price: 100,
         stock: 100,
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
@@ -22,7 +22,7 @@ module.exports = {
         description: "Zapatos Skechers Air con suela de goma",
         price: 20.1,
         stock: 0,
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
@@ -30,7 +30,7 @@ module.exports = {
         description: "Zapatos Nike Dunk con suela de goma",
         price: 20.3,
         stock: 1,
-        isactive: false,
+        isActive: false,
         createdAt: new Date(),
       },
     ]);

@@ -68,7 +68,7 @@ export const getAllDiscountCodes = async (req: Request, res: Response) => {
         const { count: total, rows: discountcodes } = await DiscountCode.findAndCountAll({
             attributes: ["id", "discountcode", "discountpercent", "startdate", "finishdate", "accessrole", "status"],
             where: {
-                isactive: true,
+                isActive: true,
                 ...(role) && { accessrole: (role as string) }
             },
             order: [['createdAt', 'DESC']],
@@ -205,7 +205,7 @@ export const deleteCode = async (req: Request, res: Response) => {
 
         /* Delete the code */
         if (codeWasUsed) {
-            await DiscountCode.update({ isactive: false }, { where: { id:discountcodeid } });
+            await DiscountCode.update({ isActive: false }, { where: { id:discountcodeid } });
         } else {
             await DiscountCode.destroy({ where: { id:discountcodeid } });
         }

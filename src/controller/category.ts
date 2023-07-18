@@ -36,7 +36,7 @@ export const getCategories = async (req: Request, res: Response) => {
 
         const { count: total, rows: categories } = await Category.findAndCountAll({
             attributes: ['id', 'name', 'description'],
-            where: { isactive: true },
+            where: { isActive: true },
             order: [['createdAt', 'DESC']],
             offset: (offset - sizeSend),
             limit
@@ -68,18 +68,18 @@ export const findCategoryById = async (req: Request, res: Response) => {
         const { id } = req.params;
 
         const category = await Category.findOne({
-            attributes: { exclude: ['isactive', 'createdAt'] },
+            attributes: { exclude: ['isActive', 'createdAt'] },
             include: [{
                 attributes: { exclude: ['categoryid', 'subcategoryid', 'createdAt'] },
                 model: CategorySubcategory,
                 as: 'subcategories',
                 include: [{
                     model: Subcategory,
-                    attributes: { exclude: ['isactive', 'createdAt'] },
+                    attributes: { exclude: ['isActive', 'createdAt'] },
                     as: 'subcategory_category'
                 }]
             }],
-            where: { isactive: true, id }
+            where: { isActive: true, id }
         });
 
         return res.status(200).json({
@@ -127,7 +127,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
         const { id } = req.params;
 
         /* Delete the category */
-        await Category.update({ isactive: false }, { where: { id } });
+        await Category.update({ isActive: false }, { where: { id } });
 
         return res.status(200).json({
             ok: true,
@@ -159,7 +159,7 @@ export const getCategoriesWithSubcategories = async (_req: Request, res: Respons
                     as: 'subcategory_category'
                 }]
             }],
-            where: { isactive: true },
+            where: { isActive: true },
             order: [['createdAt', 'DESC']],
         })
 

@@ -23,7 +23,7 @@ interface User
   phone: CreationOptional<string>;
   google: CreationOptional<boolean>;
   facebook: CreationOptional<boolean>;
-  isactive: CreationOptional<boolean | null>;
+  isActive: CreationOptional<boolean | null>;
   createdAt: CreationOptional<Date>;
   roleid: number;
 }
@@ -61,7 +61,7 @@ const User = sequelize.define<User>(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    isactive: {
+    isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: true,

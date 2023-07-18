@@ -4,25 +4,25 @@ module.exports = {
       {
         name: "Casual",
         description: "Ropa y Zapatos Casual",
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
         name: "Deportivo",
         description: "Ropa y Zapatos Deportivos",
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
         name: "Bota",
         description: "Ropa y Zapatos Bota",
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
         name: "Otro",
         description: "Ropa y Zapatos Otro",
-        isactive: false,
+        isActive: false,
         createdAt: new Date(),
       },
     ]);

@@ -22,7 +22,7 @@ interface DiscountCode
   status: CreationOptional<boolean>;
   createdAt: CreationOptional<Date>;
   userid: number;
-  isactive: CreationOptional<boolean>;
+  isActive: CreationOptional<boolean>;
 }
 
 const DiscountCode = sequelize.define<DiscountCode>(
@@ -67,7 +67,7 @@ const DiscountCode = sequelize.define<DiscountCode>(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    isactive: {
+    isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,

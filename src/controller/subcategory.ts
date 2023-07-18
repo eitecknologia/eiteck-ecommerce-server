@@ -62,7 +62,7 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
             attributes: { exclude: ['id', 'subcategoryid', 'createdAt'] },
             include: [{
                 model: Subcategory,
-                attributes: { exclude: ['isactive', 'createdAt'] },
+                attributes: { exclude: ['isActive', 'createdAt'] },
                 as: 'subcategory_category'
             }],
             where: { categoryid },
@@ -75,7 +75,7 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
             attributes: ['id', 'name', 'description'],
             where: {
                 id: { [Op.notIn]: subcategoriesInCategoryIds },
-                isactive: true
+                isActive: true
             },
             order: [['createdAt', 'DESC']]
         })
@@ -108,7 +108,7 @@ export const getSubcategories = async (_req: Request, res: Response) => {
             }],
             raw: true,
             where: {
-                isactive: true
+                isActive: true
             },
             order: [['createdAt', 'DESC']]
         })
@@ -236,7 +236,7 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
                     as: 'product_media',
                     attributes: ['url']
                 }],
-                where: { isactive: true }
+                where: { isActive: true }
             }],
             where: { subcategoryid },
             order: [['createdAt', 'DESC']],
@@ -251,7 +251,7 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
                 model: Product,
                 as: 'product_subcategory',
                 attributes: ['id'],
-                where: { isactive: true }
+                where: { isActive: true }
             }],
             raw: true,
             where: { subcategoryid }

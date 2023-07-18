@@ -9,7 +9,7 @@ module.exports = {
         email: "cristhianalejandroguadalupe@gmail.com",
         password:
           "$2b$10$DuwM./jOhBBvzWjNkSRgz.olPuJ8GdnuKwtte9URTTBK4xNGhYBDW",
-        isactive: true,
+        isActive: true,
         phone: "0992663322",
         google: false,
         facebook: false,
@@ -24,7 +24,7 @@ module.exports = {
         email: "alejanrotest2@test.com",
         password:
           "$2b$10$an2MkonUdWmEZD3Qu4IO.uPg2sbpZMKut9pEODlClFY/zt9PyHK0q",
-        isactive: true,
+        isActive: true,
         phone: "09663663266",
         google: false,
         facebook: false,
@@ -39,7 +39,7 @@ module.exports = {
         email: "jeeu.95@gmail.com",
         password:
           "$2b$10$jeWIJTdDyJG9dc4pY.7KROOiCqNZfkLU4KkFExHy6QPsSOcgn8r2y",
-        isactive: true,
+        isActive: true,
         phone: "0992574014",
         google: false,
         facebook: false,

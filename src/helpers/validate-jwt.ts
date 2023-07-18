@@ -29,7 +29,7 @@ export const validateJwt = async (
       });
     }
 
-    if (!user.isactive) {
+    if (!user.isActive) {
       return res.status(400).json({
         ok: false,
         msg: `Usuario no disponible`,

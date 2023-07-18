@@ -9,7 +9,7 @@ module.exports = {
         status: true,
         userid: 1,
         accessrole: "ALL",
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
@@ -20,7 +20,7 @@ module.exports = {
         status: true,
         userid: 1,
         accessrole: "ALL",
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
@@ -31,7 +31,7 @@ module.exports = {
         status: true,
         userid: 1,
         accessrole: "ALL",
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
     ]);

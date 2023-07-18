@@ -4,25 +4,25 @@ module.exports = {
       {
         name: "Hombre",
         description: "Prendas de Hombre",
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
         name: "Mujer",
         description: "Prendas de Mujer",
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
         name: "Niño",
         description: "Prendas de Niño",
-        isactive: true,
+        isActive: true,
         createdAt: new Date(),
       },
       {
         name: "Otro",
         description: "Ropa y Zapatos Otro",
-        isactive: false,
+        isActive: false,
         createdAt: new Date(),
       },
     ]);

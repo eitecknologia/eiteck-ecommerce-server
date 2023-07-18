@@ -70,7 +70,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
                     attributes: ['id', 'name']
                 }]
             }],
-            where: { isactive: true },
+            where: { isActive: true },
             order: [['createdAt', 'DESC']],
             offset: (offset - sizeSend),
             limit
@@ -78,7 +78,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
 
 
         /* Calculate the total of pages */
-        const total = await Product.count({ where: { isactive: true } })
+        const total = await Product.count({ where: { isActive: true } })
         const totalPages = (Math.ceil(total / limit));
         const info = await infoPaginate(totalPages, total, pageSend, sizeSend);
 
@@ -129,7 +129,7 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
                 attributes: ["id", 'type', 'url']
             }],
             where: {
-                isactive: true,
+                isActive: true,
                 id: { [Op.in]: productsIdsArray }
             },
             order: [['createdAt', 'DESC']],
@@ -139,7 +139,7 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
 
 
         /* Calculate the total of pages */
-        const total = await Product.count({ where: { isactive: true, id: { [Op.in]: productsIdsArray } } })
+        const total = await Product.count({ where: { isActive: true, id: { [Op.in]: productsIdsArray } } })
         const totalPages = (Math.ceil(total / limit));
         const info = await infoPaginate(totalPages, total, pageSend, sizeSend);
 
@@ -183,7 +183,7 @@ export const getProductsBySubcategory = async (req: Request, res: Response) => {
                 attributes: ["id", 'type', 'url']
             }],
             where: {
-                isactive: true,
+                isActive: true,
                 id: { [Op.in]: productsIdsArray }
             },
             order: [['createdAt', 'DESC']],
@@ -193,7 +193,7 @@ export const getProductsBySubcategory = async (req: Request, res: Response) => {
 
 
         /* Calculate the total of pages */
-        const total = await Product.count({ where: { isactive: true, id: { [Op.in]: productsIdsArray } } })
+        const total = await Product.count({ where: { isActive: true, id: { [Op.in]: productsIdsArray } } })
         const totalPages = (Math.ceil(total / limit));
         const info = await infoPaginate(totalPages, total, pageSend, sizeSend);
 
@@ -219,8 +219,8 @@ export const findProductById = async (req: Request, res: Response) => {
         const { id } = req.params;
 
         const product = await Product.findOne({
-            attributes: { exclude: ['isactive', 'createdAt'] },
-            where: { isactive: true, id: id },
+            attributes: { exclude: ['isActive', 'createdAt'] },
+            where: { isActive: true, id: id },
             include: [
                 {
                     model: ProductImages,
@@ -384,7 +384,7 @@ export const availabilitySubcategories = async (req: Request, res: Response) => 
             attributes: { exclude: ['id', 'subcategoryid', 'createdAt'] },
             include: [{
                 model: Subcategory,
-                attributes: { exclude: ['isactive', 'createdAt'] },
+                attributes: { exclude: ['isActive', 'createdAt'] },
                 as: 'subcategory_products'
             }],
             where: { productid }
@@ -396,7 +396,7 @@ export const availabilitySubcategories = async (req: Request, res: Response) => 
             attributes: ['id', 'name', 'description'],
             where: {
                 id: { [Op.notIn]: categoriesWithProductsIds },
-                isactive: true
+                isActive: true
             },
             order: [['createdAt', 'DESC']]
         })
@@ -404,7 +404,7 @@ export const availabilitySubcategories = async (req: Request, res: Response) => 
         /* Get all subcategories */
         const subcategories = await Subcategory.findAll({
             attributes: ['id', 'name', 'description'],
-            where: { isactive: true },
+            where: { isActive: true },
             order: [['createdAt', 'DESC']]
         })
 
@@ -465,7 +465,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
         await ProductImages.destroy({ where: { productid } });
 
         await Product.update({
-            isactive: false
+            isActive: false
         }, { where: { id:productid } });
 
         return res.status(200).json({
@@ -539,7 +539,7 @@ export const productsNewArrived = async (req: Request, res: Response) => {
                 as: 'product_media',
                 attributes: ["id", 'type', 'url']
             }],
-            where: { isactive: true },
+            where: { isActive: true },
             order: [['createdAt', 'DESC']],
             limit: +limit
         });

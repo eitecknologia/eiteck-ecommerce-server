@@ -13,7 +13,7 @@ interface Category
   id: CreationOptional<number>;
   name: string;
   description: CreationOptional<string>;
-  isactive: CreationOptional<boolean>;
+  isActive: CreationOptional<boolean>;
   createdAt: CreationOptional<Date>;
 }
 
@@ -33,7 +33,7 @@ const Category = sequelize.define<Category>(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    isactive: {
+    isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
