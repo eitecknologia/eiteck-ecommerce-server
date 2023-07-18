@@ -1,0 +1,50 @@
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert("ecommerce_sale", [
+      {
+        status: "NOT_SENT",
+        userid: 2,
+        invoiceid: 1,
+        discountcodeid: null,
+        paymentresource: "CASH",
+        observation: "Observacion 1",
+        subtotal: 100,
+        iva: 12,
+        totalsale: 112,
+      },
+      {
+        status: "RECEIVED",
+        userid: 2,
+        invoiceid: 1,
+        discountcodeid: null,
+        paymentresource: "CASH",
+        observation: "Observacion 2",
+        subtotal: 100,
+        iva: 12,
+        totalsale: 112,
+      },
+      {
+        status: "ACCEPTED",
+        userid: 2,
+        invoiceid: 2,
+        discountcodeid: null,
+        paymentresource: "PAYCHECK",
+        observation: "Observacion 2",
+        subtotal: 100,
+        iva: 12,
+        totalsale: 112,
+      },
+      {
+        status: "REJECTED",
+        userid: 2,
+        invoiceid: 2,
+        discountcodeid: 1,
+        paymentresource: "CREDIT_CARD",
+        observation: "Observacion 4",
+        subtotal: 100,
+        iva: 12,
+        totalsale: 112,
+      },
+    ]);
+  },
+};
