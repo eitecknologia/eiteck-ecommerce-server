@@ -7,7 +7,9 @@
     "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node build/app.js",
-    "dev": "ts-node-dev --files src/app.ts"
+    "dev": "ts-node-dev --files src/app.ts",
+    "seed_dev":"npx sequelize-cli db:seed:all --env development --config src/config/config.json --seeders-path src/seeders",
+    "seed_prod":"npx sequelize-cli db:seed:all --env production --config src/config/config.json --seeders-path src/seeders"
   },
   "author": "Cristhian Guadalupe",
   "license": "ISC",
