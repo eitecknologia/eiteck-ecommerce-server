@@ -15,7 +15,7 @@ interface ProductImages
     id: CreationOptional<number>;
   url: string;
   type: string;
-  productid: number;
+  productVariantId: number;
 }
 
 // Define an Enum for the type of image
@@ -40,7 +40,7 @@ const ProductImages = sequelize.define<ProductImages>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    productid: {
+    productVariantId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

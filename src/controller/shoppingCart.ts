@@ -99,7 +99,7 @@ export const getMyShoppingCart = async (req: Request, res: Response) => {
                 attributes: ['id', 'name', 'price'],
                 include: [{
                     model: ProductImages,
-                    as: 'product_resources',
+                    as: 'product_media',
                     attributes: ["id", 'type', 'url']
                 }],
             }],

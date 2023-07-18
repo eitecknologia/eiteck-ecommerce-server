@@ -1,46 +1,46 @@
 import {
   DataTypes,
-  Model,
   InferAttributes,
+  Model,
   InferCreationAttributes,
   CreationOptional,
 } from "sequelize";
 import sequelize from "../database/config";
 
-interface ShoppingCart
+interface ProductSizes
   extends Model<
-    InferAttributes<ShoppingCart>,
-    InferCreationAttributes<ShoppingCart>
+    InferAttributes<ProductSizes>,
+    InferCreationAttributes<ProductSizes>
   > {
   id: CreationOptional<number>;
-  userid: number;
   productVariantId: number;
-  quantity: number;
-  timecreated: CreationOptional<Date>;
+  name: string;
+  unit: string;
+  createdAt: CreationOptional<Date>;
 }
 
-const ShoppingCart = sequelize.define<ShoppingCart>(
-  "shopping_cart",
+const ProductSizes = sequelize.define<ProductSizes>(
+  "product_sizes",
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    userid: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     productVariantId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    quantity: {
-      type: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING(150),
       allowNull: false,
     },
-    timecreated: {
-      type: DataTypes.DATEONLY,
+    unit: {
+      type: DataTypes.STRING(),
+      allowNull: false,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
@@ -50,4 +50,4 @@ const ShoppingCart = sequelize.define<ShoppingCart>(
   }
 );
 
-export default ShoppingCart;
+export default ProductSizes;

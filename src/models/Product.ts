@@ -6,18 +6,14 @@ import {
   CreationOptional,
 } from "sequelize";
 import sequelize from "../database/config";
-import ProductImages from "./ProductImage";
 import SubcategoryProducts from "./SubcategoryProduct";
-import UserCart from "./Shoppingcart";
-import SaleProduct from "./SaleProducts";
 
 interface Product
   extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
-    id: CreationOptional<number>;
+  id: CreationOptional<number>;
   name: string;
   description: string;
   price: number;
-  stock: CreationOptional<number>;
   timecreated: CreationOptional<Date>;
   isactive: CreationOptional<boolean>;
 }
@@ -40,12 +36,8 @@ const Product = sequelize.define<Product>(
     },
     price: {
       type: DataTypes.FLOAT,
-      allowNull: true,
-      defaultValue: null,
-    },
-    stock: {
-      type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
     },
     isactive: {
       type: DataTypes.BOOLEAN,
@@ -63,18 +55,6 @@ const Product = sequelize.define<Product>(
   }
 );
 
-/* Relation with sale products */
-Product.hasMany(SaleProduct, {
-  foreignKey: "productid",
-  sourceKey: "id",
-  as: "sale_products",
-});
-
-SaleProduct.belongsTo(Product, {
-  foreignKey: "productid",
-  as: "sale_product",
-});
-
 /* Relation with SubcategoryProduct table */
 Product.hasMany(SubcategoryProducts, {
   foreignKey: "productid",
@@ -85,30 +65,6 @@ Product.hasMany(SubcategoryProducts, {
 SubcategoryProducts.belongsTo(Product, {
   foreignKey: "productid",
   as: "product_subcategory",
-});
-
-/* Relation with productImages table */
-Product.hasMany(ProductImages, {
-  foreignKey: "productid",
-  sourceKey: "id",
-  as: "product_resources",
-});
-
-ProductImages.belongsTo(Product, {
-  foreignKey: "productid",
-  as: "product_resource",
-});
-
-/* Relation with UserCart */
-Product.hasMany(UserCart, {
-  foreignKey: "productid",
-  sourceKey: "id",
-  as: "cart_products",
-});
-
-UserCart.belongsTo(Product, {
-  foreignKey: "productid",
-  as: "cart_product",
 });
 
 export default Product;

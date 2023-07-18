@@ -233,7 +233,7 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
                 attributes: ['id', 'name', 'description', 'price', 'stock'],
                 include: [{
                     model: ProductImages,
-                    as: 'product_resources',
+                    as: 'product_media',
                     attributes: ['url']
                 }],
                 where: { isactive: true }

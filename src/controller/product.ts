@@ -58,7 +58,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
             attributes: ['id', 'name', 'description', 'price', 'stock', 'timecreated'],
             include: [{
                 model: ProductImages,
-                as: 'product_resources',
+                as: 'product_media',
                 attributes: ["id", 'type', 'url']
             }, {
                 model: SubcategoryProducts,
@@ -125,7 +125,7 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
             attributes: ['id', 'name', 'description', 'price', 'stock', 'timecreated'],
             include: [{
                 model: ProductImages,
-                as: 'product_resources',
+                as: 'product_media',
                 attributes: ["id", 'type', 'url']
             }],
             where: {
@@ -179,7 +179,7 @@ export const getProductsBySubcategory = async (req: Request, res: Response) => {
             attributes: ['id', 'name', 'description', 'price', 'stock', 'timecreated'],
             include: [{
                 model: ProductImages,
-                as: 'product_resources',
+                as: 'product_media',
                 attributes: ["id", 'type', 'url']
             }],
             where: {
@@ -224,7 +224,7 @@ export const findProductById = async (req: Request, res: Response) => {
             include: [
                 {
                     model: ProductImages,
-                    as: 'product_resources',
+                    as: 'product_media',
                     attributes: ["id", 'type', 'url']
                 }
             ]
@@ -503,7 +503,7 @@ export const productsMostSelled = async (req: Request, res: Response) => {
             attributes: ['id', 'name', 'description', 'price', 'stock'],
             include: [{
                 model: ProductImages,
-                as: 'product_resources',
+                as: 'product_media',
                 attributes: ["id", 'type', 'url']
             }],
             where: { id: mostSelledIds }
@@ -536,7 +536,7 @@ export const productsNewArrived = async (req: Request, res: Response) => {
             attributes: ['id', 'name', 'description', 'price', 'stock', 'timecreated'],
             include: [{
                 model: ProductImages,
-                as: 'product_resources',
+                as: 'product_media',
                 attributes: ["id", 'type', 'url']
             }],
             where: { isactive: true },
