@@ -22,7 +22,7 @@ interface Subcategory
 }
 
 const Subcategory = sequelize.define<Subcategory>(
-  "ecommerce_subcategories",
+  "subcategories",
   {
     subcategoryid: {
       type: DataTypes.INTEGER,

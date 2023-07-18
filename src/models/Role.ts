@@ -1,34 +1,44 @@
-import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
-import sequelize from '../database/config';
-import User from './User';
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from "sequelize";
+import sequelize from "../database/config";
+import User from "./User";
 
-interface Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
-    roleid: CreationOptional<number>;
-    name: string;
+interface Role
+  extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
+  roleid: CreationOptional<number>;
+  name: string;
 }
 
-const Role = sequelize.define<Role>('ecommerce_roles', {
+const Role = sequelize.define<Role>(
+  "roles",
+  {
     roleid: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
     },
     name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    }
-}, {
-    timestamps: false
-});
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
 
 Role.hasOne(User, {
-    foreignKey: "roleid",
-    sourceKey: "roleid"
-})
+  foreignKey: "roleid",
+  sourceKey: "roleid",
+});
 
 User.belongsTo(Role, {
-    foreignKey: 'roleid'
-})
-
+  foreignKey: "roleid",
+});
 
 export default Role;
