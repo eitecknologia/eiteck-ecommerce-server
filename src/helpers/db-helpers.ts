@@ -100,8 +100,9 @@ export const verifyStockProduct = async (amount: number, req: Meta) => {
         throw new Error(`Producto no encontrado`);
     }
 
-    const { stock } = product;
-
+    // const { stock } = product;
+    const  stock  = 0;
+    
     if (stock) {
         if (amount > stock) {
             throw new Error(`Sin stock`);

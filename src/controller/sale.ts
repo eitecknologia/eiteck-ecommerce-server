@@ -5,9 +5,9 @@ import {
   Product,
   Sale,
   SaleProduct,
-  ShoppingCart,
+  // ShoppingCart,
 } from "../models";
-import sequelize from "../database/config";
+// import sequelize from "../database/config";
 import { infoPaginate, validatePaginateParams } from "../helpers/pagination";
 import { SaleStatus } from "../models/Sale";
 import { uploadFiles } from "../helpers/files";
@@ -142,32 +142,33 @@ export const getSaleById = async (req: Request, res: Response) => {
 /* Update sale status Function */
 export const updateSaleStatus = async (req: Request, res: Response) => {
   try {
-    /* Get data from the request params */
-    const { saleid } = req.params;
+    console.log(req.body);
+    // /* Get data from the request params */
+    // const { saleid } = req.params;
 
-    /* Get data from the request body */
-    const { status, observation }: Sale = req.body;
+    // /* Get data from the request body */
+    // const { status, observation }: Sale = req.body;
 
-    /* Verify if the status is DENY*/
-    if (status == SaleStatus.REJECTED) {
-      /* get products of sale to increment in stock */
-      const products = await SaleProduct.findAll({ where: { saleid } });
-      for (const { productid, quantity } of products) {
-        const product = await Product.findOne({
-          where: { id: productid },
-        });
-        await product?.increment("stock", { by: quantity });
-      }
-    }
+    // /* Verify if the status is DENY*/
+    // if (status == SaleStatus.REJECTED) {
+    //   /* get products of sale to increment in stock */
+    //   const products = await SaleProduct.findAll({ where: { saleid } });
+    //   for (const { productid, quantity } of products) {
+    //     const product = await Product.findOne({
+    //       where: { id: productid },
+    //     });
+    //     await product?.increment("stock", { by: quantity });
+    //   }
+    // }
 
-    /* Update the sale */
-    await Sale.update(
-      {
-        status,
-        observation,
-      },
-      { where: { id:saleid } }
-    );
+    // /* Update the sale */
+    // await Sale.update(
+    //   {
+    //     status,
+    //     observation,
+    //   },
+    //   { where: { id:saleid } }
+    // );
 
     return res.status(200).json({
       ok: true,
@@ -273,73 +274,73 @@ export const getInvoiceDetails = async (req: Request, res: Response) => {
 export const makeSale = async (req: Request, res: Response) => {
   try {
     /* Get data from the request body */
-    const {
-      invoiceid,
-      cart_ids,
-      totalsale,
-      subtotal,
-      iva,
-      discountcodeid,
-    }: {
-      invoiceid: number;
-      cart_ids: number[];
-      totalsale: number;
-      subtotal: number;
-      iva: number;
-      discountcodeid: number;
-    } = req.body;
+    // const {
+    //   invoiceid,
+    //   cart_ids,
+    //   totalsale,
+    //   subtotal,
+    //   iva,
+    //   discountcodeid,
+    // }: {
+    //   invoiceid: number;
+    //   cart_ids: number[];
+    //   totalsale: number;
+    //   subtotal: number;
+    //   iva: number;
+    //   discountcodeid: number;
+    // } = req.body;
 
-    /* Get the userid */
-    const { userid } = req.user;
+    // /* Get the userid */
+    // const { userid } = req.user;
 
-    let saleid = null;
+    // let saleid = null;
 
-    /* Transaction of sale */
-    await sequelize.transaction(async (t) => {
-      /* Create sale */
-      const sale = await Sale.create(
-        {
-          invoiceid,
-          totalsale,
-          userid,
-          subtotal,
-          iva,
-          discountcodeid,
-        },
-        { transaction: t }
-      );
-      /* Register products of sale */
-      for (const cartid of cart_ids) {
-        const cart = await ShoppingCart.findOne({ where: { id:cartid } });
+    // /* Transaction of sale */
+    // await sequelize.transaction(async (t) => {
+    //   /* Create sale */
+    //   const sale = await Sale.create(
+    //     {
+    //       invoiceid,
+    //       totalsale,
+    //       userid,
+    //       subtotal,
+    //       iva,
+    //       discountcodeid,
+    //     },
+    //     { transaction: t }
+    //   );
+    //   /* Register products of sale */
+    //   for (const cartid of cart_ids) {
+    //     const cart = await ShoppingCart.findOne({ where: { id:cartid } });
 
-        cart &&
-          (await SaleProduct.create(
-            {
-              saleid: sale.id,
-              productid: cart.productid,
-              quantity: cart.quantity,
-            },
-            { transaction: t }
-          ));
+    //     cart &&
+    //       (await SaleProduct.create(
+    //         {
+    //           saleid: sale.id,
+    //           productid: cart.productid,
+    //           quantity: cart.quantity,
+    //         },
+    //         { transaction: t }
+    //       ));
 
-        await cart?.destroy({ transaction: t });
+    //     await cart?.destroy({ transaction: t });
 
-        /* Decrement the stock of products */
-        const product = await Product.findOne({
-          where: { id: cart?.productid },
-        });
-        await product?.decrement("stock", {
-          by: cart?.quantity,
-          transaction: t,
-        });
-      }
-      saleid = sale.id;
-    });
-
+    //     /* Decrement the stock of products */
+    //     const product = await Product.findOne({
+    //       where: { id: cart?.productid },
+    //     });
+    //     await product?.decrement("stock", {
+    //       by: cart?.quantity,
+    //       transaction: t,
+    //     });
+    //   }
+    //   saleid = sale.id;
+    // });
+    console.log(req.body);
     return res.status(200).json({
       ok: true,
       msg: "Venta solicitada con éxito",
-      saleid,
+      // saleid,
     });
   } catch (error) {
     console.log(error);

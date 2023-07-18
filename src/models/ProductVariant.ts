@@ -9,7 +9,6 @@ import sequelize from "../database/config";
 import ProductImages from "./ProductImage";
 import UserCart from "./Shoppingcart";
 import SaleProduct from "./SaleProducts";
-import ProductSizes from "./ProductSize";
 import ProductMaterial from "./ProductMaterial";
 
 interface ProductVariant
@@ -91,18 +90,6 @@ ProductVariant.hasMany(UserCart, {
 UserCart.belongsTo(ProductVariant, {
   foreignKey: "productVariantId",
   as: "cart_product",
-});
-
-/* Relation with ProductSizes */
-ProductVariant.hasMany(ProductSizes, {
-  foreignKey: "productVariantId",
-  sourceKey: "id",
-  as: "product_sizes",
-});
-
-ProductSizes.belongsTo(ProductVariant, {
-  foreignKey: "productVariantId",
-  as: "product_size",
 });
 
 /* Relation with ProductMaterial */
