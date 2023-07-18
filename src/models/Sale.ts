@@ -17,7 +17,7 @@ interface Sale extends Model<InferAttributes<Sale>, InferCreationAttributes<Sale
     timecreated: CreationOptional<Date>;
 }
 
-enum SaleStatus {
+export enum SaleStatus {
     RESERVED = "RESERVED",
     PENDING = "PENDING",
     REJECTED = "REJECTED",
