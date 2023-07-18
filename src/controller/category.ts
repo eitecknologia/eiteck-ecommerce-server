@@ -35,7 +35,7 @@ export const getCategories = async (req: Request, res: Response) => {
         const { offset, limit, pageSend, sizeSend } = await validatePaginateParams(page, size);
 
         const { count: total, rows: categories } = await Category.findAndCountAll({
-            attributes: ['categoryid', 'name', 'description'],
+            attributes: ['id', 'name', 'description'],
             where: { isactive: true },
             order: [['timecreated', 'DESC']],
             offset: (offset - sizeSend),
@@ -148,13 +148,13 @@ export const getCategoriesWithSubcategories = async (_req: Request, res: Respons
     try {
 
         const categories = await Category.findAll({
-            attributes: ['categoryid', 'name', 'description'],
+            attributes: ['id', 'name', 'description'],
             include: [{
-                attributes: ['casubid'],
+                attributes: ['id'],
                 model: CategorySubcategory,
                 as: 'subcategories',
                 include: [{
-                    attributes: ['subcategoryid', 'name', 'description'],
+                    attributes: ['id', 'name', 'description'],
                     model: Subcategory,
                     as: 'subcategory_category'
                 }]

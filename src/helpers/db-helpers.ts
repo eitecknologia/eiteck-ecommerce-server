@@ -169,11 +169,11 @@ export const verifyShoppingCartRegisterId = async (id: number) => {
 export const verifyStockOfCart = async (id: number) => {
     /* Get my shopping cart */
     const existRegister = await ShoppingCart.findOne({
-        attributes: ['cartid', 'quantity'],
+        attributes: ['id', 'quantity'],
         include: [{
             model: Product,
             as: "cart_product",
-            attributes: ['productid', 'name', 'price', 'stock'],
+            attributes: ['id', 'name', 'price', 'stock'],
             required: true
         }],
         where: { id }

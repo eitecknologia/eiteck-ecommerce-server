@@ -32,7 +32,7 @@ export const getAllsales = async (req: Request, res: Response) => {
 
     const { count: total, rows: sales } = await Sale.findAndCountAll({
       attributes: [
-        "saleid",
+        "id",
         "subtotal",
         "iva",
         "totalsale",
@@ -76,7 +76,7 @@ export const getSaleById = async (req: Request, res: Response) => {
 
     const sale = await Sale.findOne({
       attributes: [
-        "saleid",
+        "id",
         "totalsale",
         "status",
         "saledate",
@@ -87,7 +87,7 @@ export const getSaleById = async (req: Request, res: Response) => {
         {
           model: SaleProduct,
           as: "products_sale",
-          attributes: ["saleprodid", "quantity"],
+          attributes: ["id", "quantity"],
           include: [
             {
               model: Product,
@@ -100,7 +100,7 @@ export const getSaleById = async (req: Request, res: Response) => {
           model: InvoiceDetail,
           as: "sale_user_detail",
           attributes: [
-            "invoiceid",
+            "id",
             "ci",
             "name",
             "lastname",
@@ -113,7 +113,7 @@ export const getSaleById = async (req: Request, res: Response) => {
           model: DiscountCode,
           as: "discount_sale",
           attributes: [
-            "discountcodeid",
+            "id",
             "discountcode",
             "discountpercent",
             "startdate",
@@ -308,7 +308,6 @@ export const makeSale = async (req: Request, res: Response) => {
         },
         { transaction: t }
       );
-
       /* Register products of sale */
       for (const cartid of cart_ids) {
         const cart = await ShoppingCart.findOne({ where: { id:cartid } });
@@ -400,7 +399,7 @@ export const getMySales = async (req: Request, res: Response) => {
     /* Get sales of the user */
     const sales = await Sale.findAll({
       attributes: [
-        "saleid",
+        "id",
         "subtotal",
         "iva",
         "totalsale",
@@ -413,7 +412,7 @@ export const getMySales = async (req: Request, res: Response) => {
         {
           model: SaleProduct,
           as: "products_sale",
-          attributes: ["saleprodid", "quantity"],
+          attributes: ["id", "quantity"],
           include: [
             {
               model: Product,
@@ -426,7 +425,7 @@ export const getMySales = async (req: Request, res: Response) => {
           model: InvoiceDetail,
           as: "sale_user_detail",
           attributes: [
-            "invoiceid",
+            "id",
             "ci",
             "name",
             "lastname",

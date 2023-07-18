@@ -31,12 +31,6 @@ export enum SaleStatus {
   PAID = "PAID",
 }
 
-enum PaymentResource {
-  CASH = "CASH", // Efectivo
-  CREDIT_CARD = "CREDIT_CARD", // Tarjeta de crédito
-  PAYCHECK = "PAYCHECK", // Cheque
-}
-
 const Sale = sequelize.define<Sale>(
   "sale",
   {
@@ -70,7 +64,7 @@ const Sale = sequelize.define<Sale>(
       defaultValue: DataTypes.NOW,
     },
     paymentresource: {
-      type: DataTypes.ENUM(...Object.values(PaymentResource)),
+      type: DataTypes.STRING(),
       allowNull: true,
       defaultValue: null,
     },

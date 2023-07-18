@@ -66,7 +66,7 @@ export const getAllDiscountCodes = async (req: Request, res: Response) => {
         (role) && (validRoles.includes(role as string)) ? role = role : role = null;
 
         const { count: total, rows: discountcodes } = await DiscountCode.findAndCountAll({
-            attributes: ["discountcodeid", "discountcode", "discountpercent", "startdate", "finishdate", "accessrole", "status"],
+            attributes: ["id", "discountcode", "discountpercent", "startdate", "finishdate", "accessrole", "status"],
             where: {
                 isactive: true,
                 ...(role) && { accessrole: (role as string) }
@@ -104,11 +104,11 @@ export const getCodeById = async (req: Request, res: Response) => {
         const { discountcodeid } = req.params;
 
         const discountcode = await DiscountCode.findOne({
-            attributes: ["discountcodeid", "discountcode", "discountpercent", "startdate", "finishdate", "accessrole", "status"],
+            attributes: ["id", "discountcode", "discountpercent", "startdate", "finishdate", "accessrole", "status"],
             include: [{
                 model: User,
                 as: "author_discount",
-                attributes: ["userid", "ci", "name", "lastname"]
+                attributes: ["id", "ci", "name", "lastname"]
             }],
             where: { id: discountcodeid }
         });

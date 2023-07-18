@@ -92,15 +92,15 @@ export const getMyShoppingCart = async (req: Request, res: Response) => {
 
         /* Get my shopping cart */
         const shoppingCart = await ShoppingCart.findAll({
-            attributes: ['cartid', 'quantity'],
+            attributes: ['id', 'quantity'],
             include: [{
                 model: Product,
                 as: "cart_product",
-                attributes: ['productid', 'name', 'price'],
+                attributes: ['id', 'name', 'price'],
                 include: [{
                     model: ProductImages,
                     as: 'product_resources',
-                    attributes: ["imageid", 'type', 'url']
+                    attributes: ["id", 'type', 'url']
                 }],
             }],
             where: { userid },

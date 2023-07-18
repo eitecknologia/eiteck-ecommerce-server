@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Subcategory from '../models/Subcategory';
-import Category from '../models/Category';
 import { CategorySubcategory, Product, ProductImages, SubcategoryProducts } from "../models";
 import { Op } from 'sequelize';
 import { validatePaginateParams, infoPaginate } from '../helpers/pagination';
@@ -60,7 +59,7 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
         const categoryid = req.params.categoryid;
 
         const subcategoriesInCategory = await CategorySubcategory.findAll({
-            attributes: { exclude: ['categoryid', 'subcategoryid', 'timecreated'] },
+            attributes: { exclude: ['id', 'subcategoryid', 'timecreated'] },
             include: [{
                 model: Subcategory,
                 attributes: { exclude: ['isactive', 'timecreated'] },
@@ -73,7 +72,7 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
         const subcategoriesInCategoryIds = subcategoriesInCategory.map((subcategory: any) => subcategory.subcategory_category.subcategoryid)
 
         const subcategoriesAvailables = await Subcategory.findAll({
-            attributes: ['subcategoryid', 'name', 'description'],
+            attributes: ['id', 'name', 'description'],
             where: {
                 id: { [Op.notIn]: subcategoriesInCategoryIds },
                 isactive: true
@@ -100,9 +99,9 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
 export const getSubcategories = async (_req: Request, res: Response) => {
     try {
         const subcategories = await Subcategory.findAll({
-            attributes: ['subcategoryid', 'name', 'description'],
+            attributes: ['id', 'name', 'description'],
             include: [{
-                attributes: ['categoryid'],
+                attributes: ['id'],
                 model: CategorySubcategory,
                 as: "subcategories_category",
                 required: true
@@ -143,13 +142,16 @@ export const getSubcategories = async (_req: Request, res: Response) => {
 export const assignSubcategories = async (req: Request, res: Response) => {
     try {
 
-        const { id:categoryId }: Category = req.body;
-        const subcategoriesArray: Subcategory[] = req.body.subcategories;
+        console.log(req.body.subcategories);
+        console.log(req.body.categoryid);
 
-        for (const { id:subcategoryId } of subcategoriesArray) {
+        const { categoryid } = req.body;
+        const subcategoriesArray: any[] = req.body.subcategories;
+
+        for (const { subcategoryid } of subcategoriesArray) {
             await CategorySubcategory.create({
-                categoryid:categoryId,
-                subcategoryid:subcategoryId
+                categoryid,
+                subcategoryid
             })
         }
 
@@ -224,11 +226,11 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
         }
 
         const products = await SubcategoryProducts.findAll({
-            attributes: ['subprodid', 'timecreated'],
+            attributes: ['id', 'timecreated'],
             include: [{
                 model: Product,
                 as: 'product_subcategory',
-                attributes: ['productid', 'name', 'description', 'price', 'stock'],
+                attributes: ['id', 'name', 'description', 'price', 'stock'],
                 include: [{
                     model: ProductImages,
                     as: 'product_resources',
@@ -244,11 +246,11 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
 
         /* Calculate the total of pages */
         const totalProducts = await SubcategoryProducts.findAll({
-            attributes: ['subprodid'],
+            attributes: ['id'],
             include: [{
                 model: Product,
                 as: 'product_subcategory',
-                attributes: ['productid'],
+                attributes: ['id'],
                 where: { isactive: true }
             }],
             raw: true,

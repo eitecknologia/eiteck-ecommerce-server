@@ -55,19 +55,19 @@ export const getAllProducts = async (req: Request, res: Response) => {
         const { offset, limit, pageSend, sizeSend } = await validatePaginateParams(page, size);
 
         const products = await Product.findAll({
-            attributes: ['productid', 'name', 'description', 'price', 'stock', 'timecreated'],
+            attributes: ['id', 'name', 'description', 'price', 'stock', 'timecreated'],
             include: [{
                 model: ProductImages,
                 as: 'product_resources',
-                attributes: ["imageid", 'type', 'url']
+                attributes: ["id", 'type', 'url']
             }, {
                 model: SubcategoryProducts,
                 as: 'products_subcategories',
-                attributes: ['subprodid'],
+                attributes: ['id'],
                 include: [{
                     model: Subcategory,
                     as: 'subcategory_products',
-                    attributes: ['subcategoryid', 'name']
+                    attributes: ['id', 'name']
                 }]
             }],
             where: { isactive: true },
@@ -225,7 +225,7 @@ export const findProductById = async (req: Request, res: Response) => {
                 {
                     model: ProductImages,
                     as: 'product_resources',
-                    attributes: ["imageid", 'type', 'url']
+                    attributes: ["id", 'type', 'url']
                 }
             ]
         });
@@ -381,7 +381,7 @@ export const availabilitySubcategories = async (req: Request, res: Response) => 
         const { productid } = req.params;
 
         const subcategoriesWithProduct = await SubcategoryProducts.findAll({
-            attributes: { exclude: ['productid', 'subcategoryid', 'timecreated'] },
+            attributes: { exclude: ['id', 'subcategoryid', 'timecreated'] },
             include: [{
                 model: Subcategory,
                 attributes: { exclude: ['isactive', 'timecreated'] },
@@ -393,7 +393,7 @@ export const availabilitySubcategories = async (req: Request, res: Response) => 
         const categoriesWithProductsIds = subcategoriesWithProduct.map((register: any) => register.subcategory_products.subcategoryid);
 
         const subcategoriesAvailables = await Subcategory.findAll({
-            attributes: ['subcategoryid', 'name', 'description'],
+            attributes: ['id', 'name', 'description'],
             where: {
                 id: { [Op.notIn]: categoriesWithProductsIds },
                 isactive: true
@@ -403,7 +403,7 @@ export const availabilitySubcategories = async (req: Request, res: Response) => 
 
         /* Get all subcategories */
         const subcategories = await Subcategory.findAll({
-            attributes: ['subcategoryid', 'name', 'description'],
+            attributes: ['id', 'name', 'description'],
             where: { isactive: true },
             order: [['timecreated', 'DESC']]
         })
@@ -491,8 +491,8 @@ export const productsMostSelled = async (req: Request, res: Response) => {
 
         /* Get the products most selled in sales table */
         const productsMostSelled = await SaleProduct.findAll({
-            attributes: ['productid', [Sequelize.fn('SUM', Sequelize.col('quantity')), 'totalsold']],
-            group: ['productid'],
+            attributes: ['id', [Sequelize.fn('SUM', Sequelize.col('quantity')), 'totalsold']],
+            group: ['id'],
             order: [[Sequelize.literal('totalsold'), 'DESC']],
             limit: +limit
         });
@@ -500,11 +500,11 @@ export const productsMostSelled = async (req: Request, res: Response) => {
         const mostSelledIds = productsMostSelled.map(id => id.productid) || [];
 
         const mostSelled = await Product.findAll({
-            attributes: ['productid', 'name', 'description', 'price', 'stock'],
+            attributes: ['id', 'name', 'description', 'price', 'stock'],
             include: [{
                 model: ProductImages,
                 as: 'product_resources',
-                attributes: ["imageid", 'type', 'url']
+                attributes: ["id", 'type', 'url']
             }],
             where: { id: mostSelledIds }
         })
@@ -533,11 +533,11 @@ export const productsNewArrived = async (req: Request, res: Response) => {
 
         /* Get the products most selled in sales table */
         const productsNewArrived = await Product.findAll({
-            attributes: ['productid', 'name', 'description', 'price', 'stock', 'timecreated'],
+            attributes: ['id', 'name', 'description', 'price', 'stock', 'timecreated'],
             include: [{
                 model: ProductImages,
                 as: 'product_resources',
-                attributes: ["imageid", 'type', 'url']
+                attributes: ["id", 'type', 'url']
             }],
             where: { isactive: true },
             order: [['timecreated', 'DESC']],

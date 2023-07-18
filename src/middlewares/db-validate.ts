@@ -1,13 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { Category, Subcategory } from "../models";
 import CategorySubcategory from '../models/CategorySubcategory';
 import { Op } from 'sequelize';
 
 export const validateSubcategoriesInCategory = async (req: Request, res: Response, next: NextFunction) => {
 
-    const { id:categoryid }: Category = req.body;
-    const subcategoriesArray: Subcategory[] = req.body.subcategories;
-    const subcategoriesIds = subcategoriesArray.map(subcategory => subcategory.id);
+    const { categoryid } = req.body;
+    const subcategoriesArray: any[] = req.body.subcategories;
+    const subcategoriesIds = subcategoriesArray.map(subcategory => subcategory.subcategoryid);
 
     const isSubcategoryRegistered = await CategorySubcategory.findOne({
         where: {
