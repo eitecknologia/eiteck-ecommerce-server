@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { BannerImages } from "../models";
+import { BrandsImages } from "../models";
 import { validatePaginateParams, infoPaginate } from "../helpers/pagination";
 import { deleteFiles, uploadFiles } from "../helpers/files";
 
 /* Get all products by category Function */
-export const getAllBanners = async (req: Request, res: Response) => {
+export const getAllBrands = async (req: Request, res: Response) => {
   try {
     const { page, size } = req.query;
     const { offset, limit, pageSend, sizeSend } = await validatePaginateParams(
@@ -12,7 +12,7 @@ export const getAllBanners = async (req: Request, res: Response) => {
       size
     );
 
-    const banners = await BannerImages.findAll({
+    const banners = await BrandsImages.findAll({
       attributes: ["id", "url"],
       order: [["timecreated", "DESC"]],
       offset: offset - sizeSend,
@@ -20,13 +20,13 @@ export const getAllBanners = async (req: Request, res: Response) => {
     });
 
     /* Calculate the total of pages */
-    const total = await BannerImages.count({});
+    const total = await BrandsImages.count({});
     const totalPages = Math.ceil(total / limit);
     const info = await infoPaginate(totalPages, total, pageSend, sizeSend);
 
     return res.status(201).json({
       ok: true,
-      msg: "Listado de banners",
+      msg: "Listado de marcas",
       info,
       banners,
     });
@@ -40,7 +40,7 @@ export const getAllBanners = async (req: Request, res: Response) => {
 };
 
 /* Add resource Function */
-export const   createBanner = async (req: Request, res: Response) => {
+export const   createBrand = async (req: Request, res: Response) => {
   try {
     const image = req.files?.image || null;
 
@@ -55,13 +55,13 @@ export const   createBanner = async (req: Request, res: Response) => {
     const url = await uploadFiles(image);
 
     /* Add resource */
-    await BannerImages.create({
+    await BrandsImages.create({
       url,
     });
 
     return res.status(201).json({
       ok: true,
-      msg: "Banner agregado",
+      msg: "Marca agregada",
     });
   } catch (error) {
     return res.status(500).json({
@@ -73,13 +73,13 @@ export const   createBanner = async (req: Request, res: Response) => {
 };
 
 /* Delete banner */
-export const deleteBanner = async (req: Request, res: Response) => {
+export const deleteBrand = async (req: Request, res: Response) => {
   try {
     /* Get the data from the request param */
     const { id } = req.params;
 
     /* Get the resource info */
-    const bannerImage = await BannerImages.findByPk(id);
+    const bannerImage = await BrandsImages.findByPk(id);
 
     /* Delete the image from cloudinary */
     if (bannerImage?.url) {
@@ -91,7 +91,7 @@ export const deleteBanner = async (req: Request, res: Response) => {
 
     return res.status(201).json({
       ok: true,
-      msg: "Banner eliminado",
+      msg: "Marca eliminada",
       id,
     });
   } catch (error) {

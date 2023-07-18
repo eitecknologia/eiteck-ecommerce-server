@@ -11,6 +11,7 @@ import discountCodeRoutes from './discountcode';
 import shoopingCartRoutes from './shoppingCart';
 import saleRoutes from './sale';
 import bannerRouter from './bannerImages.routes';
+import brandRouter from './brandImages.routes';
 
 export {
     testRouter,
@@ -25,5 +26,6 @@ export {
     discountCodeRoutes,
     shoopingCartRoutes,
     saleRoutes,
-    bannerRouter
+    bannerRouter,
+    brandRouter
 }

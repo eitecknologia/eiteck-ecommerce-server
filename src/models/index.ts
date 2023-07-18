@@ -13,6 +13,7 @@ import InvoiceDetail from './InvoiceDetails';
 import Sale from './Sale';
 import SaleProduct from './SaleProducts';
 import BannerImages from './BannerImages';
+import BrandsImages from './BrandsImages';
 
 export {
     User,
@@ -29,5 +30,6 @@ export {
     InvoiceDetail,
     Sale,
     SaleProduct,
-    BannerImages
+    BannerImages,
+    BrandsImages
 }
