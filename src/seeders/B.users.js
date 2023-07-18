@@ -15,8 +15,10 @@ module.exports = {
         google: false,
         facebook: false,
         roleid: 1,
+        timecreated: new Date(),
       },
       {
+        id: 2,
         ci: "01056677883",
         name: "Alejandro2",
         lastname: "Morales2",
@@ -29,8 +31,10 @@ module.exports = {
         google: false,
         facebook: false,
         roleid: 2,
+        timecreated: new Date(),
       },
       {
+        id: 3,
         ci: "0105344048",
         name: "Jorge",
         lastname: "Encalada",
@@ -43,7 +47,11 @@ module.exports = {
         google: false,
         facebook: false,
         roleid: 2,
+        timecreated: new Date(),
       },
     ]);
   },
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete("users", null, {});
+  }
 };

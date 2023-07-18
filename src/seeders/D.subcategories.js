@@ -1,26 +1,29 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("categories", [
+    return queryInterface.bulkInsert("subcategories", [
       {
         id: 1,
-        name: "Casual",
-        description: "Ropa y Zapatos Casual",
+        name: "Hombre",
+        description: "Prendas de Hombre",
         isactive: true,
         timecreated: new Date(),
       },
       {
-        name: "Deportivo",
-        description: "Ropa y Zapatos Deportivos",
+        id: 2,
+        name: "Mujer",
+        description: "Prendas de Mujer",
         isactive: true,
         timecreated: new Date(),
       },
       {
-        name: "Bota",
-        description: "Ropa y Zapatos Bota",
+        id: 3,
+        name: "Niño",
+        description: "Prendas de Niño",
         isactive: true,
         timecreated: new Date(),
       },
       {
+        id: 4,
         name: "Otro",
         description: "Ropa y Zapatos Otro",
         isactive: false,
@@ -28,4 +31,7 @@ module.exports = {
       },
     ]);
   },
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete("subcategories", null, {});
+  }
 };

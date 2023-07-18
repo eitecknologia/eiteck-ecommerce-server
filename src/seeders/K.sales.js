@@ -1,9 +1,9 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("sale", [
+    return queryInterface.bulkInsert("sales", [
       {
         id: 1,
-        status: "NOT_SENT",
+        status: "RESERVED",
         userid: 2,
         invoiceid: 1,
         discountcodeid: null,
@@ -12,9 +12,12 @@ module.exports = {
         subtotal: 100,
         iva: 12,
         totalsale: 112,
+        saledate: new Date(),
+        timecreated: new Date(),
       },
       {
-        status: "RECEIVED",
+        id: 2,
+        status: "PENDING",
         userid: 2,
         invoiceid: 1,
         discountcodeid: null,
@@ -23,9 +26,12 @@ module.exports = {
         subtotal: 100,
         iva: 12,
         totalsale: 112,
+        saledate: new Date(),
+        timecreated: new Date(),
       },
       {
-        status: "ACCEPTED",
+        id: 3,
+        status: "REJECTED",
         userid: 2,
         invoiceid: 2,
         discountcodeid: null,
@@ -34,9 +40,12 @@ module.exports = {
         subtotal: 100,
         iva: 12,
         totalsale: 112,
+        saledate: new Date(),
+        timecreated: new Date(),
       },
       {
-        status: "REJECTED",
+        id: 4,
+        status: "PAID",
         userid: 2,
         invoiceid: 2,
         discountcodeid: 1,
@@ -45,7 +54,12 @@ module.exports = {
         subtotal: 100,
         iva: 12,
         totalsale: 112,
+        saledate: new Date(),
+        timecreated: new Date(),
       },
     ]);
   },
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete("sales", null, {});
+  }
 };

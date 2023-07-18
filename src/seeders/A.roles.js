@@ -4,11 +4,14 @@ module.exports = {
       {
         id: 1,
         name: "ADMIN_ROLE",
-        timecreated: new Date(),
       },
       {
+        id: 2,
         name: "USER_ROLE",
       },
     ]);
+  },
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete("roles", null, {});
   },
 };
