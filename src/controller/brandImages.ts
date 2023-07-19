@@ -13,7 +13,7 @@ export const getAllBrands = async (req: Request, res: Response) => {
     );
 
     const banners = await BrandsImages.findAll({
-      attributes: ["id", "name", "url"],
+      attributes: ["brandid", "name", "url"],
       order: [["timecreated", "DESC"]],
       offset: offset - sizeSend,
       limit,
