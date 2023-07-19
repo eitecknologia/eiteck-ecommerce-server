@@ -313,6 +313,14 @@ export const addResourceToProduct = async (req: Request, res: Response) => {
     /* Get the data from the request param */
     const { prodvarid } = req.params;
 
+    // Validate type is image or video
+    if (type !== "image" && type !== "video") {
+      return res.status(400).json({
+        ok: false,
+        msg: "El tipo de recurso debe ser image o video",
+      });
+    }
+
     /* Verify if exist at least an image or url */
     if (!image && !url) {
         return res.status(400).json({
@@ -440,7 +448,7 @@ export const availabilitySubcategories = async (
     const { productid } = req.params;
 
     const subcategoriesWithProduct = await SubcategoryProducts.findAll({
-      attributes: { exclude: ["id", "subcategoryid", "timecreated"] },
+      attributes: { exclude: ["subprodid", "subcategoryid", "timecreated"] },
       include: [
         {
           model: Subcategory,
@@ -466,7 +474,7 @@ export const availabilitySubcategories = async (
 
     /* Get all subcategories */
     const subcategories = await Subcategory.findAll({
-      attributes: ["id", "name", "description"],
+      attributes: ["subcategoryid", "name", "description"],
       where: { isactive: true },
       order: [["timecreated", "DESC"]],
     });

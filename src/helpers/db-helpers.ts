@@ -95,7 +95,7 @@ export const verifyCategoryId = async (id: number) => {
 };
 
 /* Verify if exist resourceProductId */
-export const verifyResourceProductId = async (id: number) => {
+export const verifyMediaProductId = async (id: number) => {
   const existResource = await ProductMedia.findOne({
     where: { prodmediaid: id },
   });

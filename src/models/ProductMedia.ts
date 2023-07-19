@@ -20,7 +20,7 @@ interface ProductMedia
 }
 
 // Define an Enum for the type of image
-enum ImageType {
+export enum ImageType {
   IMAGE = "image",
   VIDEO = "video",
 }

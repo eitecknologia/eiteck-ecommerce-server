@@ -5,7 +5,7 @@ import {
   verifyProductId,
   verifyProductVariantId,
   verifyRegisterOfProductInSubcategory,
-  verifyResourceProductId,
+  verifyMediaProductId,
   verifySubcategoryIds,
 } from "../helpers/db-helpers";
 
@@ -100,12 +100,12 @@ productRouter.post(
 
 /* Service - Delete resource */
 productRouter.delete(
-  "/delete_resource/:resourceid",
+  "/delete_resource/:prodmediaid",
   [
     validateJwt,
     isAdminRole,
-    check("resourceid", "Ingrese un id válido").notEmpty().isNumeric(),
-    check("resourceid").custom(verifyResourceProductId),
+    check("prodmediaid", "Ingrese un id válido").notEmpty().isNumeric(),
+    check("prodmediaid").custom(verifyMediaProductId),
     fieldsValidate,
   ],
   deleteResourceProduct
@@ -128,7 +128,6 @@ productRouter.put(
       .optional()
       .notEmpty()
       .isNumeric(),
-    check("stock", "El stock es obligatorio").optional().notEmpty().isNumeric(),
     fieldsValidate,
   ],
   updateProduct
