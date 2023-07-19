@@ -6,8 +6,8 @@ import {
   CreationOptional,
 } from "sequelize";
 import sequelize from "../database/config";
-import UserCart from "./Shoppingcart";
-import ShoppingCart from "./Shoppingcart";
+import UserCart from "./ShoppingCart";
+import ShoppingCart from "./ShoppingCart";
 import InvoiceDetail from "./InvoiceDetails";
 import DiscountCode from "./DiscountCode";
 
