@@ -25,7 +25,7 @@ export const getAllsales = async (req: Request, res: Response) => {
     if (
       status != SaleStatus.PENDING &&
       status != SaleStatus.PAID &&
-      status != SaleStatus.REJECTED &&
+      status != SaleStatus.DENY &&
       status != SaleStatus.RESERVED
     )
       status = null;
@@ -121,7 +121,7 @@ export const getSaleById = async (req: Request, res: Response) => {
           ],
         },
       ],
-      where: { id:saleid },
+      where: { saleid },
     });
 
     return res.status(200).json({
@@ -153,9 +153,9 @@ export const updateSaleStatus = async (req: Request, res: Response) => {
     // if (status == SaleStatus.REJECTED) {
     //   /* get products of sale to increment in stock */
     //   const products = await SaleProduct.findAll({ where: { saleid } });
-    //   for (const { productId, quantity } of products) {
+    //   for (const { productid, quantity } of products) {
     //     const product = await Product.findOne({
-    //       where: { id: productId },
+    //       where: { id: productid },
     //     });
     //     await product?.increment("stock", { by: quantity });
     //   }
@@ -228,7 +228,7 @@ export const registerInvoiceDetails = async (req: Request, res: Response) => {
       ok: true,
       msg: "Registro realizado con éxito",
       invoicedetails: {
-        invoicedetailid: invoicedetails.id,
+        invoicedetailid: invoicedetails.invoiceid,
         ci: invoicedetails.ci,
         name: invoicedetails.name,
         lastname: invoicedetails.lastname,
@@ -317,7 +317,7 @@ export const makeSale = async (req: Request, res: Response) => {
     //       (await SaleProduct.create(
     //         {
     //           saleid: sale.id,
-    //           productId: cart.productId,
+    //           productid: cart.productid,
     //           quantity: cart.quantity,
     //         },
     //         { transaction: t }
@@ -327,7 +327,7 @@ export const makeSale = async (req: Request, res: Response) => {
 
     //     /* Decrement the stock of products */
     //     const product = await Product.findOne({
-    //       where: { id: cart?.productId },
+    //       where: { id: cart?.productid },
     //     });
     //     await product?.decrement("stock", {
     //       by: cart?.quantity,
@@ -374,7 +374,7 @@ export const uploadPaymentResource = async (req: Request, res: Response) => {
         paymentresource: fileUrl,
         status: SaleStatus.PENDING,
       },
-      { where: { id:saleid } }
+      { where: { saleid } }
     );
 
     return res.status(200).json({

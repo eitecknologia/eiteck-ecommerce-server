@@ -104,13 +104,13 @@ export const getCodeById = async (req: Request, res: Response) => {
         const { discountcodeid } = req.params;
 
         const discountcode = await DiscountCode.findOne({
-            attributes: ["id", "discountcode", "discountpercent", "startdate", "finishdate", "accessrole", "status"],
+            attributes: ["discountcodeid", "discountcode", "discountpercent", "startdate", "finishdate", "accessrole", "status"],
             include: [{
                 model: User,
                 as: "author_discount",
                 attributes: ["id", "ci", "name", "lastname"]
             }],
-            where: { id: discountcodeid }
+            where: { discountcodeid }
         });
 
         return res.status(201).json({
@@ -139,7 +139,7 @@ export const updateDiscountCode = async (req: Request, res: Response) => {
 
         /* Veriy if the discount name exist */
         if (discountcode) {
-            const discountCodeExist = await DiscountCode.findOne({ where: { discountcode, id: { [Op.ne]: discountcodeid } } });
+            const discountCodeExist = await DiscountCode.findOne({ where: { discountcode, discountcodeid: { [Op.ne]: discountcodeid } } });
             if (discountCodeExist) {
                 return res.status(400).json({
                     ok: false,
@@ -149,7 +149,7 @@ export const updateDiscountCode = async (req: Request, res: Response) => {
         }
 
         /* Get discount data */
-        const discountCodeInfo = await DiscountCode.findOne({ where: { id:discountcodeid } });
+        const discountCodeInfo = await DiscountCode.findOne({ where: { discountcodeid:discountcodeid } });
         const newStartDate = (startdate) ? startdate : discountCodeInfo?.startdate!;
         const newFinishDate = (finishdate) ? finishdate : discountCodeInfo?.finishdate!;
 
@@ -205,9 +205,9 @@ export const deleteCode = async (req: Request, res: Response) => {
 
         /* Delete the code */
         if (codeWasUsed) {
-            await DiscountCode.update({ isactive: false }, { where: { id:discountcodeid } });
+            await DiscountCode.update({ isactive: false }, { where: { discountcodeid:discountcodeid } });
         } else {
-            await DiscountCode.destroy({ where: { id:discountcodeid } });
+            await DiscountCode.destroy({ where: { discountcodeid:discountcodeid } });
         }
 
         return res.status(201).json({

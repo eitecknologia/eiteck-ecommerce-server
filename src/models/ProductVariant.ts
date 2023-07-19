@@ -63,7 +63,7 @@ const ProductVariant = sequelize.define<ProductVariant>(
 /* Relation with sale products */
 ProductVariant.hasMany(SaleProduct, {
   foreignKey: "prodvarid",
-  sourceKey: "id",
+  sourceKey: "prodvarid",
   as: "sale_products",
 });
 

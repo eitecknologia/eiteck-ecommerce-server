@@ -62,7 +62,7 @@ saleRoutes.put(
     check("status", "El estado de la venta es obligatorio")
       .not()
       .isEmpty()
-      .isIn([SaleStatus.PAID, SaleStatus.REJECTED]),
+      .isIn([SaleStatus.PAID, SaleStatus.DENY]),
     check("observation").optional().trim(),
     fieldsValidate,
   ],

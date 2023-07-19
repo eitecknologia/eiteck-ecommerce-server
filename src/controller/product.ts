@@ -36,7 +36,7 @@ export const createProduct = async (req: Request, res: Response) => {
       for (const subcategoryId of subcategories) {
         await SubcategoryProducts.create(
           {
-            productId: product.id,
+            productid: product.productid,
             subcategoryid: subcategoryId,
           },
           { transaction: t }
@@ -136,15 +136,15 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
 
     /* Get the ids of each product in the subcategories */
     const productsInSubcategories = await SubcategoryProducts.findAll({
-      attributes: ["productId"],
+      attributes: ["productid"],
       where: { subcategoryid: { [Op.in]: subcategoriesIdsArray } },
     });
     const productsIdsArray = productsInSubcategories.map(
-      (product) => product.productId
+      (product) => product.productid
     );
 
     const products = await Product.findAll({
-      attributes: ["id", "name", "description", "price", "stock", "timecreated"],
+      attributes: ["productid", "name", "description", "price", "stock", "timecreated"],
       include: [
         {
           model: ProductImages,
@@ -154,7 +154,7 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
       ],
       where: {
         isactive: true,
-        id: { [Op.in]: productsIdsArray },
+        productid: { [Op.in]: productsIdsArray },
       },
       order: [["timecreated", "DESC"]],
       offset: offset - sizeSend,
@@ -163,7 +163,7 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
 
     /* Calculate the total of pages */
     const total = await Product.count({
-      where: { isactive: true, id: { [Op.in]: productsIdsArray } },
+      where: { isactive: true, productid: { [Op.in]: productsIdsArray } },
     });
     const totalPages = Math.ceil(total / limit);
     const info = await infoPaginate(totalPages, total, pageSend, sizeSend);
@@ -196,25 +196,25 @@ export const getProductsBySubcategory = async (req: Request, res: Response) => {
 
     /* Get the ids of each product in the subcategories */
     const productsInSubcategories = await SubcategoryProducts.findAll({
-      attributes: ["productId"],
+      attributes: ["productid"],
       where: { subcategoryid },
     });
     const productsIdsArray = productsInSubcategories.map(
-      (product) => product.productId
+      (product) => product.productid
     );
 
     const products = await Product.findAll({
-      attributes: ["id", "name", "description", "price", "stock", "timecreated"],
+      attributes: ["productid", "name", "description", "price", "stock", "timecreated"],
       include: [
         {
           model: ProductImages,
           as: "product_media",
-          attributes: ["id", "type", "url"],
+          attributes: ["prodmediaid", "type", "url"],
         },
       ],
       where: {
         isactive: true,
-        id: { [Op.in]: productsIdsArray },
+        productid: { [Op.in]: productsIdsArray },
       },
       order: [["timecreated", "DESC"]],
       offset: offset - sizeSend,
@@ -223,7 +223,7 @@ export const getProductsBySubcategory = async (req: Request, res: Response) => {
 
     /* Calculate the total of pages */
     const total = await Product.count({
-      where: { isactive: true, id: { [Op.in]: productsIdsArray } },
+      where: { isactive: true, productid: { [Op.in]: productsIdsArray } },
     });
     const totalPages = Math.ceil(total / limit);
     const info = await infoPaginate(totalPages, total, pageSend, sizeSend);
@@ -250,7 +250,7 @@ export const findProductById = async (req: Request, res: Response) => {
 
     const product = await Product.findOne({
       attributes: { exclude: ["isactive", "timecreated"] },
-      where: { isactive: true, id: id },
+      where: { isactive: true, productid: id },
       include: [
         {
           model: ProductImages,
@@ -283,7 +283,7 @@ export const addResourceToProduct = async (req: Request, res: Response) => {
     // const image = req.files?.image || null;
 
     // /* Get the data from the request param */
-    // const { productId } = req.params;
+    // const { productid } = req.params;
 
     // /* Verify if exist at least an image or url */
     // if (!image && !url) {
@@ -300,7 +300,7 @@ export const addResourceToProduct = async (req: Request, res: Response) => {
 
     // /* Add resource */
     // await ProductImages.create({
-    //     productId: +productId,
+    //     productid: +productid,
     //     type,
     //     url
     // });
@@ -359,11 +359,11 @@ export const updateProduct = async (req: Request, res: Response) => {
     const subcategories: number[] = req.body.subcategories || [];
 
     /* Get the data from the request param */
-    const { productId } = req.params;
+    const { productid } = req.params;
 
     /* Transaction of product create */
     await sequelize.transaction(async (t) => {
-      const product = await Product.findByPk(productId);
+      const product = await Product.findByPk(productid);
 
       await product?.update(
         {
@@ -378,11 +378,11 @@ export const updateProduct = async (req: Request, res: Response) => {
       if (subcategories.length > 0) {
         for (const subcategoryid of subcategories) {
           const existRegister = await SubcategoryProducts.findOne({
-            where: { productId, subcategoryid },
+            where: { productid, subcategoryid },
           });
           if (!existRegister) {
             await SubcategoryProducts.create(
-              { productId: +productId, subcategoryid },
+              { productid: +productid, subcategoryid },
               { transaction: t }
             );
           }
@@ -409,7 +409,7 @@ export const availabilitySubcategories = async (
   res: Response
 ) => {
   try {
-    const { productId } = req.params;
+    const { productid } = req.params;
 
     const subcategoriesWithProduct = await SubcategoryProducts.findAll({
       attributes: { exclude: ["id", "subcategoryid", "timecreated"] },
@@ -420,7 +420,7 @@ export const availabilitySubcategories = async (
           as: "subcategory_products",
         },
       ],
-      where: { productId },
+      where: { productid },
     });
 
     const categoriesWithProductsIds = subcategoriesWithProduct.map(
@@ -428,14 +428,14 @@ export const availabilitySubcategories = async (
     );
 
     const subcategoriesAvailables = await Subcategory.findAll({
-      attributes: ["id", "name", "description"],
+      attributes: ["subcategoryid", "name", "description"],
       where: {
-        id: { [Op.notIn]: categoriesWithProductsIds },
+        subcategoryid: { [Op.notIn]: categoriesWithProductsIds },
         isactive: true,
       },
       order: [["timecreated", "DESC"]],
     });
-
+    
     /* Get all subcategories */
     const subcategories = await Subcategory.findAll({
       attributes: ["id", "name", "description"],
@@ -467,7 +467,7 @@ export const deleteProductOfSubcategory = async (
   try {
     const { subprodid } = req.params;
 
-    await SubcategoryProducts.destroy({ where: { id: subprodid } });
+    await SubcategoryProducts.destroy({ where: { subprodid } });
 
     return res.status(200).json({
       ok: true,
@@ -486,10 +486,10 @@ export const deleteProductOfSubcategory = async (
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     console.log(req.body);
-    // const { productId } = req.params;
+    // const { productid } = req.params;
 
     // /* Get the images Reward Images */
-    // const images: ProductImages[] = await ProductImages.findAll({ where: { productId } }) || [];
+    // const images: ProductImages[] = await ProductImages.findAll({ where: { productid } }) || [];
 
     // /* Delete the image from cloudinary */
     // for (const { url } of images) {
@@ -497,11 +497,11 @@ export const deleteProduct = async (req: Request, res: Response) => {
     // }
 
     // /* Delete the url images from the DB */
-    // await ProductImages.destroy({ where: { productId } });
+    // await ProductImages.destroy({ where: { productid } });
 
     // await Product.update({
     //     isactive: false
-    // }, { where: { id:productId } });
+    // }, { where: { id:productid } });
 
     return res.status(200).json({
       ok: true,
@@ -531,7 +531,7 @@ export const productsMostSelled = async (req: Request, res: Response) => {
     //     limit: +limit
     // });
 
-    // const mostSelledIds = productsMostSelled.map(id => id.productId) || [];
+    // const mostSelledIds = productsMostSelled.map(id => id.productid) || [];
 
     // const mostSelled = await Product.findAll({
     //     attributes: ['id', 'name', 'description', 'price', 'stock'],

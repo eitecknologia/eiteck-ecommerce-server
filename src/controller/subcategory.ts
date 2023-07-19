@@ -36,7 +36,7 @@ export const updateSubcategory = async (req: Request, res: Response) => {
         let { name, description } = req.body;
         const { id } = req.params;
 
-        await Subcategory.update({ name, description }, { where: { id } });
+        await Subcategory.update({ name, description }, { where: { subcategoryid: id } });
 
         return res.status(200).json({
             ok: true,
@@ -59,7 +59,7 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
         const categoryid = req.params.categoryid;
 
         const subcategoriesInCategory = await CategorySubcategory.findAll({
-            attributes: { exclude: ['id', 'subcategoryid', 'timecreated'] },
+            attributes: { exclude: ['casubid', 'subcategoryid', 'timecreated'] },
             include: [{
                 model: Subcategory,
                 attributes: { exclude: ['isactive', 'timecreated'] },
@@ -72,9 +72,9 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
         const subcategoriesInCategoryIds = subcategoriesInCategory.map((subcategory: any) => subcategory.subcategory_category.subcategoryid)
 
         const subcategoriesAvailables = await Subcategory.findAll({
-            attributes: ['id', 'name', 'description'],
+            attributes: ['subcategoryid', 'name', 'description'],
             where: {
-                id: { [Op.notIn]: subcategoriesInCategoryIds },
+                subcategoryid: { [Op.notIn]: subcategoriesInCategoryIds },
                 isactive: true
             },
             order: [['timecreated', 'DESC']]
@@ -99,7 +99,7 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
 export const getSubcategories = async (_req: Request, res: Response) => {
     try {
         const subcategories = await Subcategory.findAll({
-            attributes: ['id', 'name', 'description'],
+            attributes: ['subcategoryid', 'name', 'description'],
             include: [{
                 attributes: ['id'],
                 model: CategorySubcategory,
@@ -116,7 +116,7 @@ export const getSubcategories = async (_req: Request, res: Response) => {
         const subcategoriesInList: Subcategory[] = [];
 
         for (const subcategory of subcategories) {
-            const existRegister = subcategoriesInList.find(sub => sub.id == subcategory.id);
+            const existRegister = subcategoriesInList.find(sub => sub.subcategoryid == subcategory.subcategoryid);
             if (!existRegister) {
                 subcategoriesInList.push(subcategory)
             }
@@ -175,7 +175,7 @@ export const deleteDSubcategory = async (req: Request, res: Response) => {
 
         const { casubid } = req.params;
 
-        await CategorySubcategory.destroy({ where: { id:casubid } })
+        await CategorySubcategory.destroy({ where: { casubid } })
 
         return res.status(200).json({
             ok: true,
@@ -213,7 +213,7 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
                 })
             }
 
-            subcategoryid = getlastSubcategoryId.id;
+            subcategoryid = getlastSubcategoryId.subcategoryid;
         } {
             /* Validate the subcategory */
             const existSubcategory = await Subcategory.findByPk(subcategoryid);
@@ -226,11 +226,11 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
         }
 
         const products = await SubcategoryProducts.findAll({
-            attributes: ['id', 'timecreated'],
+            attributes: ['subprodid', 'timecreated'],
             include: [{
                 model: Product,
                 as: 'product_subcategory',
-                attributes: ['id', 'name', 'description', 'price', 'stock'],
+                attributes: ['subprodid', 'name', 'description', 'price', 'stock'],
                 include: [{
                     model: ProductImages,
                     as: 'product_media',
@@ -246,11 +246,11 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
 
         /* Calculate the total of pages */
         const totalProducts = await SubcategoryProducts.findAll({
-            attributes: ['id'],
+            attributes: ['subprodid'],
             include: [{
                 model: Product,
                 as: 'product_subcategory',
-                attributes: ['id'],
+                attributes: ['productid'],
                 where: { isactive: true }
             }],
             raw: true,
