@@ -15,7 +15,6 @@ interface ProductMedia
   prodmediaid: CreationOptional<number>;
   url: string;
   type: string;
-  default: boolean;
   prodvarid: number;
   timecreated: CreationOptional<Date>;
 }
@@ -37,11 +36,6 @@ const ProductMedia = sequelize.define<ProductMedia>(
     type: {
       type: DataTypes.ENUM(...Object.values(ImageType)),
       allowNull: false,
-    },
-    default: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
     },
     url: {
       type: DataTypes.STRING,

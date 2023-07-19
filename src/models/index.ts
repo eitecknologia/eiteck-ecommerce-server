@@ -26,7 +26,7 @@ export {
   Subcategory,
   SubcategoryProducts,
   Product,
-  ProductMedia as ProductImages,
+  ProductMedia,
   UserCart,
   ShoppingCart,
   DiscountCode,

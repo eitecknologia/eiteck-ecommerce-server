@@ -7,7 +7,7 @@ import {
   Subcategory,
   CategorySubcategory,
   SubcategoryProducts,
-  ProductImages,
+  ProductMedia,
   DiscountCode,
   ShoppingCart,
   InvoiceDetail,
@@ -95,7 +95,7 @@ export const verifyCategoryId = async (id: number) => {
 
 /* Verify if exist resourceProductId */
 export const verifyResourceProductId = async (id: number) => {
-  const existResource = await ProductImages.findOne({
+  const existResource = await ProductMedia.findOne({
     where: { prodmediaid: id },
   });
   if (!existResource) {

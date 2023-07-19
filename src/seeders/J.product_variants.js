@@ -2,28 +2,28 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("products_variants", [
       {
-        name: "Verde Plata Suave",
+        name: "Verde Planta Suave",
         stock: 10,
         productid: 1,
         isactive: true,
         timecreated: new Date(),
       },
       {
-        name: "Verde Plata Fuerte",
+        name: "Verde Planta Fuerte",
         stock: 20,
-        productid: 1,
-        isactive: true,
-        timecreated: new Date(),
-      },
-      {
-        name: "Azul Plata Suave",
-        stock: 30,
         productid: 2,
         isactive: true,
         timecreated: new Date(),
       },
       {
-        name: "Azul Plata Fuerte",
+        name: "Azul Planta Suave",
+        stock: 30,
+        productid: 1,
+        isactive: true,
+        timecreated: new Date(),
+      },
+      {
+        name: "Azul Planta Fuerte",
         stock: 10,
         productid: 2,
         isactive: false,

@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-// import { CategorySubcategory, Product, ProductImages, SaleProduct, Subcategory, SubcategoryProducts } from "../models";
+// import { CategorySubcategory, Product, ProductMedia, SaleProduct, Subcategory, SubcategoryProducts } from "../models";
 import {
   CategorySubcategory,
   Product,
-  ProductImages,
+  ProductMedia,
+  ProductVariant,
   Subcategory,
   SubcategoryProducts,
 } from "../models";
@@ -67,22 +68,31 @@ export const getAllProducts = async (req: Request, res: Response) => {
     );
 
     const products = await Product.findAll({
-      attributes: ["id", "name", "description", "price", "timecreated"],
+      attributes: ["productid", "name", "description", "price", "timecreated"],
       include: [
         {
-          model: ProductImages,
-          as: "product_media",
-          attributes: ["id", "type", "url"],
+          model: ProductVariant,
+          as: "product_variants",
+          attributes: ["prodvarid"],
+          include: [
+            {
+              model: ProductMedia,
+              as: "product_media",
+              attributes: ["prodmediaid", "type", "url"],
+              order: [["prodmediaid", "DESC"]],
+              limit: 1,
+            },
+          ],
         },
         {
           model: SubcategoryProducts,
           as: "products_subcategories",
-          attributes: ["id"],
+          attributes: ["subprodid"],
           include: [
             {
               model: Subcategory,
               as: "subcategory_products",
-              attributes: ["id", "name"],
+              attributes: ["subcategoryid", "name"],
             },
           ],
         },
@@ -94,7 +104,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
     });
 
     /* Calculate the total of pages */
-    const total = await Product.count({ where: { isactive: true } });
+    const total = products.length;
     const totalPages = Math.ceil(total / limit);
     const info = await infoPaginate(totalPages, total, pageSend, sizeSend);
 
@@ -144,10 +154,17 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
     );
 
     const products = await Product.findAll({
-      attributes: ["productid", "name", "description", "price", "stock", "timecreated"],
+      attributes: [
+        "productid",
+        "name",
+        "description",
+        "price",
+        "stock",
+        "timecreated",
+      ],
       include: [
         {
-          model: ProductImages,
+          model: ProductMedia,
           as: "product_media",
           attributes: ["id", "type", "url"],
         },
@@ -204,10 +221,17 @@ export const getProductsBySubcategory = async (req: Request, res: Response) => {
     );
 
     const products = await Product.findAll({
-      attributes: ["productid", "name", "description", "price", "stock", "timecreated"],
+      attributes: [
+        "productid",
+        "name",
+        "description",
+        "price",
+        "stock",
+        "timecreated",
+      ],
       include: [
         {
-          model: ProductImages,
+          model: ProductMedia,
           as: "product_media",
           attributes: ["prodmediaid", "type", "url"],
         },
@@ -253,7 +277,7 @@ export const findProductById = async (req: Request, res: Response) => {
       where: { isactive: true, productid: id },
       include: [
         {
-          model: ProductImages,
+          model: ProductMedia,
           as: "product_media",
           attributes: ["id", "type", "url"],
         },
@@ -299,7 +323,7 @@ export const addResourceToProduct = async (req: Request, res: Response) => {
     // }
 
     // /* Add resource */
-    // await ProductImages.create({
+    // await ProductMedia.create({
     //     productid: +productid,
     //     type,
     //     url
@@ -325,7 +349,7 @@ export const deleteResourceProduct = async (req: Request, res: Response) => {
     const { resourceid } = req.params;
 
     /* Get the resource info */
-    const resource = await ProductImages.findByPk(resourceid);
+    const resource = await ProductMedia.findByPk(resourceid);
 
     /* Delete the image from cloudinary */
     if (resource?.url) {
@@ -435,7 +459,7 @@ export const availabilitySubcategories = async (
       },
       order: [["timecreated", "DESC"]],
     });
-    
+
     /* Get all subcategories */
     const subcategories = await Subcategory.findAll({
       attributes: ["id", "name", "description"],
@@ -489,7 +513,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     // const { productid } = req.params;
 
     // /* Get the images Reward Images */
-    // const images: ProductImages[] = await ProductImages.findAll({ where: { productid } }) || [];
+    // const images: ProductMedia[] = await ProductMedia.findAll({ where: { productid } }) || [];
 
     // /* Delete the image from cloudinary */
     // for (const { url } of images) {
@@ -497,7 +521,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     // }
 
     // /* Delete the url images from the DB */
-    // await ProductImages.destroy({ where: { productid } });
+    // await ProductMedia.destroy({ where: { productid } });
 
     // await Product.update({
     //     isactive: false
@@ -536,7 +560,7 @@ export const productsMostSelled = async (req: Request, res: Response) => {
     // const mostSelled = await Product.findAll({
     //     attributes: ['id', 'name', 'description', 'price', 'stock'],
     //     include: [{
-    //         model: ProductImages,
+    //         model: ProductMedia,
     //         as: 'product_media',
     //         attributes: ["id", 'type', 'url']
     //     }],
@@ -565,10 +589,17 @@ export const productsNewArrived = async (req: Request, res: Response) => {
 
     /* Get the products most selled in sales table */
     const productsNewArrived = await Product.findAll({
-      attributes: ["id", "name", "description", "price", "stock", "timecreated"],
+      attributes: [
+        "id",
+        "name",
+        "description",
+        "price",
+        "stock",
+        "timecreated",
+      ],
       include: [
         {
-          model: ProductImages,
+          model: ProductMedia,
           as: "product_media",
           attributes: ["id", "type", "url"],
         },

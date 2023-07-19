@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import {
   DiscountCode,
   Product,
-  ProductImages,
+  ProductMedia,
   Role,
   ShoppingCart,
 } from "../models";
@@ -141,7 +141,7 @@ export const getMyShoppingCart = async (req: Request, res: Response) => {
           attributes: ["id", "name", "price"],
           include: [
             {
-              model: ProductImages,
+              model: ProductMedia,
               as: "product_media",
               attributes: ["id", "type", "url"],
             },
