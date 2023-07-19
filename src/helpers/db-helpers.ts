@@ -124,6 +124,19 @@ export const verifyProductId = async (id: number) => {
 export const verifyProductVariantId = async (id: number) => {
   /* Search if the product exists */
   const existProduct = await ProductVariant.findOne({
+    where: { prodvarid: id, isactive: true },
+  });
+  if (!existProduct) {
+    throw new Error(`Variante de Producto no encontrado`);
+  }
+
+  return true;
+};
+
+/* Verify if exist category id */
+export const verifyProductVariantProductId = async (id: number) => {
+  /* Search if the product exists */
+  const existProduct = await ProductVariant.findOne({
     where: { productid: id, isactive: true },
   });
   if (!existProduct) {

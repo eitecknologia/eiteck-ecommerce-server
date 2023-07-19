@@ -12,6 +12,7 @@ import shoopingCartRoutes from './shoppingCart';
 import saleRoutes from './sale';
 import bannerRouter from './bannerImages.routes';
 import brandRouter from './brandImages.routes';
+import productVariantRouter from './productVariant';
 
 export {
     testRouter,
@@ -27,5 +28,6 @@ export {
     shoopingCartRoutes,
     saleRoutes,
     bannerRouter,
-    brandRouter
+    brandRouter,
+    productVariantRouter
 }

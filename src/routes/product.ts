@@ -3,19 +3,15 @@ import { check } from "express-validator";
 import {
   verifyCategoryId,
   verifyProductId,
-  verifyProductVariantId,
   verifyRegisterOfProductInSubcategory,
-  verifyMediaProductId,
   verifySubcategoryIds,
 } from "../helpers/db-helpers";
 
 import {
-  addResourceToProduct,
   availabilitySubcategories,
   createProduct,
   deleteProduct,
   deleteProductOfSubcategory,
-  deleteResourceProduct,
   findProductById,
   getAllProducts,
   getProductsByCategory,
@@ -82,33 +78,6 @@ productRouter.get(
     fieldsValidate,
   ],
   findProductById
-);
-
-/* Service - Add resource */
-productRouter.post(
-  "/add_resource/:prodvarid",
-  [
-    validateJwt,
-    isAdminRole,
-    check("prodvarid", "Ingrese un id de la variante del producto").notEmpty().isNumeric(),
-    check("prodvarid").custom(verifyProductVariantId),
-    check("type", "El tipo del recurso es obligatorio").notEmpty().trim(),
-    fieldsValidate,
-  ],
-  addResourceToProduct
-);
-
-/* Service - Delete resource */
-productRouter.delete(
-  "/delete_resource/:prodmediaid",
-  [
-    validateJwt,
-    isAdminRole,
-    check("prodmediaid", "Ingrese un id válido").notEmpty().isNumeric(),
-    check("prodmediaid").custom(verifyMediaProductId),
-    fieldsValidate,
-  ],
-  deleteResourceProduct
 );
 
 /* Service - Update a product */

@@ -17,6 +17,7 @@ import {
   saleRoutes,
   bannerRouter,
   brandRouter,
+  productVariantRouter
 } from "../routes";
 
 import sequelize from "../database/config";
@@ -43,6 +44,7 @@ export class Server {
     sale: string;
     banner: string;
     brand: string;
+    productVariant: string;
   };
 
   constructor() {
@@ -63,6 +65,7 @@ export class Server {
       sale: `${this.prefix}/sale`,
       banner: `${this.prefix}/banner`,
       brand: `${this.prefix}/brand`,
+      productVariant: `${this.prefix}/productVariant`,
     };
 
     /* Middleware */
@@ -115,6 +118,7 @@ export class Server {
     this.app.use(this.paths.sale, saleRoutes);
     this.app.use(this.paths.banner, bannerRouter);
     this.app.use(this.paths.brand, brandRouter);
+    this.app.use(this.paths.productVariant, productVariantRouter);
 
     /* Service not found - 404 */
     this.app.use((_req, res: Response) => {

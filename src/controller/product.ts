@@ -11,7 +11,6 @@ import {
 import sequelize from "../database/config";
 import { Op } from "sequelize";
 import { infoPaginate, validatePaginateParams } from "../helpers/pagination";
-import { deleteFiles, uploadFiles } from "../helpers/files";
 
 /* Register product Function */
 export const createProduct = async (req: Request, res: Response) => {
@@ -281,88 +280,6 @@ export const findProductById = async (req: Request, res: Response) => {
       ok: true,
       msg: "Producto encontrado",
       product,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      ok: false,
-      msg: "Internal Server Error",
-      error,
-    });
-  }
-};
-
-/* Add resource Function */
-export const addResourceToProduct = async (req: Request, res: Response) => {
-  try {
-    /* Get the data from the request body */
-    let { type, url = null } = req.body;
-    const image = req.files?.image || null;
-
-    /* Get the data from the request param */
-    const { prodvarid } = req.params;
-
-    // Validate type is image or video
-    if (type !== "image" && type !== "video") {
-      return res.status(400).json({
-        ok: false,
-        msg: "El tipo de recurso debe ser image o video",
-      });
-    }
-
-    /* Verify if exist at least an image or url */
-    if (!image && !url) {
-      return res.status(400).json({
-        ok: false,
-        msg: "Debe enviar al menos una imagen o una url",
-      });
-    }
-
-    /* Verify if send an image to save */
-    if (image) {
-      url = await uploadFiles(image);
-    }
-
-    /* Add resource */
-    await ProductMedia.create({
-      prodvarid: +prodvarid,
-      type,
-      url,
-    });
-
-    return res.status(201).json({
-      ok: true,
-      msg: "Recurso agregado",
-    });
-  } catch (error) {
-    return res.status(500).json({
-      ok: false,
-      msg: "Internal Server Error",
-      error,
-    });
-  }
-};
-
-/* Delete resource Function */
-export const deleteResourceProduct = async (req: Request, res: Response) => {
-  try {
-    /* Get the data from the request param */
-    const { resourceid } = req.params;
-
-    /* Get the resource info */
-    const resource = await ProductMedia.findByPk(resourceid);
-
-    /* Delete the image from cloudinary */
-    if (resource?.url) {
-      await deleteFiles(resource.url);
-    }
-
-    /* Delete the resource */
-    await resource?.destroy();
-
-    return res.status(201).json({
-      ok: true,
-      msg: "Recurso eliminado",
-      resourceid,
     });
   } catch (error) {
     return res.status(500).json({
