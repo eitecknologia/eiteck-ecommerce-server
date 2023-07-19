@@ -13,7 +13,7 @@ export const getAllBrands = async (req: Request, res: Response) => {
     );
 
     const banners = await BrandsImages.findAll({
-      attributes: ["id", "url"],
+      attributes: ["id", "name", "url"],
       order: [["timecreated", "DESC"]],
       offset: offset - sizeSend,
       limit,
@@ -40,9 +40,11 @@ export const getAllBrands = async (req: Request, res: Response) => {
 };
 
 /* Add resource Function */
-export const   createBrand = async (req: Request, res: Response) => {
+export const createBrand = async (req: Request, res: Response) => {
   try {
     const image = req.files?.image || null;
+
+    const name = req.body.name || null;
 
     /* Verify if exist at least an image or url */
     if (!image) {
@@ -56,6 +58,7 @@ export const   createBrand = async (req: Request, res: Response) => {
 
     /* Add resource */
     await BrandsImages.create({
+      name,
       url,
     });
 

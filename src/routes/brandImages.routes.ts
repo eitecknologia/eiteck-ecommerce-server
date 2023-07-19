@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { query } from "express-validator";
+import { query, check } from "express-validator";
+import { fieldsValidate } from "../middlewares/validate-fields";
 import {
   createBrand,
   getAllBrands,
@@ -13,7 +14,12 @@ const brandRouter: Router = Router();
 /* Service - Register a Banner Image */
 brandRouter.post(
   "/create",
-  [validateJwt, isAdminRole],
+  [
+    validateJwt,
+    check("name", "El nombre es requerido").not().isEmpty(),
+    fieldsValidate,
+    isAdminRole,
+  ],
   createBrand
 );
 
@@ -21,21 +27,13 @@ brandRouter.post(
 brandRouter.get(
   "/all",
   [
-    query("page", "El parámetro page es requerido")
-      .optional()
-      .isNumeric(),
-    query("size", "El parámetro size es requerido")
-      .optional()
-      .isNumeric(),
+    query("page", "El parámetro page es requerido").optional().isNumeric(),
+    query("size", "El parámetro size es requerido").optional().isNumeric(),
   ],
   getAllBrands
 );
 
 /* Service - Delete Banner */
-brandRouter.delete(
-  "/delete/:id",
-  [validateJwt, isAdminRole],
-  deleteBrand
-);
+brandRouter.delete("/delete/:id", [validateJwt, isAdminRole], deleteBrand);
 
 export default brandRouter;
