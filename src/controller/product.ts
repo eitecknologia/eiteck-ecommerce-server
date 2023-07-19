@@ -154,13 +154,7 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
     );
 
     const products = await Product.findAll({
-      attributes: [
-        "productid",
-        "name",
-        "description",
-        "price",
-        "timecreated",
-      ],
+      attributes: ["productid", "name", "description", "price", "timecreated"],
       // include: [
       //   {
       //     model: ProductMedia,
@@ -220,13 +214,7 @@ export const getProductsBySubcategory = async (req: Request, res: Response) => {
     );
 
     const products = await Product.findAll({
-      attributes: [
-        "productid",
-        "name",
-        "description",
-        "price",
-        "timecreated",
-      ],
+      attributes: ["productid", "name", "description", "price", "timecreated"],
       // include: [
       //   {
       //     model: ProductMedia,
@@ -323,22 +311,22 @@ export const addResourceToProduct = async (req: Request, res: Response) => {
 
     /* Verify if exist at least an image or url */
     if (!image && !url) {
-        return res.status(400).json({
-            ok: false,
-            msg: "Debe enviar al menos una imagen o una url"
-        })
+      return res.status(400).json({
+        ok: false,
+        msg: "Debe enviar al menos una imagen o una url",
+      });
     }
 
     /* Verify if send an image to save */
     if (image) {
-        url = await uploadFiles(image);
+      url = await uploadFiles(image);
     }
 
     /* Add resource */
     await ProductMedia.create({
       prodvarid: +prodvarid,
-        type,
-        url
+      type,
+      url,
     });
 
     return res.status(201).json({
@@ -521,23 +509,14 @@ export const deleteProductOfSubcategory = async (
 /* Delete Product Function */
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
-    // const { productid } = req.params;
+    const { productid } = req.params;
 
-    // /* Get the images Reward Images */
-    // const images: ProductMedia[] = await ProductMedia.findAll({ where: { productid } }) || [];
-
-    // /* Delete the image from cloudinary */
-    // for (const { url } of images) {
-    //     await deleteFiles(url);
-    // }
-
-    // /* Delete the url images from the DB */
-    // await ProductMedia.destroy({ where: { productid } });
-
-    // await Product.update({
-    //     isactive: false
-    // }, { where: { id:productid } });
+    await Product.update(
+      {
+        isactive: false,
+      },
+      { where: { productid } }
+    );
 
     return res.status(200).json({
       ok: true,
