@@ -11,7 +11,7 @@ import {
 import sequelize from "../database/config";
 import { Op } from "sequelize";
 import { infoPaginate, validatePaginateParams } from "../helpers/pagination";
-import { deleteFiles } from "../helpers/files";
+import { deleteFiles, uploadFiles } from "../helpers/files";
 
 /* Register product Function */
 export const createProduct = async (req: Request, res: Response) => {
@@ -306,33 +306,32 @@ export const findProductById = async (req: Request, res: Response) => {
 /* Add resource Function */
 export const addResourceToProduct = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
-    // /* Get the data from the request body */
-    // let { type, url = null } = req.body;
-    // const image = req.files?.image || null;
+    /* Get the data from the request body */
+    let { type, url = null } = req.body;
+    const image = req.files?.image || null;
 
-    // /* Get the data from the request param */
-    // const { productid } = req.params;
+    /* Get the data from the request param */
+    const { prodvarid } = req.params;
 
-    // /* Verify if exist at least an image or url */
-    // if (!image && !url) {
-    //     return res.status(400).json({
-    //         ok: false,
-    //         msg: "Debe enviar al menos una imagen o una url"
-    //     })
-    // }
+    /* Verify if exist at least an image or url */
+    if (!image && !url) {
+        return res.status(400).json({
+            ok: false,
+            msg: "Debe enviar al menos una imagen o una url"
+        })
+    }
 
-    // /* Verify if send an image to save */
-    // if (image) {
-    //     url = await uploadFiles(image);
-    // }
+    /* Verify if send an image to save */
+    if (image) {
+        url = await uploadFiles(image);
+    }
 
-    // /* Add resource */
-    // await ProductMedia.create({
-    //     productid: +productid,
-    //     type,
-    //     url
-    // });
+    /* Add resource */
+    await ProductMedia.create({
+      prodvarid: +prodvarid,
+        type,
+        url
+    });
 
     return res.status(201).json({
       ok: true,

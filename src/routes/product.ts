@@ -3,6 +3,7 @@ import { check } from "express-validator";
 import {
   verifyCategoryId,
   verifyProductId,
+  verifyProductVariantId,
   verifyRegisterOfProductInSubcategory,
   verifyResourceProductId,
   verifySubcategoryIds,
@@ -85,15 +86,13 @@ productRouter.get(
 
 /* Service - Add resource */
 productRouter.post(
-  "/add_resource/:productid",
+  "/add_resource/:prodvarid",
   [
     validateJwt,
     isAdminRole,
-    check("productid", "Ingrese un id válido").notEmpty().isNumeric(),
-    check("productid").custom(verifyProductId),
+    check("prodvarid", "Ingrese un id de la variante del producto").notEmpty().isNumeric(),
+    check("prodvarid").custom(verifyProductVariantId),
     check("type", "El tipo del recurso es obligatorio").notEmpty().trim(),
-    check("url", "La url es obligatoria").optional().notEmpty().trim().isURL(),
-    check("resource", "El recurso es obligatorio").optional().notEmpty().trim(),
     fieldsValidate,
   ],
   addResourceToProduct

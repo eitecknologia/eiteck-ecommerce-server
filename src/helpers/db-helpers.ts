@@ -12,6 +12,7 @@ import {
   ShoppingCart,
   InvoiceDetail,
   Sale,
+  ProductVariant,
 } from "../models";
 
 /* Create Defaul Roles */
@@ -113,6 +114,20 @@ export const verifyProductId = async (id: number) => {
   });
   if (!existProduct) {
     throw new Error(`Producto no encontrado`);
+  }
+
+  return true;
+};
+
+
+/* Verify if exist category id */
+export const verifyProductVariantId = async (id: number) => {
+  /* Search if the product exists */
+  const existProduct = await ProductVariant.findOne({
+    where: { productid: id, isactive: true },
+  });
+  if (!existProduct) {
+    throw new Error(`Variante de Producto no encontrado`);
   }
 
   return true;
