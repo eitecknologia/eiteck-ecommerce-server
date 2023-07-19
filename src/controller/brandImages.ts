@@ -3,7 +3,7 @@ import { BrandsImages } from "../models";
 import { validatePaginateParams, infoPaginate } from "../helpers/pagination";
 import { deleteFiles, uploadFiles } from "../helpers/files";
 
-/* Get all products by category Function */
+/* Get all brands */
 export const getAllBrands = async (req: Request, res: Response) => {
   try {
     const { page, size } = req.query;
@@ -12,7 +12,7 @@ export const getAllBrands = async (req: Request, res: Response) => {
       size
     );
 
-    const banners = await BrandsImages.findAll({
+    const brands = await BrandsImages.findAll({
       attributes: ["brandid", "name", "url"],
       order: [["timecreated", "DESC"]],
       offset: offset - sizeSend,
@@ -28,7 +28,7 @@ export const getAllBrands = async (req: Request, res: Response) => {
       ok: true,
       msg: "Listado de marcas",
       info,
-      banners,
+      brands,
     });
   } catch (error) {
     return res.status(500).json({
@@ -75,22 +75,22 @@ export const createBrand = async (req: Request, res: Response) => {
   }
 };
 
-/* Delete banner */
+/* Delete brand */
 export const deleteBrand = async (req: Request, res: Response) => {
   try {
     /* Get the data from the request param */
     const { id } = req.params;
 
     /* Get the resource info */
-    const bannerImage = await BrandsImages.findByPk(id);
+    const brandImage = await BrandsImages.findByPk(id);
 
     /* Delete the image from cloudinary */
-    if (bannerImage?.url) {
-      await deleteFiles(bannerImage.url);
+    if (brandImage?.url) {
+      await deleteFiles(brandImage.url);
     }
 
     /* Delete the resource */
-    await bannerImage?.destroy();
+    await brandImage?.destroy();
 
     return res.status(201).json({
       ok: true,
