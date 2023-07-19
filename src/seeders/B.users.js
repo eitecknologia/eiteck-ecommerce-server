@@ -2,15 +2,15 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("users", [
       {
-        ci: "0604201178",
-        name: "Cristhian",
-        lastname: "Guadalupe",
-        address: "Riobamba Ecuador",
-        email: "cristhianalejandroguadalupe@gmail.com",
+        ci: "0123456789",
+        name: "Super",
+        lastname: "Eiteck",
+        address: "Cuenca Ecuador",
+        email: "eitecknologia@gmail.com",
         password:
-          "$2b$10$DuwM./jOhBBvzWjNkSRgz.olPuJ8GdnuKwtte9URTTBK4xNGhYBDW",
+          "$2b$10$FtqLvga95fKVdJm2xwPBmOUW/2/0aWVfea2cwVMNlQv.GQMk0X/mK",
         isactive: true,
-        phone: "0992663322",
+        phone: "0987654321",
         google: false,
         facebook: false,
         roleid: 1,
