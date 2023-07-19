@@ -9,8 +9,8 @@ module.exports = {
         status: true,
         userid: 1,
         accessrole: "ALL",
-        isActive: true,
-        createdAt: new Date(),
+        isactive: true,
+        timecreated: new Date(),
       },
       {
         discountcode: "NAVIDAD24",
@@ -20,8 +20,8 @@ module.exports = {
         status: true,
         userid: 1,
         accessrole: "ALL",
-        isActive: true,
-        createdAt: new Date(),
+        isactive: true,
+        timecreated: new Date(),
       },
       {
         discountcode: "ZAPATOS330",
@@ -31,8 +31,8 @@ module.exports = {
         status: true,
         userid: 1,
         accessrole: "ALL",
-        isActive: true,
-        createdAt: new Date(),
+        isactive: true,
+        timecreated: new Date(),
       },
     ]);
   },

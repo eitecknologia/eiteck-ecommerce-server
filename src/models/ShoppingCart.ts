@@ -12,9 +12,9 @@ interface ShoppingCart
     InferAttributes<ShoppingCart>,
     InferCreationAttributes<ShoppingCart>
   > {
-    cartid: CreationOptional<number>;
+  cartid: CreationOptional<number>;
   userid: number;
-  productVariantId: number;
+  prodvarid: number;
   quantity: number;
   timecreated: CreationOptional<Date>;
 }
@@ -31,7 +31,7 @@ const ShoppingCart = sequelize.define<ShoppingCart>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    productVariantId: {
+    prodvarid: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

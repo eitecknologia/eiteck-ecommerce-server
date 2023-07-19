@@ -11,24 +11,24 @@ import SaleProduct from "./SaleProducts";
 interface Sale
   extends Model<InferAttributes<Sale>, InferCreationAttributes<Sale>> {
   saleid: CreationOptional<number>;
-  status: CreationOptional<string>;
-  userid: number;
-  invoiceid: number;
-  discountcodeid: CreationOptional<number>;
-  paymentresource: CreationOptional<string>;
-  observation: CreationOptional<string>;
-  saledate: CreationOptional<Date>;
   subtotal: number;
   iva: number;
   totalsale: number;
+  saledate: CreationOptional<Date>;
+  status: CreationOptional<string>;
+  paymentresource: CreationOptional<string>;
+  observation: CreationOptional<string>;
+  userid: number;
+  invoiceid: number;
+  discountcodeid: CreationOptional<number>;
   timecreated: CreationOptional<Date>;
 }
 
 export enum SaleStatus {
-  RESERVED = "RESERVED",
-  PENDING = "PENDING",
-  REJECTED = "REJECTED",
-  PAID = "PAID",
+  RESERVED = "RESERVADO",
+  PENDING = "PENDIENTE",
+  DENY = "RECHAZADO",
+  PAID = "PAGADO"
 }
 
 const Sale = sequelize.define<Sale>(
@@ -56,7 +56,7 @@ const Sale = sequelize.define<Sale>(
     status: {
       type: DataTypes.ENUM(...Object.values(SaleStatus)),
       allowNull: false,
-      defaultValue: SaleStatus.PENDING,
+      defaultValue: SaleStatus.RESERVED,
     },
     saledate: {
       type: DataTypes.DATEONLY,

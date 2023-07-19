@@ -13,25 +13,25 @@ import DiscountCode from "./DiscountCode";
 
 interface User
   extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  id: CreationOptional<number>;
-  name: string;
-  lastname: string;
-  ci: string;
-  address: string;
-  email: string;
-  password: string;
-  phone: CreationOptional<string>;
-  google: CreationOptional<boolean>;
-  facebook: CreationOptional<boolean>;
-  isactive: CreationOptional<boolean | null>;
-  timecreated: CreationOptional<Date>;
-  roleid: number;
+    userid: CreationOptional<number>;
+    name: string;
+    lastname: string;
+    ci: string;
+    address: string;
+    email: string;
+    password: string;
+    phone: CreationOptional<string>;
+    google: CreationOptional<boolean>;
+    facebook: CreationOptional<boolean>;
+    isactive: CreationOptional<boolean | null>;
+    timecreated: CreationOptional<Date>;
+    roleid: number;
 }
 
 const User = sequelize.define<User>(
   "users",
   {
-    id: {
+    userid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

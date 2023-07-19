@@ -13,7 +13,7 @@ interface InvoiceDetail
     InferAttributes<InvoiceDetail>,
     InferCreationAttributes<InvoiceDetail>
   > {
-  id: CreationOptional<number>;
+  invoiceid: CreationOptional<number>;
   ci: string;
   name: string;
   lastname: string;
@@ -22,13 +22,13 @@ interface InvoiceDetail
   email: string;
   remember: CreationOptional<boolean>;
   userid: number;
-  createdAt: CreationOptional<Date>;
+  timecreated: CreationOptional<Date>;
 }
 
 const InvoiceDetail = sequelize.define<InvoiceDetail>(
   "invoice_details",
   {
-    id: {
+    invoiceid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -66,7 +66,7 @@ const InvoiceDetail = sequelize.define<InvoiceDetail>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -80,7 +80,7 @@ const InvoiceDetail = sequelize.define<InvoiceDetail>(
 /* Relation with invoice detail */
 InvoiceDetail.hasMany(Sale, {
   foreignKey: "invoiceid",
-  sourceKey: "id",
+  sourceKey: "invoiceid",
   as: "sales_user_detail",
 });
 

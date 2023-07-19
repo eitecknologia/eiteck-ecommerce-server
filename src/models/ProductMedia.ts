@@ -16,7 +16,7 @@ interface ProductMedia
   url: string;
   type: string;
   default: boolean;
-  productvariantid: number;
+  prodvarid: number;
   timecreated: CreationOptional<Date>;
 }
 
@@ -47,7 +47,7 @@ const ProductMedia = sequelize.define<ProductMedia>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    productvariantid: {
+    prodvarid: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

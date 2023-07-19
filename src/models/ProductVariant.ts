@@ -18,7 +18,7 @@ interface ProductVariant
   prodvarid: CreationOptional<number>;
   name: string;
   stock: number;
-  productId: number;
+  productid: number;
   isactive: CreationOptional<boolean>;
   timecreated: CreationOptional<Date>;
 }
@@ -40,7 +40,7 @@ const ProductVariant = sequelize.define<ProductVariant>(
       allowNull: true,
       defaultValue: null,
     },
-    productId: {
+    productid: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -62,37 +62,37 @@ const ProductVariant = sequelize.define<ProductVariant>(
 
 /* Relation with sale products */
 ProductVariant.hasMany(SaleProduct, {
-  foreignKey: "productvariantid",
+  foreignKey: "prodvarid",
   sourceKey: "id",
   as: "sale_products",
 });
 
 SaleProduct.belongsTo(ProductVariant, {
-  foreignKey: "productVariantId",
+  foreignKey: "prodvarid",
   as: "sale_product",
 });
 
 /* Relation with productImages table */
 ProductVariant.hasMany(ProductMedia, {
-  foreignKey: "productVariantId",
-  sourceKey: "id",
+  foreignKey: "prodvarid",
+  sourceKey: "prodvarid",
   as: "product_media",
 });
 
 ProductMedia.belongsTo(ProductVariant, {
-  foreignKey: "productVariantId",
+  foreignKey: "prodvarid",
   as: "product_media",
 });
 
 /* Relation with UserCart */
 ProductVariant.hasMany(UserCart, {
-  foreignKey: "productVariantId",
-  sourceKey: "id",
+  foreignKey: "prodvarid",
+  sourceKey: "prodvarid",
   as: "cart_products",
 });
 
 UserCart.belongsTo(ProductVariant, {
-  foreignKey: "productVariantId",
+  foreignKey: "prodvarid",
   as: "cart_product",
 });
 

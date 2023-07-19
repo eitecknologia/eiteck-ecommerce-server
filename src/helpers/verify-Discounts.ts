@@ -20,7 +20,7 @@ export const verifyCodesDiscount = () => {
             const statusDiscountCodes = await DiscountCode.findAll({
                 attributes: ["discountcodeid", "startdate", "finishdate", "status"],
                 where: {
-                    isActive: true,
+                    isactive: true,
                     startdate: {
                         [Op.lte]: currentDate
                     },
@@ -40,7 +40,7 @@ export const verifyCodesDiscount = () => {
             const statusDiscountCodesDesactivate = await DiscountCode.findAll({
                 attributes: ["discountcodeid", "startdate", "finishdate", "status"],
                 where: {
-                    isActive: true,
+                    isactive: true,
                     [Op.or]: [
                         {
                             startdate: {

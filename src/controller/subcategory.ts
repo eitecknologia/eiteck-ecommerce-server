@@ -59,14 +59,14 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
         const categoryid = req.params.categoryid;
 
         const subcategoriesInCategory = await CategorySubcategory.findAll({
-            attributes: { exclude: ['id', 'subcategoryid', 'createdAt'] },
+            attributes: { exclude: ['id', 'subcategoryid', 'timecreated'] },
             include: [{
                 model: Subcategory,
-                attributes: { exclude: ['isActive', 'createdAt'] },
+                attributes: { exclude: ['isactive', 'timecreated'] },
                 as: 'subcategory_category'
             }],
             where: { categoryid },
-            order: [['createdAt', 'DESC']]
+            order: [['timecreated', 'DESC']]
         });
 
         const subcategoriesInCategoryIds = subcategoriesInCategory.map((subcategory: any) => subcategory.subcategory_category.subcategoryid)
@@ -75,9 +75,9 @@ export const getSubcategoriesAvailability = async (req: Request, res: Response) 
             attributes: ['id', 'name', 'description'],
             where: {
                 id: { [Op.notIn]: subcategoriesInCategoryIds },
-                isActive: true
+                isactive: true
             },
-            order: [['createdAt', 'DESC']]
+            order: [['timecreated', 'DESC']]
         })
 
         return res.status(200).json({
@@ -108,9 +108,9 @@ export const getSubcategories = async (_req: Request, res: Response) => {
             }],
             raw: true,
             where: {
-                isActive: true
+                isactive: true
             },
-            order: [['createdAt', 'DESC']]
+            order: [['timecreated', 'DESC']]
         })
 
         const subcategoriesInList: Subcategory[] = [];
@@ -203,7 +203,7 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
         if (!subcategoryid) {
             const getlastSubcategoryId = await Subcategory.findOne({
                 attributes: ['subcategoryid'],
-                order: [['createdAt', 'DESC']]
+                order: [['timecreated', 'DESC']]
             })
 
             if (!getlastSubcategoryId) {
@@ -226,7 +226,7 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
         }
 
         const products = await SubcategoryProducts.findAll({
-            attributes: ['id', 'createdAt'],
+            attributes: ['id', 'timecreated'],
             include: [{
                 model: Product,
                 as: 'product_subcategory',
@@ -236,10 +236,10 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
                     as: 'product_media',
                     attributes: ['url']
                 }],
-                where: { isActive: true }
+                where: { isactive: true }
             }],
             where: { subcategoryid },
-            order: [['createdAt', 'DESC']],
+            order: [['timecreated', 'DESC']],
             offset: (offset - sizeSend),
             limit
         })
@@ -251,7 +251,7 @@ export const getSubcategoriesWithProducts = async (req: Request, res: Response) 
                 model: Product,
                 as: 'product_subcategory',
                 attributes: ['id'],
-                where: { isActive: true }
+                where: { isactive: true }
             }],
             raw: true,
             where: { subcategoryid }

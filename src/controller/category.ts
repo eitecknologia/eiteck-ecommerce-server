@@ -36,8 +36,8 @@ export const getCategories = async (req: Request, res: Response) => {
 
         const { count: total, rows: categories } = await Category.findAndCountAll({
             attributes: ['id', 'name', 'description'],
-            where: { isActive: true },
-            order: [['createdAt', 'DESC']],
+            where: { isactive: true },
+            order: [['timecreated', 'DESC']],
             offset: (offset - sizeSend),
             limit
         })
@@ -68,18 +68,18 @@ export const findCategoryById = async (req: Request, res: Response) => {
         const { id } = req.params;
 
         const category = await Category.findOne({
-            attributes: { exclude: ['isActive', 'createdAt'] },
+            attributes: { exclude: ['isactive', 'timecreated'] },
             include: [{
-                attributes: { exclude: ['categoryid', 'subcategoryid', 'createdAt'] },
+                attributes: { exclude: ['categoryid', 'subcategoryid', 'timecreated'] },
                 model: CategorySubcategory,
                 as: 'subcategories',
                 include: [{
                     model: Subcategory,
-                    attributes: { exclude: ['isActive', 'createdAt'] },
+                    attributes: { exclude: ['isactive', 'timecreated'] },
                     as: 'subcategory_category'
                 }]
             }],
-            where: { isActive: true, id }
+            where: { isactive: true, id }
         });
 
         return res.status(200).json({
@@ -127,7 +127,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
         const { id } = req.params;
 
         /* Delete the category */
-        await Category.update({ isActive: false }, { where: { id } });
+        await Category.update({ isactive: false }, { where: { id } });
 
         return res.status(200).json({
             ok: true,
@@ -159,8 +159,8 @@ export const getCategoriesWithSubcategories = async (_req: Request, res: Respons
                     as: 'subcategory_category'
                 }]
             }],
-            where: { isActive: true },
-            order: [['createdAt', 'DESC']],
+            where: { isactive: true },
+            order: [['timecreated', 'DESC']],
         })
 
         return res.status(200).json({

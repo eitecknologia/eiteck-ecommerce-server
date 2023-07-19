@@ -22,7 +22,7 @@ export const registerAdmin = async (req: Request, res: Response) => {
         }
 
         /* Search if the user exists */
-        const userExist = await User.findOne({ where: { email, isActive: true } });
+        const userExist = await User.findOne({ where: { email, isactive: true } });
         if (userExist) {
             return res.status(400).json({
                 ok: false,
@@ -31,7 +31,7 @@ export const registerAdmin = async (req: Request, res: Response) => {
         }
 
         /* Search if exist an admin with the same CI */
-        const userExistCI = await User.findOne({ where: { ci, roleid: process.env.ADMIN_ID, isActive: true } });
+        const userExistCI = await User.findOne({ where: { ci, roleid: process.env.ADMIN_ID, isactive: true } });
         if (userExistCI) {
             return res.status(400).json({
                 ok: false,
@@ -99,7 +99,7 @@ export const loginAdmin = async (req: Request, res: Response) => {
         }
 
         /* Verify de user state */
-        if (!user.isActive) {
+        if (!user.isactive) {
             return res.status(400).json({
                 ok: false,
                 msg: `Usuario no se encuentra disponible`
@@ -145,7 +145,7 @@ export const registerUser = async (req: Request, res: Response) => {
         let { ci, name, lastname, email, address, password, phone }: User = req.body;
 
         /* Search if the user exists */
-        const userExist = await User.findOne({ where: { email, isActive: true } });
+        const userExist = await User.findOne({ where: { email, isactive: true } });
         if (userExist) {
             return res.status(400).json({
                 ok: false,
@@ -154,7 +154,7 @@ export const registerUser = async (req: Request, res: Response) => {
         }
 
         /* Search if exist an admin with the same CI */
-        const userExistCI = await User.findOne({ where: { ci, roleid: process.env.USER_ID, isActive: true } });
+        const userExistCI = await User.findOne({ where: { ci, roleid: process.env.USER_ID, isactive: true } });
         if (userExistCI) {
             return res.status(400).json({
                 ok: false,
@@ -220,7 +220,7 @@ export const loginUser = async (req: Request, res: Response) => {
         }
 
         /* Verify de user state */
-        if (!user.isActive) {
+        if (!user.isactive) {
             return res.status(400).json({
                 ok: false,
                 msg: `Usuario no se encuentra disponible`
@@ -299,7 +299,7 @@ export const loginGoogle = async (req: Request, res: Response) => {
             })
         }
 
-        if (!user?.isActive) {
+        if (!user?.isactive) {
             return res.status(400).json({
                 ok: false,
                 msg: "Usuario de encuentra bloqueado"
@@ -379,7 +379,7 @@ export const loginFacebook = async (req: Request, res: Response) => {
             })
         }
 
-        if (!user?.isActive) {
+        if (!user?.isactive) {
             return res.status(400).json({
                 ok: false,
                 msg: "Usuario de encuentra bloqueado"
@@ -434,7 +434,7 @@ export const recoverPassword = async (req: Request, res: Response) => {
         const user = await User.findOne({
             where: {
                 email: email,
-                isActive: true,
+                isactive: true,
                 ...(isAdmin == "true") ? { roleid: process.env.ADMIN_ID } : { roleid: process.env.USER_ID }
             }
         });

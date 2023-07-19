@@ -4,22 +4,22 @@ module.exports = {
       {
         productId: 1,
         name: "Tela",
-        createdAt: new Date(),
+        timecreated: new Date(),
       },
       {
         productId: 1,
         name: "Cuero",
-        createdAt: new Date(),
+        timecreated: new Date(),
       },
       {
         productId: 2,
         name: "Tela",
-        createdAt: new Date(),
+        timecreated: new Date(),
       },
       {
         productId: 2,
         name: "Cuero",
-        createdAt: new Date(),
+        timecreated: new Date(),
       },
     ]);
   },

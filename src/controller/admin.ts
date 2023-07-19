@@ -14,8 +14,8 @@ export const getAllAdmins = async (req: Request, res: Response) => {
         /* Get users data */
         const { count: total, rows: users } = await User.findAndCountAll({
             attributes: ['id', 'ci', 'name', 'lastname', 'address', 'email', 'phone'],
-            where: { roleid: process.env.ADMIN_ID, isActive: true },
-            order: [['createdAt', 'DESC']],
+            where: { roleid: process.env.ADMIN_ID, isactive: true },
+            order: [['timecreated', 'DESC']],
             offset: (offset - sizeSend),
             limit
         })

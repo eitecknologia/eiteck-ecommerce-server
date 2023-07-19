@@ -12,11 +12,11 @@ interface SaleProduct
     InferAttributes<SaleProduct>,
     InferCreationAttributes<SaleProduct>
   > {
-  saleprodid: CreationOptional<number>;
-  saleid: number;
-  productVariantId: number;
-  quantity: number;
-  timecreated: CreationOptional<Date>;
+    saleprodid: CreationOptional<number>;
+    saleid: number;
+    prodvarid: number;
+    quantity: number;
+    timecreated: CreationOptional<Date>;
 }
 
 const SaleProduct = sequelize.define<SaleProduct>(
@@ -31,7 +31,7 @@ const SaleProduct = sequelize.define<SaleProduct>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    productVariantId: {
+    prodvarid: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

@@ -14,11 +14,11 @@ interface Subcategory
     InferAttributes<Subcategory>,
     InferCreationAttributes<Subcategory>
   > {
-  subcategoryid: CreationOptional<number>;
-  name: string;
-  description: CreationOptional<string>;
-  isactive: CreationOptional<boolean>;
-  timecreated: CreationOptional<Date>;
+    subcategoryid: CreationOptional<number>;
+    name: string;
+    description: CreationOptional<string>;
+    isactive: CreationOptional<boolean>;
+    timecreated: CreationOptional<Date>;
 }
 
 const Subcategory = sequelize.define<Subcategory>(
