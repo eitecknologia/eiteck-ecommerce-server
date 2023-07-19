@@ -23,8 +23,8 @@ interface User
   phone: CreationOptional<string>;
   google: CreationOptional<boolean>;
   facebook: CreationOptional<boolean>;
-  isActive: CreationOptional<boolean | null>;
-  createdAt: CreationOptional<Date>;
+  isactive: CreationOptional<boolean | null>;
+  timecreated: CreationOptional<Date>;
   roleid: number;
 }
 
@@ -61,7 +61,7 @@ const User = sequelize.define<User>(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    isActive: {
+    isactive: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: true,
@@ -81,7 +81,7 @@ const User = sequelize.define<User>(
       allowNull: true,
       defaultValue: false,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -100,7 +100,7 @@ const User = sequelize.define<User>(
 /* Relation with UserCart */
 User.hasMany(UserCart, {
   foreignKey: "userid",
-  sourceKey: "id",
+  sourceKey: "userid",
 });
 
 UserCart.belongsTo(User, {
@@ -110,7 +110,7 @@ UserCart.belongsTo(User, {
 /* Relation with shopping cart */
 User.hasMany(ShoppingCart, {
   foreignKey: "userid",
-  sourceKey: "id",
+  sourceKey: "userid",
   as: "usercart_products",
 });
 
@@ -122,7 +122,7 @@ ShoppingCart.belongsTo(User, {
 /* Relation with invoice detail */
 User.hasMany(InvoiceDetail, {
   foreignKey: "userid",
-  sourceKey: "id",
+  sourceKey: "userid",
   as: "invoice_user_details",
 });
 
@@ -134,7 +134,7 @@ InvoiceDetail.belongsTo(User, {
 /* Relation with discount code */
 User.hasMany(DiscountCode, {
   foreignKey: "userid",
-  sourceKey: "id",
+  sourceKey: "userid",
   as: "authors_discounts",
 });
 

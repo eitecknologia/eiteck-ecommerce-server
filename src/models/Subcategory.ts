@@ -14,17 +14,17 @@ interface Subcategory
     InferAttributes<Subcategory>,
     InferCreationAttributes<Subcategory>
   > {
-    id: CreationOptional<number>;
+  subcategoryid: CreationOptional<number>;
   name: string;
   description: CreationOptional<string>;
-  isActive: CreationOptional<boolean>;
-  createdAt: CreationOptional<Date>;
+  isactive: CreationOptional<boolean>;
+  timecreated: CreationOptional<Date>;
 }
 
 const Subcategory = sequelize.define<Subcategory>(
   "subcategories",
   {
-    id: {
+    subcategoryid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -37,12 +37,12 @@ const Subcategory = sequelize.define<Subcategory>(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    isActive: {
+    isactive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -56,7 +56,7 @@ const Subcategory = sequelize.define<Subcategory>(
 /* Relation with CategorySubcategory table */
 Subcategory.hasMany(CategorySubcategory, {
   foreignKey: "subcategoryid",
-  sourceKey: "id",
+  sourceKey: "subcategoryid",
   as: "subcategories_category",
 });
 
@@ -68,7 +68,7 @@ CategorySubcategory.belongsTo(Subcategory, {
 /* Relation with SucbategoryProduct table */
 Subcategory.hasMany(SubcategoryProducts, {
   foreignKey: "subcategoryid",
-  sourceKey: "id",
+  sourceKey: "subcategoryid",
   as: "subcategories_products",
 });
 

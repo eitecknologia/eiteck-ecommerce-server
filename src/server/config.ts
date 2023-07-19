@@ -135,7 +135,7 @@ export class Server {
     try {
       await sequelize.authenticate();
       /* await sequelize.sync(); - Use when the DB has been changed */
-    //   await sequelize.sync();
+      // await sequelize.sync();
     //   await sequelize.sync({ alter: true })
       console.log("Connection has been established successfully.");
     } catch (error) {

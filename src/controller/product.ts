@@ -67,7 +67,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
     );
 
     const products = await Product.findAll({
-      attributes: ["id", "name", "description", "price", "stock", "createdAt"],
+      attributes: ["id", "name", "description", "price", "createdAt"],
       include: [
         {
           model: ProductImages,
@@ -105,6 +105,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
       products,
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       ok: false,
       msg: "Internal Server Error",

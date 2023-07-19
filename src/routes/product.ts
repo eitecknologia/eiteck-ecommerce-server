@@ -17,7 +17,6 @@ productRouter.post('/create', [
     check('name', 'El nombre es obligatorio').notEmpty().trim(),
     check('description', 'La descripción es obligatoria').notEmpty().trim(),
     check('price', 'El precio es obligatorio').notEmpty().isNumeric(),
-    check('stock', 'El stock es obligatorio').optional().notEmpty().isNumeric(),
     check('subcategories', 'Las subcategorías debe ser una lista no vacía').notEmpty().isArray(),
     check('subcategories').custom(verifySubcategoryIds),
     fieldsValidate

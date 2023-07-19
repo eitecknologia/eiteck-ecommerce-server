@@ -13,22 +13,22 @@ interface DiscountCode
     InferAttributes<DiscountCode>,
     InferCreationAttributes<DiscountCode>
   > {
-  id: CreationOptional<number>;
+  discountcodeid: CreationOptional<number>;
   discountcode: string;
   discountpercent: number;
   startdate: Date;
   finishdate: Date;
   accessrole: string;
   status: CreationOptional<boolean>;
-  createdAt: CreationOptional<Date>;
+  timecreated: CreationOptional<Date>;
   userid: number;
-  isActive: CreationOptional<boolean>;
+  isactive: CreationOptional<boolean>;
 }
 
 const DiscountCode = sequelize.define<DiscountCode>(
   "discount_code",
   {
-    id: {
+    discountcodeid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -62,12 +62,12 @@ const DiscountCode = sequelize.define<DiscountCode>(
       type: DataTypes.STRING(25),
       allowNull: false,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    isActive: {
+    isactive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
@@ -80,7 +80,7 @@ const DiscountCode = sequelize.define<DiscountCode>(
 
 DiscountCode.hasOne(Sale, {
   foreignKey: "discountcodeid",
-  sourceKey: "id",
+  sourceKey: "discountcodeid",
   as: "discounts_sale",
 });
 

@@ -10,17 +10,17 @@ import CategorySubcategory from "./CategorySubcategory";
 
 interface Category
   extends Model<InferAttributes<Category>, InferCreationAttributes<Category>> {
-  id: CreationOptional<number>;
+  categoryid: CreationOptional<number>;
   name: string;
   description: CreationOptional<string>;
-  isActive: CreationOptional<boolean>;
-  createdAt: CreationOptional<Date>;
+  isactive: CreationOptional<boolean>;
+  timecreated: CreationOptional<Date>;
 }
 
 const Category = sequelize.define<Category>(
   "categories",
   {
-    id: {
+    categoryid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -33,12 +33,12 @@ const Category = sequelize.define<Category>(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    isActive: {
+    isactive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -52,7 +52,7 @@ const Category = sequelize.define<Category>(
 /* Relation with Products one to many */
 Category.hasMany(CategorySubcategory, {
   foreignKey: "categoryid",
-  sourceKey: "id",
+  sourceKey: "categoryid",
   as: "subcategories",
 });
 

@@ -12,12 +12,12 @@ interface ProductMedia
     InferAttributes<ProductMedia>,
     InferCreationAttributes<ProductMedia>
   > {
-  id: CreationOptional<number>;
+  prodmediaid: CreationOptional<number>;
   url: string;
   type: string;
   default: boolean;
-  productVariantId: number;
-  createdAt: CreationOptional<Date>;
+  productvariantid: number;
+  timecreated: CreationOptional<Date>;
 }
 
 // Define an Enum for the type of image
@@ -29,7 +29,7 @@ enum ImageType {
 const ProductMedia = sequelize.define<ProductMedia>(
   "product_media",
   {
-    id: {
+    prodmediaid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -47,11 +47,11 @@ const ProductMedia = sequelize.define<ProductMedia>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    productVariantId: {
+    productvariantid: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

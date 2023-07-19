@@ -3,7 +3,7 @@ import authRouter from './auth';
 import adminRouter from './admin';
 import fileRouter from './file';
 import categoryRouter from './category';
-import productRouter from './product';
+import productRouter from './product.routes';
 import subcategoryRouter from './subcategory';
 import userRouter from './user';
 import usercartRouter from './usercart';

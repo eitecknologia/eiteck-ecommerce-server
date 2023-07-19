@@ -12,15 +12,15 @@ interface BannerImages
     InferAttributes<BannerImages>,
     InferCreationAttributes<BannerImages>
   > {
-  id: CreationOptional<number>;
+  bannerid: CreationOptional<number>;
   url: string;
-  createdAt: CreationOptional<Date>;
+  timecreated: CreationOptional<Date>;
 }
 
 const BannerImages = sequelize.define<BannerImages>(
   "banner_images",
   {
-    id: {
+    bannerid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -29,7 +29,7 @@ const BannerImages = sequelize.define<BannerImages>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

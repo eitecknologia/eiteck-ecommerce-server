@@ -10,7 +10,7 @@ import SaleProduct from "./SaleProducts";
 
 interface Sale
   extends Model<InferAttributes<Sale>, InferCreationAttributes<Sale>> {
-    id: CreationOptional<number>;
+  saleid: CreationOptional<number>;
   status: CreationOptional<string>;
   userid: number;
   invoiceid: number;
@@ -21,7 +21,7 @@ interface Sale
   subtotal: number;
   iva: number;
   totalsale: number;
-  createdAt: CreationOptional<Date>;
+  timecreated: CreationOptional<Date>;
 }
 
 export enum SaleStatus {
@@ -34,7 +34,7 @@ export enum SaleStatus {
 const Sale = sequelize.define<Sale>(
   "sale",
   {
-    id: {
+    saleid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -86,7 +86,7 @@ const Sale = sequelize.define<Sale>(
       allowNull: true,
       defaultValue: null,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -100,7 +100,7 @@ const Sale = sequelize.define<Sale>(
 /* Relation with sale products */
 Sale.hasMany(SaleProduct, {
   foreignKey: "saleid",
-  sourceKey: "id",
+  sourceKey: "saleid",
   as: "products_sale",
 });
 

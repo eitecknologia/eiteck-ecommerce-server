@@ -12,17 +12,17 @@ interface ShoppingCart
     InferAttributes<ShoppingCart>,
     InferCreationAttributes<ShoppingCart>
   > {
-  id: CreationOptional<number>;
+    cartid: CreationOptional<number>;
   userid: number;
   productVariantId: number;
   quantity: number;
-  createdAt: CreationOptional<Date>;
+  timecreated: CreationOptional<Date>;
 }
 
 const ShoppingCart = sequelize.define<ShoppingCart>(
   "shopping_cart",
   {
-    id: {
+    cartid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -39,7 +39,7 @@ const ShoppingCart = sequelize.define<ShoppingCart>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: DataTypes.NOW,

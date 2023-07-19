@@ -15,18 +15,18 @@ interface ProductVariant
     InferAttributes<ProductVariant>,
     InferCreationAttributes<ProductVariant>
   > {
-  id: CreationOptional<number>;
+  prodvarid: CreationOptional<number>;
   name: string;
   stock: number;
   productId: number;
-  isActive: CreationOptional<boolean>;
-  createdAt: CreationOptional<Date>;
+  isactive: CreationOptional<boolean>;
+  timecreated: CreationOptional<Date>;
 }
 
 const ProductVariant = sequelize.define<ProductVariant>(
   "products_variants",
   {
-    id: {
+    prodvarid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -44,12 +44,12 @@ const ProductVariant = sequelize.define<ProductVariant>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    isActive: {
+    isactive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -62,7 +62,7 @@ const ProductVariant = sequelize.define<ProductVariant>(
 
 /* Relation with sale products */
 ProductVariant.hasMany(SaleProduct, {
-  foreignKey: "productVariantId",
+  foreignKey: "productvariantid",
   sourceKey: "id",
   as: "sale_products",
 });

@@ -10,14 +10,14 @@ import User from "./User";
 
 interface Role
   extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
-  id: CreationOptional<number>;
+  roleid: CreationOptional<number>;
   name: string;
 }
 
 const Role = sequelize.define<Role>(
   "roles",
   {
-    id: {
+    roleid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
@@ -34,7 +34,7 @@ const Role = sequelize.define<Role>(
 
 Role.hasOne(User, {
   foreignKey: "roleid",
-  sourceKey: "id",
+  sourceKey: "roleid",
 });
 
 User.belongsTo(Role, {

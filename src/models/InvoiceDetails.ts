@@ -13,7 +13,7 @@ interface InvoiceDetail
     InferAttributes<InvoiceDetail>,
     InferCreationAttributes<InvoiceDetail>
   > {
-    id: CreationOptional<number>;
+  id: CreationOptional<number>;
   ci: string;
   name: string;
   lastname: string;

@@ -12,21 +12,21 @@ interface ProductMaterial
     InferAttributes<ProductMaterial>,
     InferCreationAttributes<ProductMaterial>
   > {
-  id: CreationOptional<number>;
-  productId: number;
+  prodmatid: CreationOptional<number>;
+  productid: number;
   name: string;
-  createdAt: CreationOptional<Date>;
+  timecreated: CreationOptional<Date>;
 }
 
 const ProductMaterial = sequelize.define<ProductMaterial>(
   "product_materials",
   {
-    id: {
+    prodmatid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    productId: {
+    productid: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -34,7 +34,7 @@ const ProductMaterial = sequelize.define<ProductMaterial>(
       type: DataTypes.STRING(150),
       allowNull: false,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

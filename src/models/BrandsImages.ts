@@ -12,15 +12,15 @@ interface BrandsImages
     InferAttributes<BrandsImages>,
     InferCreationAttributes<BrandsImages>
   > {
-  id: CreationOptional<number>;
+  brandid: CreationOptional<number>;
   url: string;
-  createdAt: CreationOptional<Date>;
+  timecreated: CreationOptional<Date>;
 }
 
 const BrandsImages = sequelize.define<BrandsImages>(
   "brands_images",
   {
-    id: {
+    brandid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -29,7 +29,7 @@ const BrandsImages = sequelize.define<BrandsImages>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

@@ -12,17 +12,17 @@ interface SaleProduct
     InferAttributes<SaleProduct>,
     InferCreationAttributes<SaleProduct>
   > {
-  id: CreationOptional<number>;
+  saleprodid: CreationOptional<number>;
   saleid: number;
   productVariantId: number;
   quantity: number;
-  createdAt: CreationOptional<Date>;
+  timecreated: CreationOptional<Date>;
 }
 
 const SaleProduct = sequelize.define<SaleProduct>(
   "sale_product",
   {
-    id: {
+    saleprodid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -39,7 +39,7 @@ const SaleProduct = sequelize.define<SaleProduct>(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,

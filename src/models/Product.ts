@@ -12,18 +12,18 @@ import ProductMaterial from "./ProductMaterial";
 
 interface Product
   extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
-  id: CreationOptional<number>;
+  productid: CreationOptional<number>;
   name: string;
   description: string;
   price: number;
-  createdAt: CreationOptional<Date>;
-  isActive: CreationOptional<boolean>;
+  timecreated: CreationOptional<Date>;
+  isactive: CreationOptional<boolean>;
 }
 
 const Product = sequelize.define<Product>(
   "products",
   {
-    id: {
+    productid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -41,12 +41,12 @@ const Product = sequelize.define<Product>(
       allowNull: false,
       defaultValue: 0,
     },
-    isActive: {
+    isactive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
     },
-    createdAt: {
+    timecreated: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
@@ -60,7 +60,7 @@ const Product = sequelize.define<Product>(
 /* Relation with SubcategoryProduct table */
 Product.hasMany(SubcategoryProducts, {
   foreignKey: "productId",
-  sourceKey: "id",
+  sourceKey: "productId",
   as: "products_subcategories",
 });
 
@@ -72,7 +72,7 @@ SubcategoryProducts.belongsTo(Product, {
 /* Relation with ProductSizes */
 Product.hasMany(ProductSizes, {
   foreignKey: "productId",
-  sourceKey: "id",
+  sourceKey: "productId",
   as: "product_sizes",
 });
 
@@ -84,7 +84,7 @@ ProductSizes.belongsTo(Product, {
 /* Relation with ProductMaterial */
 Product.hasMany(ProductMaterial, {
   foreignKey: "productId",
-  sourceKey: "id",
+  sourceKey: "productId",
   as: "product_materials",
 });
 
