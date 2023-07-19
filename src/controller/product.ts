@@ -159,16 +159,15 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
         "name",
         "description",
         "price",
-        "stock",
         "timecreated",
       ],
-      include: [
-        {
-          model: ProductMedia,
-          as: "product_media",
-          attributes: ["id", "type", "url"],
-        },
-      ],
+      // include: [
+      //   {
+      //     model: ProductMedia,
+      //     as: "product_media",
+      //     attributes: ["prodmediaid", "type", "url"],
+      //   },
+      // ],
       where: {
         isactive: true,
         productid: { [Op.in]: productsIdsArray },
