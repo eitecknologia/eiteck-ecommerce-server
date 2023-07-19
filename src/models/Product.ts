@@ -8,6 +8,7 @@ import {
 import sequelize from "../database/config";
 import SubcategoryProducts from "./SubcategoryProduct";
 import ProductSizes from "./ProductSize";
+import ProductMaterial from "./ProductMaterial";
 
 interface Product
   extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
@@ -78,6 +79,18 @@ Product.hasMany(ProductSizes, {
 ProductSizes.belongsTo(Product, {
   foreignKey: "productId",
   as: "product_size",
+});
+
+/* Relation with ProductMaterial */
+Product.hasMany(ProductMaterial, {
+  foreignKey: "productId",
+  sourceKey: "id",
+  as: "product_materials",
+});
+
+ProductMaterial.belongsTo(Product, {
+  foreignKey: "productId",
+  as: "product_material",
 });
 
 export default Product;

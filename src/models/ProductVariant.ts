@@ -7,9 +7,8 @@ import {
 } from "sequelize";
 import sequelize from "../database/config";
 import ProductMedia from "./ProductMedia";
-import UserCart from "./Shoppingcart";
+import UserCart from "./ShoppingCart";
 import SaleProduct from "./SaleProducts";
-import ProductMaterial from "./ProductMaterial";
 
 interface ProductVariant
   extends Model<
@@ -17,6 +16,7 @@ interface ProductVariant
     InferCreationAttributes<ProductVariant>
   > {
   id: CreationOptional<number>;
+  name: string;
   stock: number;
   productId: number;
   isActive: CreationOptional<boolean>;
@@ -30,6 +30,10 @@ const ProductVariant = sequelize.define<ProductVariant>(
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
     },
     stock: {
       type: DataTypes.INTEGER,
@@ -90,18 +94,6 @@ ProductVariant.hasMany(UserCart, {
 UserCart.belongsTo(ProductVariant, {
   foreignKey: "productVariantId",
   as: "cart_product",
-});
-
-/* Relation with ProductMaterial */
-ProductVariant.hasMany(ProductMaterial, {
-  foreignKey: "productVariantId",
-  sourceKey: "id",
-  as: "product_materials",
-});
-
-ProductMaterial.belongsTo(ProductVariant, {
-  foreignKey: "productVariantId",
-  as: "product_material",
 });
 
 export default ProductVariant;
