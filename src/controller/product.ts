@@ -225,16 +225,15 @@ export const getProductsBySubcategory = async (req: Request, res: Response) => {
         "name",
         "description",
         "price",
-        "stock",
         "timecreated",
       ],
-      include: [
-        {
-          model: ProductMedia,
-          as: "product_media",
-          attributes: ["prodmediaid", "type", "url"],
-        },
-      ],
+      // include: [
+      //   {
+      //     model: ProductMedia,
+      //     as: "product_media",
+      //     attributes: ["prodmediaid", "type", "url"],
+      //   },
+      // ],
       where: {
         isactive: true,
         productid: { [Op.in]: productsIdsArray },
@@ -276,9 +275,16 @@ export const findProductById = async (req: Request, res: Response) => {
       where: { isactive: true, productid: id },
       include: [
         {
-          model: ProductMedia,
-          as: "product_media",
-          attributes: ["id", "type", "url"],
+          model: ProductVariant,
+          as: "product_variants",
+          attributes: ["prodvarid", "name", "stock"],
+          include: [
+            {
+              model: ProductMedia,
+              as: "product_media",
+              attributes: ["prodmediaid", "type", "url"],
+            },
+          ],
         },
       ],
     });
