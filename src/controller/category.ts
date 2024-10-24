@@ -103,7 +103,6 @@ export const updateCategory = async (req: Request, res: Response) => {
 
         let { name, description } = req.body;
         const { id } = req.params;
-
         await Category.update({ name: `${name}`.toUpperCase(), description }, { where: { id } });
 
         return res.status(200).json({
@@ -125,7 +124,6 @@ export const deleteCategory = async (req: Request, res: Response) => {
     try {
 
         const { id } = req.params;
-
         /* Delete the category */
         await Category.update({ isactive: false }, { where: { id } });
 

@@ -56,9 +56,9 @@ export const getMyShoppingCart = async (req: Request, res: Response) => {
 
         /* Get data from the user logged */
         const { userid, roleid } = req.user;
-
         /* Get the discountcode of query param */
         const { discountcode = null } = req.query;
+        
         let discountDetails: { ok: boolean, msg: string, discountcode: null | string, discountpercent: null | number, discountid: null | number } = {
             ok: false,
             msg: "Código no ingresado",
