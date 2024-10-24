@@ -2,11 +2,12 @@ import { Request, Response } from "express";
 import User from '../models/User';
 import { Op } from 'sequelize';
 import bcrypt from 'bcrypt';
+
 /* Get All Admins Function */
 export const getUserLoggedInfo = async (req: Request, res: Response) => {
     try {
-
         const userid = req.user.userid;
+        
         const user = await User.findOne({
             attributes: { exclude: ['password', 'isactive', 'google', 'facebook', 'timecreated', 'roleid'] },
             where: { id: userid }
@@ -30,7 +31,6 @@ export const getUserLoggedInfo = async (req: Request, res: Response) => {
 /* Update user Function */
 export const updateUser = async (req: Request, res: Response) => {
     try {
-
         let { ci, name, lastname, email, password, address, phone }: User = req.body;
         const { userid } = req.user;
 

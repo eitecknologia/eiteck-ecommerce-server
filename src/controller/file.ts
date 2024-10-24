@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { uploadFiles, deleteFiles } from '../helpers/files';
+
 /* Add File Function */
 export const uploadFile = async (req: Request, res: Response) => {
     try {
-
         const file = req.files?.file;
         const url = await uploadFiles(file);
 
@@ -27,7 +27,6 @@ export const deleteFile = async (req: Request, res: Response) => {
     try {
 
         const { url } = req.body;
-
         const message = await deleteFiles(url);
 
         return res.status(200).json({

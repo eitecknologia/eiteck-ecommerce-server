@@ -54,9 +54,7 @@ export const addProductInCart = async (req: Request, res: Response) => {
 export const getMyShoppingCart = async (req: Request, res: Response) => {
     try {
 
-        /* Get data from the user logged */
         const { userid, roleid } = req.user;
-        /* Get the discountcode of query param */
         const { discountcode = null } = req.query;
         
         let discountDetails: { ok: boolean, msg: string, discountcode: null | string, discountpercent: null | number, discountid: null | number } = {
@@ -146,8 +144,6 @@ export const updateQuantityShoppingCart = async (req: Request, res: Response) =>
 
         /* Get data from the request params */
         const { cartid } = req.params;
-
-        /* Get data from the request body */
         const { quantity } = req.body;
 
         /* Get info of cart */
